@@ -7,7 +7,7 @@ A free salary calculator for Indian Central Government employees and teachers.
 
 All calculations run in the visitor's browser. The site asks for no personal details.
 
-Live at **https://ekujur19-sys.github.io/pay-commission-calculator/**
+Live at **https://8thpay.in** · Run by NE Media · Contact: nemedia909@gmail.com
 
 ## Files
 
@@ -18,6 +18,8 @@ Live at **https://ekujur19-sys.github.io/pay-commission-calculator/**
 | `terms.html` | Terms of Use |
 | `404.html` | "Page not found" page |
 | `sitemap.xml` | Page list for Google Search Console |
+| `robots.txt` | Tells search engines they may index the site and where the sitemap is |
+| `CNAME` | Tells GitHub Pages the site's domain is `8thpay.in` (don't delete) |
 
 ## Ads
 
@@ -30,7 +32,9 @@ Ads are **switched off** (`const ADS_ON = false;` near the top of the script in 
 
 ## Hosting on GitHub Pages
 
-Repository **Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: `main`, folder `/ (root)`**. The site appears at `https://<your-username>.github.io/<repository-name>/`.
+Repository **Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: `main`, folder `/ (root)`**, custom domain `8thpay.in`, **Enforce HTTPS** on.
+
+DNS at GoDaddy: four `A` records for `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`, and a `CNAME` for `www` → `ekujur19-sys.github.io`.
 
 ## Disclaimer
 

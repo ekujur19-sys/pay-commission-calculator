@@ -20,6 +20,7 @@ Live at **https://8thpay.in** · Run by NE Media · Contact: nemedia909@gmail.co
 | `guides.html` | List of guides |
 | `8th-pay-commission.html`, `fitment-factor.html`, `da-hike-history.html`, `hra-city-classification.html`, `arrears-section-89.html` | Guide articles |
 | `site.css` | Shared style for the About, Contact, FAQ and guide pages |
+| `ads.js` | All AdSense settings for every page |
 | `404.html` | "Page not found" page |
 | `sitemap.xml` | Page list for Google Search Console |
 | `robots.txt` | Tells search engines they may index the site and where the sitemap is |
@@ -27,7 +28,12 @@ Live at **https://8thpay.in** · Run by NE Media · Contact: nemedia909@gmail.co
 
 ## Ads
 
-Ads are **switched off** (`const ADS_ON = false;` near the top of the script in `index.html`), so visitors see no empty ad boxes or placeholder video. To turn them on: paste your ad network code into the ad slots (search for `Your ad here`), then set `ADS_ON = true`.
+All ad settings live in **`ads.js`**, which every page loads.
+
+- **Auto ads** (switched on in the AdSense account) place the bottom anchor ad on phones and occasional full-screen ads between pages.
+- **In-page ad spaces** (`<aside class="ad-slot" data-ad="…">`) sit in the page flow, away from buttons: 3 on the calculator (one phone-only) and up to 3 per guide/FAQ page. None on About, Contact or the legal pages.
+
+To switch ads on, open `ads.js` and fill in `ADSENSE_CLIENT` (your `ca-pub-…` ID) and the unit numbers in `AD_UNITS` (from AdSense → Ads → By ad unit → Display ads). Until then every ad space stays hidden and no ad code loads. Also add `ads.txt` with your publisher ID.
 
 ## Keeping it up to date
 

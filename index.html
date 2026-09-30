@@ -29,7 +29,7 @@
   --hero-a: #0b5c4f; --hero-b: #13876f; --on-hero: #ffffff; --on-hero-muted: rgba(255,255,255,.75);
   --glow-1: rgba(19,135,111,.16); --glow-2: rgba(212,170,70,.14); --dot: rgba(16,32,30,.07); --glass: rgba(255,255,255,.82);
   --gold: #b8892b;
-  --ad-w: 300px; --ad-h: 600px; --bot-w: 728px; --bot-h: 90px;
+  --bot-h: 0px;   /* space taken by an AdSense anchor ad at the bottom of the screen; ads.js sets it when one appears */
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0d1413; --surface: #151f1d; --field: #1c2826; --ink: #e8efed; --muted: #93a19d; --line: #25322f;
@@ -43,22 +43,19 @@
 * { box-sizing: border-box }
 /* Base reset (the page used to get this from claude.ai; it now ships with the file) */
 :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); -webkit-text-size-adjust: 100%; text-size-adjust: 100% }
-body { margin: 0 }
+body { margin: 0; overflow-x: clip }   /* trims decorative shapes that poke a pixel or two past the screen edge */
 img { max-width: 100% }
 [hidden] { display: none !important }
-/* Ads switched off (ADS_ON = false): hide every slot and give the page its full width back */
-.no-ads .ad-side, .no-ads .ad-bottom, .no-ads .ad-inline, .no-ads #testVid { display: none !important }
-.no-ads { --ad-w: 0px !important; --bot-h: 0px !important }
 body { color: var(--ink); background-color: var(--bg);
   background-image: radial-gradient(900px 500px at 12% -8%, var(--glow-1), transparent 60%), radial-gradient(800px 480px at 95% 8%, var(--glow-2), transparent 60%),
     radial-gradient(var(--dot) 1px, transparent 1.2px);
   background-size: auto, auto, 22px 22px; background-attachment: fixed; font: 15px/1.5 var(--f-body); font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased;
-  padding-inline: calc(var(--ad-w) + 32px); padding-block: 40px calc(var(--bot-h) + 48px); }
+  padding-inline: 32px; padding-block: 40px calc(var(--bot-h) + 48px); }
 .wrap { max-width: 960px; margin: 0 auto; display: grid; gap: 28px }
 
 header { display: grid; gap: 10px; justify-items: center; text-align: center }
 .topnav { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 20px; margin-bottom: -12px; font-size: 14.5px; font-weight: 600 }
-.topnav a { color: var(--muted); text-decoration: none; padding: 4px 2px }
+.topnav a { color: var(--muted); text-decoration: none; padding: 9px 4px }
 .topnav a:hover { color: var(--accent) }
 .topnav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px }
 .badge { font: 600 12px/1 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); padding: 7px 12px; border-radius: 999px }
@@ -80,7 +77,7 @@ header::after { content: ""; width: 64px; height: 3px; border-radius: 3px; backg
 
 /* 8th CPC sub-switch: Monthly pay | Arrears */
 .subtabs { justify-self: center; display: inline-flex; gap: 2px; padding: 3px; margin-top: -14px; border-radius: 999px; background: var(--field); border: 1px solid var(--line) }
-.subtabs button { font: 600 13px var(--f-body); color: var(--muted); background: none; border: 0; border-radius: 999px; padding: 7px 16px; cursor: pointer; transition: background .2s, color .2s }
+.subtabs button { font: 600 13px var(--f-body); color: var(--muted); background: none; border: 0; border-radius: 999px; padding: 9px 18px; cursor: pointer; transition: background .2s, color .2s }
 .subtabs button:hover { color: var(--ink) }
 .subtabs button[aria-selected="true"] { background: var(--surface); color: var(--accent); box-shadow: 0 1px 4px rgba(0,0,0,.08) }
 .wrap:not([data-mode="8"][data-view="arrears"]) .arrears-only { display: none }
@@ -111,7 +108,7 @@ header::after { content: ""; width: 64px; height: 3px; border-radius: 3px; backg
 @keyframes rise { from { transform: translateY(10px) } to { transform: none } }
 .card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px }
 .card-head h2 { margin: 0; font: 700 1.15rem var(--f-display); letter-spacing: -.01em }
-.reset { display: inline-flex; align-items: center; gap: 6px; font: 600 13px var(--f-body); color: var(--muted); background: var(--field); border: 1px solid transparent; border-radius: 999px; padding: 6px 12px; cursor: pointer; transition: color .15s, border-color .15s }
+.reset { display: inline-flex; align-items: center; gap: 6px; font: 600 13px var(--f-body); color: var(--muted); background: var(--field); border: 1px solid transparent; border-radius: 999px; padding: 9px 14px; cursor: pointer; transition: color .15s, border-color .15s }
 .reset:hover { color: var(--accent); border-color: var(--line) }
 .reset:hover svg { transform: rotate(-60deg) }
 .reset svg { transition: transform .3s }
@@ -147,7 +144,7 @@ select { appearance: none; padding-right: 36px; cursor: pointer;
 select:hover, input:hover { border-color: var(--line) }
 select:focus-visible, input:focus-visible, button:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft) }
 .chips { display: flex; flex-wrap: wrap; gap: 6px }
-.chips button { font: 600 13px var(--f-body); border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 6px 12px; cursor: pointer }
+.chips button { font: 600 13px var(--f-body); border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 8px 13px; cursor: pointer }
 .chips button:hover { border-color: var(--accent) }
 .chips button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent) }
 .check { display: flex; align-items: center; gap: 10px; font-weight: 500; cursor: pointer }
@@ -168,7 +165,7 @@ select:focus-visible, input:focus-visible, button:focus-visible { outline: none;
 .item .rm { width: 32px; height: 32px; border: 0; border-radius: 8px; background: none; color: var(--muted); font-size: 18px; cursor: pointer }
 .item .rm:hover { background: var(--field); color: var(--ink) }
 .quick { display: flex; flex-wrap: wrap; gap: 6px }
-.quick button { font: 500 12.5px var(--f-body); color: var(--accent); background: none; border: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent); border-radius: 999px; padding: 5px 11px; cursor: pointer }
+.quick button { font: 500 12.5px var(--f-body); color: var(--accent); background: none; border: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent); border-radius: 999px; padding: 8px 12px; cursor: pointer }
 .quick button:hover { background: var(--accent-soft); border-style: solid }
 tr.ded td:not(:first-child) { color: var(--muted) }
 tr.tax td:first-child button { font: inherit; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px }
@@ -189,6 +186,9 @@ tr.tax td:first-child button { font: inherit; color: var(--accent); background: 
 .taxbox summary .sum { margin-left: auto; font-size: 12.5px; font-weight: 600; color: var(--gain) }
 .taxbox summary:hover { background: var(--accent-soft) }
 .taxdetail { padding: 4px 16px 16px; display: grid; gap: 18px }
+.taxdetail > *, .arr-result > *, .result > * { min-width: 0 }
+form, .group, .fold-body, .arr-slot, label, select, input { min-width: 0; max-width: 100% }   /* long option text must not widen the form on small phones */   /* let wide tables scroll inside their box instead of widening the page */
+#policyBody a { overflow-wrap: anywhere }
 .taxdetail h3 { margin: 0 0 6px; font: 600 11px/1.2 var(--f-body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted) }
 .taxdetail table { font-size: 13.5px }
 .taxdetail td, .taxdetail th { padding: 8px 4px }
@@ -230,32 +230,48 @@ tr.net td { color: var(--accent); font-weight: 700; font-size: 16px }
 .c7 + .cpc8 { padding-left: 20px }
 .wrap[data-mode="7"] .only8, .wrap[data-mode="7"] .cpc8, .wrap[data-mode="8"] .c7 { display: none }
 
-.note { font-size: 13px; color: var(--muted); max-width: 72ch; margin: 0 auto; text-align: center; line-height: 1.6 }
-.note b { color: var(--ink); font-weight: 600 }
+/* "How this is worked out": a link that opens the full explanation */
+.howto { max-width: 820px; width: 100%; margin: 0 auto }
+.howto summary { list-style: none; display: flex; justify-content: center; cursor: pointer; font-weight: 600; font-size: 14px; color: var(--accent) }
+.howto summary::-webkit-details-marker { display: none }
+.howto summary span { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; text-decoration: underline; text-underline-offset: 3px }
+.howto summary span::before { content: "i"; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid currentColor; font: 700 11px var(--f-body); text-decoration: none }
+.howto summary span::after { content: ""; width: 7px; height: 7px; border-right: 1.8px solid currentColor; border-bottom: 1.8px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform .2s }
+.howto[open] summary span::after { transform: rotate(-135deg) translate(-1px, -1px) }
+.howto summary:hover span { background: var(--accent-soft) }
+.howto summary:focus-visible { outline: none } .howto summary:focus-visible span { outline: 2px solid var(--accent); outline-offset: 2px }
+.howto-body { margin-top: 10px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 28px; padding: 22px 24px; background: var(--glass); border: 1px solid var(--line); border-radius: calc(var(--r) + 4px); text-align: left }
+.howto-body h3 { margin: 0 0 6px; font: 700 14.5px var(--f-display); color: var(--ink) }
+.howto-body ul { margin: 0; padding-left: 18px; font-size: 13.5px; line-height: 1.55; color: var(--muted) }
+.howto-body li + li { margin-top: 4px }
+.howto-more { grid-column: 1 / -1; margin: 4px 0 0; padding-top: 12px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted) }
+.howto-body a { color: var(--accent); font-weight: 600 }
+@media (max-width: 700px) { .howto-body { grid-template-columns: 1fr; padding: 18px 16px } }
 /* Disclaimer: quiet framed block at the foot of the page */
-.disclaimer { border: 1px solid var(--line); border-radius: calc(var(--r) + 4px); background: var(--glass); padding: 22px 24px; display: grid; gap: 14px }
-.disclaimer h2 { margin: 0; font: 700 1.05rem var(--f-display); display: flex; align-items: center; gap: 8px }
-.disclaimer h2::before { content: "!"; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; font: 700 13px var(--f-body); color: var(--gold); border: 1.5px solid var(--gold) }
+.disclaimer { margin-top: 10px; border: 1px solid var(--line); border-radius: calc(var(--r) + 4px); background: var(--glass); padding: 22px 24px; display: grid; gap: 14px }
+.disc summary span::before { content: "!"; color: var(--gold); border-color: var(--gold) }
+.disc-lead { margin: 0; font-size: 13.5px; font-weight: 600; color: var(--ink); padding-bottom: 12px; border-bottom: 1px solid var(--line) }
 .disc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 28px }
 .disc-grid p { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--muted) }
 .disc-grid b { color: var(--ink); font-weight: 600; display: block; margin-bottom: 2px }
 .disc-date { margin: 0; font-size: 12px; color: var(--muted); padding-top: 12px; border-top: 1px solid var(--line) }
 @media (max-width: 700px) { .disc-grid { grid-template-columns: 1fr } .disclaimer { padding: 18px } }
-footer { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 16px; justify-content: center; text-align: center }
-footer a { color: var(--accent); font-weight: 600; text-underline-offset: 3px }
-footer button { font: inherit; color: var(--accent); background: none; border: 0; padding: 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer }
+/* Footer: links on top, contact line, then copyright, all centred and separated by a thin rule */
+footer { display: grid; justify-items: center; gap: 10px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); text-align: center }
+footer p { margin: 0 }
+.foot-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 0 }
+.foot-links a { color: var(--ink); font-weight: 600; font-size: 14px; text-decoration: none; padding: 9px 12px }
+.foot-links a + a { border-left: 1px solid var(--line) }
+.foot-links a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px }
+.foot-mail a { color: var(--accent); font-weight: 600; text-underline-offset: 3px }
+.foot-copy { font-size: 12.5px; max-width: 90ch }
+footer a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px }
 
-/* Ads: soft framed slots at the sides and bottom */
-.ad-side, .ad-bottom { position: fixed; z-index: 20; background: var(--surface); border: 1px dashed var(--line); border-radius: 12px;
-  display: grid; place-items: center; text-align: center; padding: 8px; font-size: 14px; color: var(--muted); overflow: hidden }
-.ad-side { width: var(--ad-w); height: min(var(--ad-h), calc(100vh - var(--bot-h) - 48px));
-  top: calc(50% - var(--bot-h) / 2 - 12px); transform: translateY(-50%) }
-.ad-side .tag, .ad-bottom .tag, .vid-tag { position: absolute; top: 6px; left: 8px; font: 600 10px var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted) }
-.ad-side .x, .ad-bottom .x { position: absolute; top: 3px; right: 6px; border: 0; background: none; color: var(--muted); font-size: 18px; cursor: pointer; line-height: 1 }
-.ad-side b, .ad-bottom b { display: block; font: 600 1.2em var(--f-display); color: var(--ink) }
-.ad-side.left { left: 16px } .ad-side.right { right: 16px }
-.ad-bottom { left: 50%; transform: translateX(-50%); bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-  width: min(var(--bot-w), calc(100vw - 2 * var(--ad-w) - 64px)); height: var(--bot-h) }
+/* AdSense display units (filled by ads.js): in the page flow, labelled, and kept clear of buttons */
+.ad-slot { display: grid; gap: 4px; justify-items: center; margin-block: 4px; min-width: 0 }
+.ad-slot::before { content: "Advertisement"; font: 600 10px var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted) }
+.ad-slot ins { display: block; width: 100%; min-height: 90px }
+@media (min-width: 861px) { .phone-only { display: none !important } }
 
 /* Privacy policy panel */
 .policy-overlay { position: fixed; inset: 0; z-index: 60; background: rgba(6,12,11,.55); backdrop-filter: blur(4px); display: grid; place-items: center; padding: 16px; animation: fadeIn .18s ease-out }
@@ -288,36 +304,14 @@ footer button { font: inherit; color: var(--accent); background: none; border: 0
 #policyBody th { font-weight: 600; color: var(--muted); font-size: 12.5px; background: color-mix(in srgb, var(--accent-soft) 50%, transparent) }
 #policyBody .contact { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; margin: 0 0 10px }
 #policyBody .contact p { margin: 0 0 4px }
-@media (max-width: 560px) { #policyBody .toc ol { columns: 1 } }
+@media (max-width: 560px) { #policyBody .toc ol { columns: 1 } #policyBody table { min-width: 0 } #policyBody th, #policyBody td { padding: 7px 6px } #policyBody .toc li a { display: inline-block; padding-block: 4px } }
 
-/* Video ad */
-.vid-overlay { position: fixed; inset: 0; z-index: 50; background: rgba(6,12,11,.8); backdrop-filter: blur(4px); display: grid; place-items: center; padding: 16px }
-.vid-box { position: relative; width: min(640px, 100%); background: #000; border-radius: 14px; overflow: hidden }
-.vid-box video, .vid-box canvas { display: block; width: 100%; aspect-ratio: 16/9; max-width: 100% }
-.vid-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; background: #121a19; color: #cfd8d6; font-size: 13px }
-.vid-bar button { font: 600 13px var(--f-body); background: #fff; color: #111; border: 0; border-radius: 999px; padding: 7px 14px; cursor: pointer }
-.vid-bar button:disabled { opacity: .5; cursor: default }
-.vid-tag { color: #cfd8d6; z-index: 1 }
-
-@media (max-width: 1500px) { :root { --ad-w: 240px } }
-@media (max-width: 1300px) { :root { --ad-w: 160px } .ad-side { font-size: 13px } }
-@media (max-width: 1100px) { :root { --ad-w: 120px } .ad-side { font-size: 12px } }
-/* In-page ad banners and the result bar exist only on phones */
-.ad-inline, .mbar { display: none }
+/* The result bar exists only on phones */
+.mbar { display: none }
 @media (max-width: 860px) {
-  /* Phones: the side ads become in-page 320×100 banners, the bottom ad becomes a slim 320×50 strip along the
-     bottom edge, and a result bar sits above it while the results card is out of view */
-  :root { --ad-w: 0px; --bot-w: 100%; --bot-h: 60px; --mbar-h: 56px }
+  /* Phones: a result bar sits at the bottom while the results card is out of view (above an AdSense anchor ad, if one is showing) */
+  :root { --mbar-h: 56px }
   body { padding-inline: 16px; padding-block: 20px calc(var(--bot-h) + var(--mbar-h) + 28px + env(safe-area-inset-bottom, 0px)) }
-  .ad-side { display: none }
-  .ad-bottom { left: 0; right: 0; bottom: 0; transform: none; width: 100%; height: calc(var(--bot-h) + env(safe-area-inset-bottom, 0px));
-    padding-bottom: env(safe-area-inset-bottom, 0px); border-radius: 0; border-width: 1px 0 0; border-style: solid; font-size: 12px }
-  .ad-bottom b { display: inline; font-size: 1em; margin-right: 6px }
-  .ad-inline { position: relative; display: grid; place-items: center; text-align: center; min-height: 100px; padding: 18px 12px 12px;
-    background: var(--surface); border: 1px dashed var(--line); border-radius: 12px; color: var(--muted); font-size: 13px }
-  .ad-inline .tag { position: absolute; top: 6px; left: 8px; font: 600 10px var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted) }
-  .ad-inline .x { position: absolute; top: 3px; right: 6px; border: 0; background: none; color: var(--muted); font-size: 18px; cursor: pointer; line-height: 1 }
-  .ad-inline b { display: block; font: 600 1.1em var(--f-display); color: var(--ink) }
 
   .wrap { gap: 20px }
   header { gap: 8px }
@@ -351,7 +345,6 @@ footer button { font: inherit; color: var(--accent); background: none; border: 0
   footer { flex-direction: column; align-items: center; gap: 10px }
   .policy-overlay { padding: 10px; align-items: end }
   .policy-panel { max-height: 88vh; border-radius: 18px; padding: 20px 18px }
-  .vid-overlay { padding: 10px }
 
   /* Result bar: shows the headline figure while you edit the form */
   .mbar { position: fixed; left: 10px; right: 10px; bottom: calc(var(--bot-h) + 8px + env(safe-area-inset-bottom, 0px)); z-index: 25;
@@ -367,11 +360,8 @@ footer button { font: inherit; color: var(--accent); background: none; border: 0
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important } }
 </style>
 
-<!-- Ad slots: replace the inner <div> with your ad network code (e.g. AdSense <ins> tags).
-     Sides: 300×600 on wide screens. Bottom: 728×90 on desktop, 320×100 on phones. -->
-<aside class="ad-side left" aria-label="Advertisement"><span class="tag">Ad</span><button class="x" aria-label="Close ad">×</button><div><b>Your ad here</b>Left side · 300×600</div></aside>
-<aside class="ad-side right" aria-label="Advertisement"><span class="tag">Ad</span><button class="x" aria-label="Close ad">×</button><div><b>Your ad here</b>Right side · 300×600</div></aside>
-<aside class="ad-bottom" aria-label="Advertisement"><span class="tag">Ad</span><button class="x" aria-label="Close ad">×</button><div><b>Your ad here</b>Bottom banner · 728×90</div></aside>
+<!-- Ads: AdSense places the bottom anchor and full-screen ads itself (Auto ads). The in-page spaces below
+     (class "ad-slot") are filled by ads.js with responsive display units once AdSense is set up there. -->
 
 <div class="wrap" id="wrap" data-mode="7" data-view="pay">
   <nav class="topnav" aria-label="Main">
@@ -555,8 +545,8 @@ footer button { font: inherit; color: var(--accent); background: none; border: 0
       </form>
     </section>
 
-    <!-- Phone-only ad banner between the form and the results (replaces the side ads on small screens) -->
-    <aside class="ad-inline" aria-label="Advertisement"><span class="tag">Ad</span><button class="x" aria-label="Close ad">×</button><div><b>Your ad here</b>In-page banner · 320×100</div></aside>
+    <!-- Ad space between the form and the results (phones only; on computers the two sit side by side) -->
+    <aside class="ad-slot phone-only" data-ad="calc-mid" aria-label="Advertisement" hidden></aside>
 
     <section class="card result" id="resultCard" aria-labelledby="outTitle">
       <div class="arrears-only arr-result">
@@ -603,13 +593,73 @@ footer button { font: inherit; color: var(--accent); background: none; border: 0
     </section>
   </div>
 
-  <p class="note"><b>How this is worked out.</b> The city search uses the 7th CPC X and Y city lists; Noida, Ghaziabad, Gurugram and Faridabad are treated as Delhi, and any city not listed is Class Z. HRA is 30/20/10% of basic when DA is 50% or more, 27/18/9% between 25% and 50%, and 24/16/8% below 25%, with minimums of ₹5,400/₹3,600/₹1,800. Transport Allowance uses the 7th CPC slabs (X city treated as a higher-TA city) plus DA on it. 8th CPC figures are estimates: new basic = 7th CPC basic × fitment factor, rounded to ₹100. 8th CPC HRA uses the rates you choose in the HRA section (today's 30/20/10% by default), and transport allowance follows the 7th CPC rules. Allowances and deductions you add use the same monthly amount in both pay commissions; suggested amounts (CGHS and CGEGIS by level, Children Education Allowance for one child, professional tax) can be edited. Income tax is worked out for a full year at this monthly pay, using the new and old regime slabs from the Union Budget 2025.</p>
+  <!-- Ad space below the calculator (all screen sizes) -->
+  <aside class="ad-slot" data-ad="calc-after" aria-label="Advertisement" hidden></aside>
 
-  <!-- Phone-only ad banner after the results -->
-  <aside class="ad-inline" aria-label="Advertisement"><span class="tag">Ad</span><button class="x" aria-label="Close ad">×</button><div><b>Your ad here</b>In-page banner · 320×100</div></aside>
+  <details class="howto" id="howto">
+    <summary><span>How this is worked out</span></summary>
+    <div class="howto-body">
+      <div>
+        <h3>Pay and DA</h3>
+        <ul>
+          <li>Basic pay comes from the 7th CPC Pay Matrix, or the UGC Academic Pay Matrix for teachers. Each step in a level is 3% higher, rounded to the nearest ₹100.</li>
+          <li>Dearness Allowance is a percentage of basic pay. It is 60% from January 2026, or the rate you choose.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>House Rent Allowance</h3>
+        <ul>
+          <li>HRA is a percentage of basic pay by city class: 30/20/10% when DA is 50% or more, 27/18/9% between 25% and 50%, and 24/16/8% below 25%.</li>
+          <li>Minimum HRA is ₹5,400 (X), ₹3,600 (Y) and ₹1,800 (Z) a month.</li>
+          <li>The city search uses the X and Y city lists. Noida, Ghaziabad, Gurugram and Faridabad are treated as Delhi. Any city not listed is Class Z.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Transport Allowance</h3>
+        <ul>
+          <li>Uses the 7th CPC slabs by level, with X class cities treated as higher-rate cities, plus DA on the allowance.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>8th Pay Commission estimates</h3>
+        <ul>
+          <li>New basic pay = 7th CPC basic pay × the fitment factor you choose, rounded to ₹100.</li>
+          <li>DA restarts at 0% unless you choose otherwise. HRA uses the 8th CPC rates you pick (today’s 30/20/10% by default). Transport allowance follows the 7th CPC rules.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Arrears</h3>
+        <ul>
+          <li>For each month from the effective date until the new pay starts: 8th CPC pay due minus 7th CPC pay actually paid, on basic pay and DA (plus HRA and transport allowance if you tick them).</li>
+          <li>DA on both sides rises by the amount you choose every January and July, and the yearly increment is added every July.</li>
+          <li>Tax on arrears is worked out for the year you receive them, with Section 89 relief if selected.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Allowances and deductions</h3>
+        <ul>
+          <li>Allowances and deductions you add use the same monthly amount in both pay commissions.</li>
+          <li>Suggested amounts (CGHS and CGEGIS by level, Children Education Allowance for one child, professional tax) can be edited.</li>
+          <li>NPS/UPS is the percentage you set of basic pay plus DA.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Income tax</h3>
+        <ul>
+          <li>Worked out for a full year at the monthly pay shown, using the new and old regime slab rates from the Union Budget 2025, with the standard deduction, 87A rebate, surcharge and 4% cess.</li>
+        </ul>
+      </div>
+      <p class="howto-more">More detail in the <a href="guides.html">guides</a>: <a href="fitment-factor.html">fitment factor</a>, <a href="da-hike-history.html">DA history</a>, <a href="hra-city-classification.html">HRA city classes</a> and <a href="arrears-section-89.html">arrears and Section 89</a>.</p>
+    </div>
+  </details>
 
-  <section class="disclaimer" aria-labelledby="discTitle">
-    <h2 id="discTitle">Disclaimer</h2>
+  <!-- Ad space after the explanation, before the disclaimer -->
+  <aside class="ad-slot" data-ad="calc-end" aria-label="Advertisement" hidden></aside>
+
+  <details class="howto disc" id="disclaimer">
+    <summary><span>Disclaimer</span></summary>
+    <section class="disclaimer" aria-label="Disclaimer">
+    <p class="disc-lead">Results are estimates for guidance only. This is not an official Government tool, and nothing here is tax, legal or financial advice.</p>
     <div class="disc-grid">
       <p><b>For information only.</b> This calculator gives estimates for general guidance. It is not an official tool and does not replace your pay slip, pay fixation order, or any order issued by your department.</p>
       <p><b>Not affiliated with the Government.</b> This website is independent. It is not connected to, endorsed by, or run on behalf of the Government of India, any State Government, the Ministry of Finance, DoPT, UGC, or any Pay Commission.</p>
@@ -621,17 +671,20 @@ footer button { font: inherit; color: var(--accent); background: none; border: 0
       <p><b>Advertisements.</b> Ads are shown by third parties. Their appearance here is not an endorsement of any product, service or offer.</p>
     </div>
     <p class="disc-date">Rates last reviewed: September 2026.</p>
-  </section>
+    </section>
+  </details>
 
   <footer>
-    <span>© 2026 NE Media · Pay Commission Calculator · Estimates only, not an official Government tool.</span>
-    <span>Contact: <a href="mailto:nemedia909@gmail.com">nemedia909@gmail.com</a></span>
-    <a href="guides.html">Guides</a>
-    <a href="faq.html">FAQ</a>
-    <a href="about.html">About</a>
-    <a href="terms.html" id="termsLink" data-doc>Terms of Use</a>
-    <a href="privacy.html" id="privacyLink" data-doc>Privacy Policy</a>
-    <button type="button" id="testVid">Preview video ad</button>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="guides.html">Guides</a>
+      <a href="faq.html">FAQ</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="terms.html" id="termsLink" data-doc>Terms of Use</a>
+      <a href="privacy.html" id="privacyLink" data-doc>Privacy Policy</a>
+    </nav>
+    <p class="foot-mail">Questions or corrections: <a href="mailto:nemedia909@gmail.com">nemedia909@gmail.com</a></p>
+    <p class="foot-copy">© 2026 NE Media · Pay Commission Calculator · Estimates only, not an official Government tool.</p>
   </footer>
 </div>
 
@@ -649,25 +702,8 @@ footer button { font: inherit; color: var(--accent); background: none; border: 0
   </div>
 </div>
 
-<!-- Video ad overlay -->
-<div class="vid-overlay" id="vid" hidden role="dialog" aria-modal="true" aria-label="Video advertisement">
-  <div class="vid-box">
-    <span class="vid-tag">Ad</span>
-    <div id="vidMedia"></div>
-    <div class="vid-bar"><span id="vidMsg">Ad · you can skip in 5s</span><button id="vidSkip" disabled>Skip ad</button></div>
-  </div>
-</div>
-
+<script src="ads.js" defer></script>
 <script>
-/* ===== Ad settings ===== */
-// Master switch: false hides every ad slot and stops the video ad. Set to true once real ad code is in the slots.
-const ADS_ON = false;
-if (!ADS_ON) document.documentElement.classList.add("no-ads");
-const VIDEO_AD_SRC = "";            // put your .mp4 URL here; empty = animated placeholder
-const VIDEO_AD_EVERY_MS = 5 * 60 * 1000; // every 5 minutes
-const VIDEO_SKIP_AFTER_S = 5;
-const VIDEO_MAX_S = 15;
-
 /* ===== 7th CPC Pay Matrix: [level, entry pay, number of cells, 6th CPC pay band / grade pay] ===== */
 const LEVELS = [["1",18000,40,"PB-1 · GP 1800"],["2",19900,40,"PB-1 · GP 1900"],["3",21700,40,"PB-1 · GP 2000"],["4",25500,40,"PB-1 · GP 2400"],
   ["5",29200,40,"PB-1 · GP 2800"],["6",35400,40,"PB-2 · GP 4200"],["7",44900,40,"PB-2 · GP 4600"],["8",47600,40,"PB-2 · GP 4800"],
@@ -1261,58 +1297,9 @@ $("policy").addEventListener("click", e => { if (e.target === $("policy")) close
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("policy").hidden) closePolicy(); });
 (window.requestIdleCallback || (f => setTimeout(f, 1200)))(() => document.querySelectorAll("[data-doc]").forEach(l => loadDoc(l.getAttribute("href"))));
 
-/* ===== Side ads: close buttons (ad comes back on reload) ===== */
-document.querySelectorAll(".ad-side .x, .ad-bottom .x, .ad-inline .x").forEach(b => b.addEventListener("click", () => {
-  b.parentElement.hidden = true;
-  if (b.parentElement.classList.contains("ad-bottom")) document.documentElement.style.setProperty("--bot-h", "0px");   // free the space it used
-}));
-
 /* ===== Phone result bar: visible while the results card is off screen; tap to jump to the results ===== */
 if ("IntersectionObserver" in window) {
   new IntersectionObserver(([e]) => $("mbar").classList.toggle("away", e.isIntersecting), { threshold: 0.15 }).observe($("resultCard"));
 } else $("mbar").classList.remove("away");
 $("mbarBtn").addEventListener("click", () => $("resultCard").scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "start" }));
-
-/* ===== Video ad every 5 minutes ===== */
-let vidTimer, raf;
-function drawPlaceholder(canvas) {
-  const ctx = canvas.getContext("2d"); canvas.width = 640; canvas.height = 360;
-  const t0 = performance.now();
-  (function frame(t) {
-    const s = (t - t0) / 1000;
-    const g = ctx.createLinearGradient(0, 0, 640, 360);
-    g.addColorStop(0, `hsl(${168 + Math.sin(s) * 10},70%,18%)`); g.addColorStop(1, `hsl(${160 + Math.cos(s) * 10},55%,38%)`);
-    ctx.fillStyle = g; ctx.fillRect(0, 0, 640, 360);
-    ctx.fillStyle = "rgba(255,255,255,.12)";
-    for (let i = 0; i < 6; i++) { ctx.beginPath(); ctx.arc((i * 130 + s * 60) % 760 - 60, 180 + Math.sin(s + i) * 90, 40, 0, 7); ctx.fill(); }
-    ctx.fillStyle = "#fff"; ctx.textAlign = "center";
-    ctx.font = "700 38px 'Bricolage Grotesque', Arial, sans-serif"; ctx.fillText("Your video ad here", 320, 170);
-    ctx.font = "18px Figtree, Arial, sans-serif"; ctx.fillText("Set VIDEO_AD_SRC to play your own video", 320, 205);
-    raf = requestAnimationFrame(frame);
-  })(t0);
-}
-function showVideoAd() {
-  const box = $("vidMedia"); box.innerHTML = "";
-  if (VIDEO_AD_SRC) {
-    const v = document.createElement("video"); v.src = VIDEO_AD_SRC; v.muted = true; v.autoplay = true; v.playsInline = true;
-    v.addEventListener("ended", closeVideoAd); box.appendChild(v);
-  } else { const c = document.createElement("canvas"); box.appendChild(c); drawPlaceholder(c); }
-  $("vid").hidden = false;
-  let left = VIDEO_SKIP_AFTER_S, elapsed = 0;
-  $("vidSkip").disabled = true; $("vidMsg").textContent = `Ad · you can skip in ${left}s`;
-  clearInterval(vidTimer);
-  vidTimer = setInterval(() => {
-    elapsed++; left--;
-    if (left > 0) $("vidMsg").textContent = `Ad · you can skip in ${left}s`;
-    else { $("vidSkip").disabled = false; $("vidMsg").textContent = "Ad"; }
-    if (elapsed >= VIDEO_MAX_S && !VIDEO_AD_SRC) closeVideoAd();
-  }, 1000);
-}
-function closeVideoAd() {
-  clearInterval(vidTimer); cancelAnimationFrame(raf);
-  $("vidMedia").innerHTML = ""; $("vid").hidden = true;
-}
-$("vidSkip").addEventListener("click", closeVideoAd);
-$("testVid").addEventListener("click", showVideoAd);
-if (ADS_ON) setInterval(showVideoAd, VIDEO_AD_EVERY_MS);
 </script>

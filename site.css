@@ -15,9 +15,9 @@
 
 * { box-sizing: border-box }
 html { padding-block: env(safe-area-inset-top, 0px) env(safe-area-inset-bottom, 0px); -webkit-text-size-adjust: 100%; text-size-adjust: 100% }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 16.5px/1.7 var(--f-body); -webkit-font-smoothing: antialiased; padding-inline: 16px }
+body { margin: 0; overflow-x: clip; background: var(--bg); color: var(--ink); font: 16.5px/1.7 var(--f-body); -webkit-font-smoothing: antialiased; padding-inline: 16px }
 img { max-width: 100% }
-a { color: var(--accent) }
+a { color: var(--accent); overflow-wrap: anywhere }
 a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px }
 
 /* Top bar */
@@ -53,6 +53,11 @@ td.num, th.num { text-align: right }
 .cols { columns: 3 180px; column-gap: 24px; padding-left: 20px }
 .cols li { break-inside: avoid; margin-bottom: 4px }
 
+/* AdSense display units (filled by ads.js): in the page flow and labelled */
+.ad-slot { display: grid; gap: 4px; justify-items: center; margin: 26px 0 }
+.ad-slot::before { content: "Advertisement"; font: 600 10px var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted) }
+.ad-slot ins { display: block; width: 100%; min-height: 90px }
+
 /* Call to action */
 .cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; margin: 34px 0 6px; padding: 20px 22px; border-radius: 16px; color: #fff;
   background: linear-gradient(135deg, var(--hero-b), var(--hero-a)) }
@@ -78,7 +83,8 @@ details.q > div { padding: 0 0 14px }
 /* Footer */
 .foot { max-width: 860px; margin: 0 auto; padding-block: 22px 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 18px; font-size: 13.5px; color: var(--muted) }
 .foot nav { display: flex; flex-wrap: wrap; gap: 6px 14px }
-.foot a { color: var(--muted) }
+.foot a { color: var(--muted); display: inline-block; padding: 9px 2px }   /* comfortable tap height on phones */
+.nav a { padding-block: 9px }
 
 @media (max-width: 560px) {
   body { font-size: 16px }

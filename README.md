@@ -18,6 +18,8 @@ Live at **https://8thpay.in** · Run by NE Media · Contact: nemedia909@gmail.co
 | `terms.html` | Terms of Use |
 | `about.html`, `contact.html`, `faq.html` | About, Contact and FAQ pages |
 | `guides.html` | List of guides |
+| `news.html` | 8th Pay Commission latest news (update by hand when there's news; change "Last updated") |
+| `sources.html` | Official sources behind the calculator's rules and rates |
 | `8th-pay-commission.html`, `fitment-factor.html`, `da-hike-history.html`, `hra-city-classification.html`, `arrears-section-89.html` | Guide articles |
 | `site.css` | Shared style for the About, Contact, FAQ and guide pages |
 | `ads.js` | All AdSense settings for every page |

@@ -5,6 +5,17 @@
 <meta name="description" content="Free 7th and 8th Pay Commission salary calculator for Central Government employees: pay, DA, HRA, income tax and 8th CPC arrears.">
 <meta name="theme-color" content="#0e6b5c">
 <title>Pay Commission Calculator</title>
+<link rel="canonical" href="https://ekujur19-sys.github.io/pay-commission-calculator/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230e6b5c'/%3E%3Ctext x='32' y='45' font-size='38' font-family='Arial,sans-serif' font-weight='700' text-anchor='middle' fill='white'%3E%E2%82%B9%3C/text%3E%3C/svg%3E">
+<!-- Link preview when shared (WhatsApp, Facebook, X, LinkedIn) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pay Commission Calculator">
+<meta property="og:title" content="Pay Commission Calculator · 7th & 8th CPC salary, tax and arrears">
+<meta property="og:description" content="Work out your monthly pay under the 7th Pay Commission, an estimate under the 8th, income tax, and 8th CPC arrears. Free, no sign-up.">
+<meta property="og:url" content="https://ekujur19-sys.github.io/pay-commission-calculator/">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary">
+<meta name="robots" content="index, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
 <style>
@@ -35,6 +46,9 @@
 body { margin: 0 }
 img { max-width: 100% }
 [hidden] { display: none !important }
+/* Ads switched off (ADS_ON = false): hide every slot and give the page its full width back */
+.no-ads .ad-side, .no-ads .ad-bottom, .no-ads .ad-inline, .no-ads #testVid { display: none !important }
+.no-ads { --ad-w: 0px !important; --bot-h: 0px !important }
 body { color: var(--ink); background-color: var(--bg);
   background-image: radial-gradient(900px 500px at 12% -8%, var(--glow-1), transparent 60%), radial-gradient(800px 480px at 95% 8%, var(--glow-2), transparent 60%),
     radial-gradient(var(--dot) 1px, transparent 1.2px);
@@ -604,6 +618,7 @@ footer button { font: inherit; color: var(--accent); background: none; border: 0
 
   <footer>
     <span>© 2026 Pay Commission Calculator · Estimates only, not an official Government tool.</span>
+    <span>Contact: <a href="mailto:nemedia909@gmail.com">nemedia909@gmail.com</a></span>
     <a href="terms.html" id="termsLink" data-doc>Terms of Use</a>
     <a href="privacy.html" id="privacyLink" data-doc>Privacy Policy</a>
     <button type="button" id="testVid">Preview video ad</button>
@@ -635,6 +650,9 @@ footer button { font: inherit; color: var(--accent); background: none; border: 0
 
 <script>
 /* ===== Ad settings ===== */
+// Master switch: false hides every ad slot and stops the video ad. Set to true once real ad code is in the slots.
+const ADS_ON = false;
+if (!ADS_ON) document.documentElement.classList.add("no-ads");
 const VIDEO_AD_SRC = "";            // put your .mp4 URL here; empty = animated placeholder
 const VIDEO_AD_EVERY_MS = 5 * 60 * 1000; // every 5 minutes
 const VIDEO_SKIP_AFTER_S = 5;
@@ -1286,5 +1304,5 @@ function closeVideoAd() {
 }
 $("vidSkip").addEventListener("click", closeVideoAd);
 $("testVid").addEventListener("click", showVideoAd);
-setInterval(showVideoAd, VIDEO_AD_EVERY_MS);
+if (ADS_ON) setInterval(showVideoAd, VIDEO_AD_EVERY_MS);
 </script>

@@ -7,6 +7,8 @@ A free salary calculator for Indian Central Government employees and teachers.
 
 All calculations run in the visitor's browser. The site asks for no personal details.
 
+Live at **https://ekujur19-sys.github.io/pay-commission-calculator/**
+
 ## Files
 
 | File | What it is |
@@ -14,12 +16,17 @@ All calculations run in the visitor's browser. The site asks for no personal det
 | `index.html` | The calculator (single page, no build step) |
 | `privacy.html` | Privacy Policy |
 | `terms.html` | Terms of Use |
+| `404.html` | "Page not found" page |
+| `sitemap.xml` | Page list for Google Search Console |
 
-## Before going live
+## Ads
 
-- Fill in the gold `[placeholders]` in `privacy.html` and `terms.html` (website email, website address, hosting provider, analytics).
-- Replace the ad placeholders in `index.html` with your ad network code.
+Ads are **switched off** (`const ADS_ON = false;` near the top of the script in `index.html`), so visitors see no empty ad boxes or placeholder video. To turn them on: paste your ad network code into the ad slots (search for `Your ad here`), then set `ADS_ON = true`.
+
+## Keeping it up to date
+
 - Update DA, HRA and tax rates when the Government announces changes. The rate lists are near the top of the script in `index.html`.
+- Change "Rates last reviewed" in the disclaimer when you do.
 
 ## Hosting on GitHub Pages
 

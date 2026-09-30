@@ -1,0 +1,1280 @@
+<title>Pay Commission Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: quiet two-card calculator — form on the left, a pay slip on the right led by one big take-home figure; ads sit in soft frames at the sides and bottom */
+:root {
+  --bg: #f4f6f5; --surface: #ffffff; --field: #f1f4f3; --ink: #10201e; --muted: #64716e; --line: #e2e7e5;
+  --accent: #0e6b5c; --accent-soft: #e3f1ed; --on-accent: #ffffff; --gain: #0e7a4f; --shadow: 0 1px 2px rgba(16,32,30,.04), 0 8px 24px rgba(16,32,30,.06);
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r: 16px;
+  --hero-a: #0b5c4f; --hero-b: #13876f; --on-hero: #ffffff; --on-hero-muted: rgba(255,255,255,.75);
+  --glow-1: rgba(19,135,111,.16); --glow-2: rgba(212,170,70,.14); --dot: rgba(16,32,30,.07); --glass: rgba(255,255,255,.82);
+  --gold: #b8892b;
+  --ad-w: 300px; --ad-h: 600px; --bot-w: 728px; --bot-h: 90px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d1413; --surface: #151f1d; --field: #1c2826; --ink: #e8efed; --muted: #93a19d; --line: #25322f;
+  --accent: #4fc3a8; --accent-soft: #1a3430; --on-accent: #06201b; --gain: #5fd49b; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+  --hero-a: #0f4a40; --hero-b: #177a65; --glow-1: rgba(79,195,168,.12); --glow-2: rgba(212,170,70,.08); --dot: rgba(255,255,255,.05); --glass: rgba(21,31,29,.82); --gold: #e0b75a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0d1413; --surface: #151f1d; --field: #1c2826; --ink: #e8efed; --muted: #93a19d; --line: #25322f;
+  --accent: #4fc3a8; --accent-soft: #1a3430; --on-accent: #06201b; --gain: #5fd49b; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+  --hero-a: #0f4a40; --hero-b: #177a65; --glow-1: rgba(79,195,168,.12); --glow-2: rgba(212,170,70,.08); --dot: rgba(255,255,255,.05); --glass: rgba(21,31,29,.82); --gold: #e0b75a; color-scheme: dark }
+
+* { box-sizing: border-box }
+[hidden] { display: none !important }
+body { color: var(--ink); background-color: var(--bg);
+  background-image: radial-gradient(900px 500px at 12% -8%, var(--glow-1), transparent 60%), radial-gradient(800px 480px at 95% 8%, var(--glow-2), transparent 60%),
+    radial-gradient(var(--dot) 1px, transparent 1.2px);
+  background-size: auto, auto, 22px 22px; background-attachment: fixed; font: 15px/1.5 var(--f-body); font-variant-numeric: tabular-nums; -webkit-font-smoothing: antialiased;
+  padding-inline: calc(var(--ad-w) + 32px); padding-block: 40px calc(var(--bot-h) + 48px); }
+.wrap { max-width: 960px; margin: 0 auto; display: grid; gap: 28px }
+
+header { display: grid; gap: 10px; justify-items: center; text-align: center }
+.badge { font: 600 12px/1 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); padding: 7px 12px; border-radius: 999px }
+header h1 { font: 700 clamp(2.1rem, 5vw, 3.4rem)/1.05 var(--f-display); letter-spacing: -.03em; margin: 0; text-wrap: balance;
+  background: linear-gradient(100deg, var(--ink) 20%, var(--accent) 65%, var(--gold) 100%); -webkit-background-clip: text; background-clip: text; color: transparent }
+.emblem { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; color: #fff; font: 700 26px var(--f-display);
+  background: linear-gradient(145deg, var(--hero-b), var(--hero-a)); box-shadow: 0 8px 22px -6px var(--hero-b), inset 0 1px 0 rgba(255,255,255,.25); transform: rotate(-6deg) }
+header::after { content: ""; width: 64px; height: 3px; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--gold)); margin-top: 4px }
+
+/* Segmented tabs with a sliding highlight */
+.tabs { position: relative; justify-self: center; display: inline-grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 5px; background: var(--glass); backdrop-filter: blur(10px); border: 1px solid var(--line); border-radius: 999px; box-shadow: var(--shadow); width: min(460px, 100%) }
+.tabs::before { content: ""; position: absolute; top: 5px; bottom: 5px; left: 5px; width: calc(50% - 7px); border-radius: 999px;
+  background: linear-gradient(135deg, var(--hero-b), var(--hero-a)); box-shadow: 0 6px 16px -6px var(--hero-b); transition: transform .35s cubic-bezier(.3,1.3,.5,1) }
+.wrap[data-mode="8"] .tabs::before { transform: translateX(calc(100% + 4px)) }
+.tabs button { position: relative; font: 600 14px var(--f-body); color: var(--muted); background: none; border: 0; border-radius: 999px; padding: 11px 14px; cursor: pointer; transition: color .25s }
+.tabs button:hover { color: var(--ink) }
+.tabs button[aria-selected="true"] { color: #fff }
+.tabs button small { display: none }
+
+/* 8th CPC sub-switch: Monthly pay | Arrears */
+.subtabs { justify-self: center; display: inline-flex; gap: 2px; padding: 3px; margin-top: -14px; border-radius: 999px; background: var(--field); border: 1px solid var(--line) }
+.subtabs button { font: 600 13px var(--f-body); color: var(--muted); background: none; border: 0; border-radius: 999px; padding: 7px 16px; cursor: pointer; transition: background .2s, color .2s }
+.subtabs button:hover { color: var(--ink) }
+.subtabs button[aria-selected="true"] { background: var(--surface); color: var(--accent); box-shadow: 0 1px 4px rgba(0,0,0,.08) }
+.wrap:not([data-mode="8"][data-view="arrears"]) .arrears-only { display: none }
+.wrap[data-mode="8"][data-view="arrears"] .pay-only { display: none }
+/* In the Arrears view the HRA and pension settings move directly under their tick boxes (see placeArrearsControls),
+   so their usual sections are hidden there */
+.wrap[data-mode="8"][data-view="arrears"] .fold-hra, .wrap[data-mode="8"][data-view="arrears"] .fold-ded { display: none }
+.nps-box { display: grid; gap: 14px }
+.arr-slot { display: grid; gap: 12px; margin: -4px 0 2px 9px; padding: 4px 0 4px 18px; border-left: 2px solid var(--accent-soft) }
+.arr-slot:empty { display: none }
+.arr-slot .fold-body { padding: 0 }
+.arr-slot .nps-row { grid-template-columns: auto 92px; justify-content: start }
+.arr-slot .nps-row .check, .arr-slot .nps-hint { display: none }
+.arr-nps-hint { display: none }
+.arr-slot .arr-nps-hint { display: block; margin-top: -6px }
+.arr-result, .result > .pay-only { display: grid; gap: 20px }
+.arr-result h2 { font: 600 11px/1 var(--f-body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 }
+.arr-table th small { display: block; font-weight: 400; font-size: 11px }
+.arr-table td:last-child { color: var(--gain); font-weight: 700 }
+.arr-table td:last-child.neg { color: var(--muted) }
+.arr-months { padding: 0 16px 12px }
+.arr-note { margin: 0; font-size: 12.5px; color: var(--muted); line-height: 1.55 }
+
+.grid { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 20px; align-items: start }
+.card { background: var(--glass); backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: calc(var(--r) + 4px); box-shadow: var(--shadow); padding: 24px; min-width: 0;
+  animation: rise .6s cubic-bezier(.2,.8,.2,1) both }
+.card + .card { animation-delay: .08s }
+@keyframes rise { from { transform: translateY(10px) } to { transform: none } }
+.card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px }
+.card-head h2 { margin: 0; font: 700 1.15rem var(--f-display); letter-spacing: -.01em }
+.reset { display: inline-flex; align-items: center; gap: 6px; font: 600 13px var(--f-body); color: var(--muted); background: var(--field); border: 1px solid transparent; border-radius: 999px; padding: 6px 12px; cursor: pointer; transition: color .15s, border-color .15s }
+.reset:hover { color: var(--accent); border-color: var(--line) }
+.reset:hover svg { transform: rotate(-60deg) }
+.reset svg { transition: transform .3s }
+.toast { margin: -8px 0 14px; padding: 8px 12px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); font-size: 13px; font-weight: 600 }
+
+/* Form */
+form { display: grid }
+.group { display: grid; gap: 14px; padding-block: 20px }
+.group:first-child { padding-top: 0 }
+.group + .group { border-top: 1px solid var(--line) }
+.fold:last-child .fold-body { padding-bottom: 0 }
+.fold:last-child:not([open]) summary { padding-bottom: 0 }
+.group-title { font: 600 11px/1 var(--f-body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 }
+/* Collapsible sections: header row shows the current setting so the form stays short when closed */
+.fold { display: block; padding-block: 0 !important }
+.fold summary { list-style: none; display: flex; align-items: center; gap: 10px; cursor: pointer; padding-block: 16px; border-radius: 8px }
+.fold summary::-webkit-details-marker { display: none }
+.fold summary .group-title { color: var(--ink); font-size: 12px }
+.fold summary .sum { margin-left: auto; font-size: 13px; font-weight: 600; color: var(--accent); text-align: right; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.fold summary::after { content: ""; flex: none; width: 8px; height: 8px; border-right: 1.8px solid var(--muted); border-bottom: 1.8px solid var(--muted); transform: rotate(45deg) translateY(-3px); transition: transform .2s }
+.fold[open] summary::after { transform: rotate(-135deg) translateX(-2px) }
+.fold summary:hover .group-title { color: var(--accent) }
+.fold summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px }
+.fold-body { display: grid; gap: 14px; padding: 2px 0 20px }
+label { display: grid; gap: 6px; font-weight: 600; font-size: 13.5px }
+label small { font-weight: 400; font-size: 12.5px; color: var(--muted); line-height: 1.4 }
+select, input[type="number"], input[type="search"], input[type="text"], input[type="month"] {
+  font: 500 15px var(--f-body); color: var(--ink); background-color: var(--field); border: 1px solid transparent; border-radius: 10px;
+  padding: 11px 12px; width: 100%; transition: border-color .15s, background-color .15s }
+select { appearance: none; padding-right: 36px; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%238a9794' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center }
+select:hover, input:hover { border-color: var(--line) }
+select:focus-visible, input:focus-visible, button:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft) }
+.chips { display: flex; flex-wrap: wrap; gap: 6px }
+.chips button { font: 600 13px var(--f-body); border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 6px 12px; cursor: pointer }
+.chips button:hover { border-color: var(--accent) }
+.chips button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent) }
+.check { display: flex; align-items: center; gap: 10px; font-weight: 500; cursor: pointer }
+.check input { width: 18px; height: 18px; accent-color: var(--accent); margin: 0 }
+
+/* Pension row and add-your-own allowance / deduction rows */
+.nps-row { display: grid; grid-template-columns: 1fr auto 92px; gap: 8px; align-items: center }
+.nps-row select { width: auto; padding-block: 9px }
+.nps-row :disabled { opacity: .45; cursor: not-allowed }
+.pct { position: relative }
+.pct input { padding-right: 28px; padding-block: 9px }
+.pct span { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none }
+.hint { font-size: 12.5px; color: var(--muted); line-height: 1.4; margin-top: -6px }
+.items { display: grid; gap: 8px }
+.items:empty { display: none }
+.item { display: grid; grid-template-columns: minmax(0, 1fr) 112px 32px; gap: 6px; align-items: center }
+.item input { padding: 9px 10px; font-size: 14px }
+.item .rm { width: 32px; height: 32px; border: 0; border-radius: 8px; background: none; color: var(--muted); font-size: 18px; cursor: pointer }
+.item .rm:hover { background: var(--field); color: var(--ink) }
+.quick { display: flex; flex-wrap: wrap; gap: 6px }
+.quick button { font: 500 12.5px var(--f-body); color: var(--accent); background: none; border: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent); border-radius: 999px; padding: 5px 11px; cursor: pointer }
+.quick button:hover { background: var(--accent-soft); border-style: solid }
+tr.ded td:not(:first-child) { color: var(--muted) }
+tr.tax td:first-child button { font: inherit; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px }
+
+/* Income tax inputs */
+.sub-title { margin: 4px 0 -4px; font-weight: 600; font-size: 13.5px }
+.sub-title small { font-weight: 400; color: var(--muted); font-size: 12.5px }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px }
+.pair label { font-size: 12.5px; font-weight: 500; color: var(--muted) }
+.pair input { padding: 9px 10px; font-size: 14px }
+
+/* Tax breakdown panel */
+.taxbox { border: 1px solid var(--line); border-radius: 12px; overflow: hidden }
+.taxbox summary { list-style: none; display: flex; align-items: center; gap: 10px; padding: 14px 16px; cursor: pointer; font-weight: 600; color: var(--accent) }
+.taxbox summary::-webkit-details-marker { display: none }
+.taxbox summary::after { content: ""; flex: none; width: 8px; height: 8px; border-right: 1.8px solid currentColor; border-bottom: 1.8px solid currentColor; transform: rotate(45deg) translateY(-3px); transition: transform .2s }
+.taxbox[open] summary::after { transform: rotate(-135deg) translateX(-2px) }
+.taxbox summary .sum { margin-left: auto; font-size: 12.5px; font-weight: 600; color: var(--gain) }
+.taxbox summary:hover { background: var(--accent-soft) }
+.taxdetail { padding: 4px 16px 16px; display: grid; gap: 18px }
+.taxdetail h3 { margin: 0 0 6px; font: 600 11px/1.2 var(--f-body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted) }
+.taxdetail table { font-size: 13.5px }
+.taxdetail td, .taxdetail th { padding: 8px 4px }
+.taxdetail tbody td { font-weight: 500 }
+.taxdetail th.pick, .taxdetail td.pick { color: var(--accent); font-weight: 700 }
+.taxdetail tr.sep td { border-top: 1.5px solid var(--ink); font-weight: 700 }
+.taxdetail .muted { color: var(--muted) }
+.verdict { padding: 10px 12px; border-radius: 10px; background: var(--accent-soft); font-size: 13.5px }
+.verdict b { color: var(--accent) }
+@media (max-width: 480px) { .pair { grid-template-columns: 1fr } }
+
+/* Result card */
+.result { display: grid; gap: 20px; position: sticky; top: calc(20px + env(safe-area-inset-top, 0px)) }
+/* Take-home hero: deep teal gradient with a faint rupee watermark and a slow sheen */
+.hero { position: relative; overflow: hidden; isolation: isolate; display: grid; gap: 8px; padding: 24px; border-radius: 16px; color: var(--on-hero);
+  background: radial-gradient(120% 140% at 100% 0%, rgba(255,255,255,.14), transparent 55%), linear-gradient(135deg, var(--hero-b), var(--hero-a));
+  box-shadow: 0 14px 30px -14px var(--hero-a), inset 0 1px 0 rgba(255,255,255,.18) }
+.hero::before { content: "₹"; position: absolute; right: -6px; bottom: -46px; z-index: -1; font: 700 190px/1 var(--f-display); color: rgba(255,255,255,.08); transform: rotate(-12deg) }
+.hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.12) 50%, transparent 65%);
+  transform: translateX(-100%); animation: sheen 6s ease-in-out 1s infinite }
+@keyframes sheen { 0%, 60% { transform: translateX(-100%) } 100% { transform: translateX(100%) } }
+.hero-label { font-size: 13px; font-weight: 600; color: var(--on-hero-muted); letter-spacing: .01em }
+.hero-amt { font: 700 clamp(2.4rem, 5.5vw, 3.4rem)/1 var(--f-display); letter-spacing: -.03em; text-shadow: 0 2px 12px rgba(0,0,0,.12) }
+.hero-sub { color: var(--on-hero-muted); font-size: 14px; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center }
+.hero-sub b { color: var(--on-hero) }
+.pill { font-weight: 700; font-size: 13px; color: #0b3d33; background: #d9f7ea; padding: 4px 10px; border-radius: 999px }
+.result h2 { font: 600 11px/1 var(--f-body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 }
+
+.statement { overflow-x: auto }
+table { width: 100%; border-collapse: collapse }
+th, td { padding: 12px 4px; text-align: right; white-space: nowrap }
+th:first-child, td:first-child { text-align: left; white-space: normal }
+thead th { font-size: 12px; font-weight: 600; color: var(--muted); padding-top: 0 }
+tbody td { border-top: 1px solid var(--line); font-weight: 600 }
+td:first-child { font-weight: 500 }
+td small { display: block; color: var(--muted); font-size: 12px; font-weight: 400 }
+tr.total td { font-weight: 700; border-top: 1.5px solid var(--ink) }
+tr.net td { color: var(--accent); font-weight: 700; font-size: 16px }
+.c7 + .cpc8 { padding-left: 20px }
+.wrap[data-mode="7"] .only8, .wrap[data-mode="7"] .cpc8, .wrap[data-mode="8"] .c7 { display: none }
+
+.note { font-size: 13px; color: var(--muted); max-width: 72ch; margin: 0 auto; text-align: center; line-height: 1.6 }
+.note b { color: var(--ink); font-weight: 600 }
+/* Disclaimer: quiet framed block at the foot of the page */
+.disclaimer { border: 1px solid var(--line); border-radius: calc(var(--r) + 4px); background: var(--glass); padding: 22px 24px; display: grid; gap: 14px }
+.disclaimer h2 { margin: 0; font: 700 1.05rem var(--f-display); display: flex; align-items: center; gap: 8px }
+.disclaimer h2::before { content: "!"; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; font: 700 13px var(--f-body); color: var(--gold); border: 1.5px solid var(--gold) }
+.disc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 28px }
+.disc-grid p { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--muted) }
+.disc-grid b { color: var(--ink); font-weight: 600; display: block; margin-bottom: 2px }
+.disc-date { margin: 0; font-size: 12px; color: var(--muted); padding-top: 12px; border-top: 1px solid var(--line) }
+@media (max-width: 700px) { .disc-grid { grid-template-columns: 1fr } .disclaimer { padding: 18px } }
+footer { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 16px; justify-content: center; text-align: center }
+footer a { color: var(--accent); font-weight: 600; text-underline-offset: 3px }
+footer button { font: inherit; color: var(--accent); background: none; border: 0; padding: 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer }
+
+/* Ads: soft framed slots at the sides and bottom */
+.ad-side, .ad-bottom { position: fixed; z-index: 20; background: var(--surface); border: 1px dashed var(--line); border-radius: 12px;
+  display: grid; place-items: center; text-align: center; padding: 8px; font-size: 14px; color: var(--muted); overflow: hidden }
+.ad-side { width: var(--ad-w); height: min(var(--ad-h), calc(100vh - var(--bot-h) - 48px));
+  top: calc(50% - var(--bot-h) / 2 - 12px); transform: translateY(-50%) }
+.ad-side .tag, .ad-bottom .tag, .vid-tag { position: absolute; top: 6px; left: 8px; font: 600 10px var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted) }
+.ad-side .x, .ad-bottom .x { position: absolute; top: 3px; right: 6px; border: 0; background: none; color: var(--muted); font-size: 18px; cursor: pointer; line-height: 1 }
+.ad-side b, .ad-bottom b { display: block; font: 600 1.2em var(--f-display); color: var(--ink) }
+.ad-side.left { left: 16px } .ad-side.right { right: 16px }
+.ad-bottom { left: 50%; transform: translateX(-50%); bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  width: min(var(--bot-w), calc(100vw - 2 * var(--ad-w) - 64px)); height: var(--bot-h) }
+
+/* Privacy policy panel */
+.policy-overlay { position: fixed; inset: 0; z-index: 60; background: rgba(6,12,11,.55); backdrop-filter: blur(4px); display: grid; place-items: center; padding: 16px; animation: fadeIn .18s ease-out }
+.policy-panel { position: relative; width: min(720px, 100%); max-height: min(86vh, 900px); overflow-y: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
+  padding: clamp(22px, 4vw, 40px); box-shadow: 0 30px 60px -20px rgba(0,0,0,.35); animation: popIn .22s cubic-bezier(.2,.8,.2,1) }
+@keyframes fadeIn { from { opacity: .4 } }
+@keyframes popIn { from { transform: translateY(12px) scale(.98) } }
+.policy-close { position: sticky; top: 0; float: right; width: 36px; height: 36px; margin: -8px -8px 0 8px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 20px; line-height: 1; cursor: pointer; z-index: 1 }
+.policy-close:hover { color: var(--accent); border-color: var(--accent) }
+#policyBody h1 { font: 700 clamp(1.7rem, 4vw, 2.3rem)/1.1 var(--f-display); letter-spacing: -.02em; margin: 0 0 6px }
+#policyBody h2 { font: 700 1.1rem/1.3 var(--f-display); margin: 26px 0 8px }
+#policyBody p, #policyBody li { font-size: 14.5px; line-height: 1.65; max-width: 66ch }
+#policyBody p { margin: 0 0 10px }
+#policyBody ul { padding-left: 20px; margin: 0 0 10px }
+#policyBody a { color: var(--accent) }
+#policyBody .date { color: var(--muted); font-size: 13.5px; margin-bottom: 18px }
+#policyBody .summary { background: var(--accent-soft); border-radius: 12px; padding: 14px 16px; margin-bottom: 6px }
+#policyBody .summary p { margin: 0 }
+#policyBody .fill { background: color-mix(in srgb, var(--gold) 22%, transparent); border-radius: 4px; padding: 0 4px; font-weight: 600 }
+#policyBody h2 { scroll-margin-top: 44px }
+#policyBody h3 { font: 600 15px/1.4 var(--f-body); margin: 16px 0 6px }
+#policyBody ol { padding-left: 20px; margin: 0 0 10px }
+#policyBody .summary ul { margin: 0 } #policyBody .summary li { margin-bottom: 3px }
+#policyBody .toc { border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; margin: 18px 0 6px }
+#policyBody .toc p { font-weight: 600; margin: 0 0 6px }
+#policyBody .toc ol { columns: 2; column-gap: 28px; margin: 0 } #policyBody .toc li { font-size: 13.5px; margin-bottom: 3px; break-inside: avoid }
+#policyBody .table-wrap { overflow-x: auto; margin: 0 0 12px }
+#policyBody table { min-width: 520px; font-size: 13.5px }
+#policyBody th, #policyBody td { text-align: left; vertical-align: top; padding: 8px 10px; white-space: normal; border-bottom: 1px solid var(--line); border-top: 0; font-weight: 400 }
+#policyBody th { font-weight: 600; color: var(--muted); font-size: 12.5px; background: color-mix(in srgb, var(--accent-soft) 50%, transparent) }
+#policyBody .contact { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; margin: 0 0 10px }
+#policyBody .contact p { margin: 0 0 4px }
+@media (max-width: 560px) { #policyBody .toc ol { columns: 1 } }
+
+/* Video ad */
+.vid-overlay { position: fixed; inset: 0; z-index: 50; background: rgba(6,12,11,.8); backdrop-filter: blur(4px); display: grid; place-items: center; padding: 16px }
+.vid-box { position: relative; width: min(640px, 100%); background: #000; border-radius: 14px; overflow: hidden }
+.vid-box video, .vid-box canvas { display: block; width: 100%; aspect-ratio: 16/9; max-width: 100% }
+.vid-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; background: #121a19; color: #cfd8d6; font-size: 13px }
+.vid-bar button { font: 600 13px var(--f-body); background: #fff; color: #111; border: 0; border-radius: 999px; padding: 7px 14px; cursor: pointer }
+.vid-bar button:disabled { opacity: .5; cursor: default }
+.vid-tag { color: #cfd8d6; z-index: 1 }
+
+@media (max-width: 1500px) { :root { --ad-w: 240px } }
+@media (max-width: 1300px) { :root { --ad-w: 160px } .ad-side { font-size: 13px } }
+@media (max-width: 1100px) { :root { --ad-w: 120px } .ad-side { font-size: 12px } }
+/* In-page ad banners and the result bar exist only on phones */
+.ad-inline, .mbar { display: none }
+@media (max-width: 860px) {
+  /* Phones: the side ads become in-page 320×100 banners, the bottom ad becomes a slim 320×50 strip along the
+     bottom edge, and a result bar sits above it while the results card is out of view */
+  :root { --ad-w: 0px; --bot-w: 100%; --bot-h: 60px; --mbar-h: 56px }
+  body { padding-inline: 16px; padding-block: 20px calc(var(--bot-h) + var(--mbar-h) + 28px + env(safe-area-inset-bottom, 0px)) }
+  .ad-side { display: none }
+  .ad-bottom { left: 0; right: 0; bottom: 0; transform: none; width: 100%; height: calc(var(--bot-h) + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px); border-radius: 0; border-width: 1px 0 0; border-style: solid; font-size: 12px }
+  .ad-bottom b { display: inline; font-size: 1em; margin-right: 6px }
+  .ad-inline { position: relative; display: grid; place-items: center; text-align: center; min-height: 100px; padding: 18px 12px 12px;
+    background: var(--surface); border: 1px dashed var(--line); border-radius: 12px; color: var(--muted); font-size: 13px }
+  .ad-inline .tag { position: absolute; top: 6px; left: 8px; font: 600 10px var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted) }
+  .ad-inline .x { position: absolute; top: 3px; right: 6px; border: 0; background: none; color: var(--muted); font-size: 18px; cursor: pointer; line-height: 1 }
+  .ad-inline b { display: block; font: 600 1.1em var(--f-display); color: var(--ink) }
+
+  .wrap { gap: 20px }
+  header { gap: 8px }
+  .emblem { width: 42px; height: 42px; border-radius: 13px; font-size: 21px }
+  header h1 { font-size: clamp(1.75rem, 8.5vw, 2.3rem) }
+  .tabs button { font-size: 13px; padding: 10px 6px }
+  .subtabs { margin-top: -8px }
+  .grid { grid-template-columns: 1fr; gap: 16px }
+  .result { position: static }
+  .card { padding: 18px 16px; border-radius: var(--r) }
+  .card-head { margin-bottom: 10px }
+  .fold summary .group-title { font-size: 11.5px; letter-spacing: .08em }
+  .fold summary .sum { max-width: 55%; font-size: 12.5px }
+  select, input[type="number"], input[type="search"], input[type="text"], input[type="month"] { font-size: 16px }  /* stops iOS zooming into fields */
+  .nps-row { grid-template-columns: 1fr auto 84px }
+  .item { grid-template-columns: minmax(0, 1fr) 96px 32px }
+  .hero { padding: 18px }
+  .hero::before { font-size: 150px; bottom: -38px }
+  .hero-sub { font-size: 13px; gap: 4px 12px }
+  th, td { padding: 10px 2px }
+  td { font-size: 14px }
+  td small { font-size: 11.5px }
+  .taxbox summary { padding: 13px 14px; font-size: 14px }
+  .taxdetail { padding: 4px 12px 14px }
+  .arr-months { padding: 0 1px 10px }
+  .arr-table td { font-size: 12.5px }
+  .arr-table th { font-size: 11.5px; white-space: normal }
+  .arr-table th, .arr-table td { padding: 8px 2px }
+  .arr-table td small { font-size: 10.5px }
+  .disclaimer { padding: 18px 16px }
+  footer { flex-direction: column; align-items: center; gap: 10px }
+  .policy-overlay { padding: 10px; align-items: end }
+  .policy-panel { max-height: 88vh; border-radius: 18px; padding: 20px 18px }
+  .vid-overlay { padding: 10px }
+
+  /* Result bar: shows the headline figure while you edit the form */
+  .mbar { position: fixed; left: 10px; right: 10px; bottom: calc(var(--bot-h) + 8px + env(safe-area-inset-bottom, 0px)); z-index: 25;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; height: var(--mbar-h); padding: 0 8px 0 16px;
+    border-radius: 14px; color: #fff; background: linear-gradient(135deg, var(--hero-b), var(--hero-a)); box-shadow: 0 10px 24px -10px var(--hero-a);
+    transform: translateY(0); opacity: 1; transition: transform .25s, opacity .25s }
+  .mbar.away { transform: translateY(calc(100% + var(--bot-h))); opacity: 0; pointer-events: none }
+  .mbar div { display: grid; line-height: 1.2 }
+  .mbar span { font-size: 11.5px; opacity: .8 }
+  .mbar b { font: 700 1.25rem var(--f-display) }
+  .mbar button { font: 600 13px var(--f-body); color: #0b3d33; background: #fff; border: 0; border-radius: 10px; padding: 9px 12px; cursor: pointer }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important } }
+</style>
+
+<!-- Ad slots: replace the inner <div> with your ad network code (e.g. AdSense <ins> tags).
+     Sides: 300×600 on wide screens. Bottom: 728×90 on desktop, 320×100 on phones. -->
+<aside class="ad-side left" aria-label="Advertisement"><span class="tag">Ad</span><button class="x" aria-label="Close ad">×</button><div><b>Your ad here</b>Left side · 300×600</div></aside>
+<aside class="ad-side right" aria-label="Advertisement"><span class="tag">Ad</span><button class="x" aria-label="Close ad">×</button><div><b>Your ad here</b>Right side · 300×600</div></aside>
+<aside class="ad-bottom" aria-label="Advertisement"><span class="tag">Ad</span><button class="x" aria-label="Close ad">×</button><div><b>Your ad here</b>Bottom banner · 728×90</div></aside>
+
+<div class="wrap" id="wrap" data-mode="7" data-view="pay">
+  <header>
+    <span class="emblem" aria-hidden="true">₹</span>
+    <h1>Pay Commission Calculator</h1>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Choose pay commission">
+    <button type="button" role="tab" id="tab7" data-mode="7" aria-selected="true">7th Pay Commission</button>
+    <button type="button" role="tab" id="tab8" data-mode="8" aria-selected="false">8th Pay Commission</button>
+  </div>
+
+  <div class="subtabs only8" role="tablist" aria-label="8th Pay Commission calculator">
+    <button type="button" role="tab" id="viewPay" data-view="pay" aria-selected="true">Monthly pay</button>
+    <button type="button" role="tab" id="viewArr" data-view="arrears" aria-selected="false">Arrears</button>
+  </div>
+
+  <div class="grid">
+    <section class="card" aria-label="Your details">
+      <div class="card-head">
+        <h2>Your details</h2>
+        <button type="button" class="reset" id="resetBtn"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8a5.5 5.5 0 1 0 1.7-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M2 1.5v3.5h3.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Reset</button>
+      </div>
+      <p class="toast" id="toast" role="status" hidden>Calculator reset to the starting values.</p>
+      <form id="f">
+        <div class="group">
+          <p class="group-title">Pay</p>
+          <label for="level">Pay Matrix level
+            <small>Shown with the old 6th CPC Grade Pay. University and college teachers: pick your Academic Grade Pay (AGP).</small>
+            <select id="level"></select></label>
+          <label for="basicSel"><span id="basicLbl">Basic pay (7th CPC Pay Matrix)</span>
+            <select id="basicSel"></select>
+            <small id="basicHint"></small></label>
+          <label for="basic" id="basicOther" hidden>Your 7th CPC basic pay ₹
+            <input id="basic" type="number" min="18000" max="250000" step="100" value="35400" inputmode="numeric"></label>
+        </div>
+
+        <div class="group only8">
+          <p class="group-title">8th Pay Commission</p>
+          <label>Fitment factor <small>Not yet announced. Choose an estimate or type your own.</small>
+            <div class="chips" id="fitChips"></div>
+            <input id="fit" type="number" min="1" max="4" step="0.01" value="2.28" aria-label="Fitment factor"></label>
+        </div>
+
+        <div class="group arrears-only">
+          <p class="group-title">Arrears period</p>
+          <label for="effFrom">8th CPC effective from
+            <small>The date the new pay counts from. Expected to be 1 January 2026.</small>
+            <input id="effFrom" type="month" value="2026-01" min="2026-01" max="2030-12"></label>
+          <label for="implSel">New pay actually starts from
+            <small>The first month the 8th CPC salary is paid. Arrears cover every month before it.</small>
+            <select id="implSel">
+              <option value="2027-07">July 2027</option>
+              <option value="2027-10">October 2027</option>
+              <option value="2028-01" selected>January 2028</option>
+              <option value="2028-04">April 2028</option>
+              <option value="2028-07">July 2028</option>
+              <option value="2029-01">January 2029</option>
+              <option value="custom">Choose another month…</option>
+            </select></label>
+          <label for="implMonth" id="implCustom" hidden>Month the new pay starts
+            <input id="implMonth" type="month" value="2028-01" min="2026-02" max="2031-12"></label>
+          <label for="daStep">Expected DA rise every 6 months
+            <small>Used for both 7th and 8th CPC DA during the arrears period. 7th CPC DA is 60% from January 2026.</small>
+            <div class="pct"><input id="daStep" type="number" min="0" max="10" step="0.5" value="3"><span>%</span></div></label>
+          <label class="check" for="arrInc"><input id="arrInc" type="checkbox" checked> Include yearly increment every July (3%)</label>
+          <p class="sub-title">Include in arrears <small>(basic pay and DA are always included)</small></p>
+          <label class="check" for="arrHra"><input id="arrHra" type="checkbox"> House Rent Allowance (HRA)</label>
+          <div class="arr-slot" id="slotHra"></div>
+          <label class="check" for="arrTa"><input id="arrTa" type="checkbox"> Transport Allowance</label>
+          <div class="arr-slot" id="slotTa" hidden>
+            <label for="taCity">Your city for transport allowance
+              <small>Big cities (Class X) get a higher transport allowance.</small>
+              <select id="taCity">
+                <option value="high">Higher-rate city · Class X (Delhi, Mumbai, Kolkata…)</option>
+                <option value="other">Other city · Class Y or Z</option>
+              </select></label>
+          </div>
+          <label class="check" for="arrNps"><input id="arrNps" type="checkbox"> Deduct NPS / UPS from arrears</label>
+          <div class="arr-slot" id="slotNps"></div>
+          <small class="hint">In the 7th CPC, arrears were paid on basic pay and DA only; HRA and other allowances were revised later without arrears. NPS uses the percentage set under Deductions. Use your basic pay as it was on the effective date.</small>
+          <label class="check" for="arrTaxOn"><input id="arrTaxOn" type="checkbox" checked> Work out income tax on arrears</label>
+          <label for="arrRegime">Tax regime for arrears
+            <select id="arrRegime">
+              <option value="new">New regime (default)</option>
+              <option value="old">Old regime</option>
+            </select></label>
+          <label class="check" for="arr89"><input id="arr89" type="checkbox" checked> Claim relief under Section 89 (Form 10E)</label>
+        </div>
+
+        <details class="group fold fold-hra">
+          <summary><span class="group-title">House Rent Allowance</span><span class="sum" id="sumHra"></span></summary>
+          <div class="fold-body">
+          <label for="citySearch">Search your city
+            <input id="citySearch" type="search" list="cityList" placeholder="e.g. Pune, Lucknow, Kochi" autocomplete="off">
+            <datalist id="cityList"></datalist>
+            <small id="cityMsg">Pick a city to set the HRA class, or choose the class yourself below.</small></label>
+          <label for="city">HRA class
+            <select id="city">
+              <option value="X">X · 50 lakh+ cities (Delhi, Mumbai…)</option>
+              <option value="Y">Y · other large cities</option>
+              <option value="Z">Z · rest of India</option>
+            </select></label>
+          <label for="hra8" class="only8">HRA rates under 8th CPC
+            <small>Not announced yet. Today's rates are 30/20/10% because DA is above 50%.</small>
+            <select id="hra8">
+              <option value="30" selected>Same as today · 30 / 20 / 10%</option>
+              <option value="27">27 / 18 / 9%</option>
+              <option value="24">24 / 16 / 8% · reset, as when the 7th CPC started</option>
+              <option value="auto">Follow 8th CPC DA (7th CPC rule)</option>
+            </select></label>
+          </div>
+        </details>
+
+        <details class="group fold pay-only">
+          <summary><span class="group-title">Dearness Allowance</span><span class="sum" id="sumDa"></span></summary>
+          <div class="fold-body">
+          <label for="da7Sel">DA under 7th CPC
+            <small class="only8">Used to compare with your current pay.</small>
+            <select id="da7Sel"></select></label>
+          <label for="da7" id="da7Manual" hidden>Enter DA % (7th CPC)
+            <input id="da7" type="number" min="0" max="200" step="1" value="60"></label>
+          <label for="da8Sel" class="only8">DA under 8th CPC
+            <small>Resets to 0% when a new pay commission starts, then rises every six months.</small>
+            <select id="da8Sel"></select></label>
+          <label for="da8" id="da8Manual" class="only8" hidden>Enter DA % (8th CPC)
+            <input id="da8" type="number" min="0" max="200" step="1" value="0"></label>
+          </div>
+        </details>
+
+        <details class="group fold pay-only">
+          <summary><span class="group-title">Other allowances</span><span class="sum" id="sumAllow"></span></summary>
+          <div class="fold-body">
+          <div class="items" id="allowList"></div>
+          <div class="quick" id="allowQuick" aria-label="Add an allowance"></div>
+          </div>
+        </details>
+
+        <details class="group fold fold-ded">
+          <summary><span class="group-title">Deductions</span><span class="sum" id="sumDed"></span></summary>
+          <div class="fold-body">
+          <div class="nps-box" id="npsBox">
+          <div class="nps-row">
+            <label class="check" for="nps"><input id="nps" type="checkbox" checked> Pension contribution</label>
+            <select id="npsType" aria-label="Pension scheme">
+              <option value="NPS">NPS</option><option value="UPS">UPS</option>
+            </select>
+            <div class="pct"><input id="npsPct" type="number" min="0" max="100" step="0.5" value="10" aria-label="Pension contribution percent"><span>%</span></div>
+          </div>
+          <small class="hint nps-hint">Percent of basic pay + DA. Untick if you are on GPF (old pension scheme) or add GPF below.</small>
+          <small class="hint arr-nps-hint">Scheme and percent of the extra basic pay + DA deducted from arrears.</small>
+          </div>
+          <div class="items" id="dedList"></div>
+          <div class="quick" id="dedQuick" aria-label="Add a deduction"></div>
+          </div>
+        </details>
+
+        <details class="group fold pay-only">
+          <summary><span class="group-title">Income tax</span><span class="sum" id="sumTax"></span></summary>
+          <div class="fold-body">
+          <label class="check" for="taxOn"><input id="taxOn" type="checkbox" checked> Deduct income tax from take-home</label>
+          <label for="regime">Tax regime
+            <select id="regime">
+              <option value="new">New regime (default)</option>
+              <option value="old">Old regime</option>
+            </select></label>
+          <p class="sub-title">Old regime deductions <small>(yearly amounts, used for the old regime and the comparison)</small></p>
+          <div class="pair">
+            <label for="rent">Rent paid<input id="rent" type="number" min="0" step="1000" placeholder="₹ / year" inputmode="numeric"></label>
+            <label for="inv80c">80C investments<input id="inv80c" type="number" min="0" step="1000" placeholder="₹ / year" inputmode="numeric"></label>
+            <label for="nps1b">80CCD(1B) extra NPS<input id="nps1b" type="number" min="0" step="1000" placeholder="up to ₹50,000" inputmode="numeric"></label>
+            <label for="med80d">80D health insurance<input id="med80d" type="number" min="0" step="1000" placeholder="₹ / year" inputmode="numeric"></label>
+            <label for="homeLoan">Home loan interest<input id="homeLoan" type="number" min="0" step="1000" placeholder="up to ₹2,00,000" inputmode="numeric"></label>
+          </div>
+          <small class="hint">80C already includes your NPS/UPS contribution and any GPF you added. Add PPF, LIC, ELSS, tuition fees and similar here.</small>
+          </div>
+        </details>
+      </form>
+    </section>
+
+    <!-- Phone-only ad banner between the form and the results (replaces the side ads on small screens) -->
+    <aside class="ad-inline" aria-label="Advertisement"><span class="tag">Ad</span><button class="x" aria-label="Close ad">×</button><div><b>Your ad here</b>In-page banner · 320×100</div></aside>
+
+    <section class="card result" id="resultCard" aria-labelledby="outTitle">
+      <div class="arrears-only arr-result">
+        <div class="hero">
+          <span class="hero-label" id="arrLbl">Estimated arrears receivable after tax</span>
+          <span class="hero-amt" id="arrAmt">₹0</span>
+          <div class="hero-sub"><span id="arrPeriod"></span></div>
+          <div class="hero-sub"><span>Gross arrears <b id="arrGross">₹0</b></span><span id="arrTaxWrap">Tax <b id="arrTaxHero">₹0</b></span><span id="arrNpsWrap"><span id="arrNpsLbl">NPS</span> <b id="arrNpsHero">₹0</b></span></div>
+        </div>
+        <details class="taxbox" id="arrMonthBox">
+          <summary><span>Show month-by-month arrears</span><span class="sum" id="arrMonthSum"></span></summary>
+          <div class="statement arr-months">
+            <table class="arr-table">
+              <thead><tr><th>Period</th><th>7th CPC paid<small>per month</small></th><th>8th CPC due<small>per month</small></th><th>Arrears</th></tr></thead>
+              <tbody id="arrRows"></tbody>
+            </table>
+          </div>
+        </details>
+        <details class="taxbox" id="arrTaxBox">
+          <summary><span>See how tax on arrears is worked out</span><span class="sum" id="arrTaxVerdict"></span></summary>
+          <div id="arrTaxDetail" class="taxdetail"></div>
+        </details>
+        <p class="arr-note" id="arrNote"></p>
+      </div>
+      <div class="pay-only">
+      <div class="hero">
+        <span class="hero-label" id="heroLbl">Monthly take-home · 7th CPC</span>
+        <span class="hero-amt" id="heroAmt">₹0</span>
+        <div class="hero-sub"><span>Gross <b id="heroGross">₹0</b></span><span id="heroTaxWrap">Tax <b id="heroTax">₹0</b></span>
+          <span class="pill only8" id="hikePill"><span id="hikeAmt">₹0</span> · <span id="hikePct">0%</span> vs 7th CPC</span></div>
+      </div>
+      <h2 id="outTitle">Monthly pay statement</h2>
+      <div class="statement">
+        <table>
+          <thead><tr><th>Component</th><th class="c7">7th CPC</th><th class="cpc8">8th CPC (est.)</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <details class="taxbox" id="taxBox">
+        <summary><span>See detailed tax breakdown</span><span class="sum" id="taxVerdict"></span></summary>
+        <div id="taxDetail" class="taxdetail"></div>
+      </details>
+      </div>
+    </section>
+  </div>
+
+  <p class="note"><b>How this is worked out.</b> The city search uses the 7th CPC X and Y city lists; Noida, Ghaziabad, Gurugram and Faridabad are treated as Delhi, and any city not listed is Class Z. HRA is 30/20/10% of basic when DA is 50% or more, 27/18/9% between 25% and 50%, and 24/16/8% below 25%, with minimums of ₹5,400/₹3,600/₹1,800. Transport Allowance uses the 7th CPC slabs (X city treated as a higher-TA city) plus DA on it. 8th CPC figures are estimates: new basic = 7th CPC basic × fitment factor, rounded to ₹100. 8th CPC HRA uses the rates you choose in the HRA section (today's 30/20/10% by default), and transport allowance follows the 7th CPC rules. Allowances and deductions you add use the same monthly amount in both pay commissions; suggested amounts (CGHS and CGEGIS by level, Children Education Allowance for one child, professional tax) can be edited. Income tax is worked out for a full year at this monthly pay, using the new and old regime slabs from the Union Budget 2025.</p>
+
+  <!-- Phone-only ad banner after the results -->
+  <aside class="ad-inline" aria-label="Advertisement"><span class="tag">Ad</span><button class="x" aria-label="Close ad">×</button><div><b>Your ad here</b>In-page banner · 320×100</div></aside>
+
+  <section class="disclaimer" aria-labelledby="discTitle">
+    <h2 id="discTitle">Disclaimer</h2>
+    <div class="disc-grid">
+      <p><b>For information only.</b> This calculator gives estimates for general guidance. It is not an official tool and does not replace your pay slip, pay fixation order, or any order issued by your department.</p>
+      <p><b>Not affiliated with the Government.</b> This website is independent. It is not connected to, endorsed by, or run on behalf of the Government of India, any State Government, the Ministry of Finance, DoPT, UGC, or any Pay Commission.</p>
+      <p><b>8th Pay Commission figures are projections.</b> The 8th CPC fitment factor, pay matrix, DA and allowance rates have not been notified. All 8th CPC amounts are assumptions and may differ from what is finally announced.</p>
+      <p><b>Not tax, legal or financial advice.</b> Income tax figures are approximate and leave out many personal factors. Consult a qualified tax professional or your Drawing and Disbursing Officer (DDO) before making decisions.</p>
+      <p><b>Check before you rely on it.</b> Pay matrix values, DA and HRA rates, city classes and tax slabs are compiled from public sources and may contain errors or be out of date. Always confirm with official Government notifications.</p>
+      <p><b>No liability.</b> This website is provided "as is", without any warranty of accuracy or completeness. The owner of this website is not responsible for any loss, claim or decision arising from its use. By using this calculator you accept these terms.</p>
+      <p><b>Your data stays with you.</b> All calculations run in your browser. The figures you enter are not saved or sent anywhere by this calculator.</p>
+      <p><b>Advertisements.</b> Ads are shown by third parties. Their appearance here is not an endorsement of any product, service or offer.</p>
+    </div>
+    <p class="disc-date">Rates last reviewed: September 2026.</p>
+  </section>
+
+  <footer>
+    <span>© 2026 Pay Commission Calculator · Estimates only, not an official Government tool.</span>
+    <a href="terms.html" id="termsLink" data-doc>Terms of Use</a>
+    <a href="privacy.html" id="privacyLink" data-doc>Privacy Policy</a>
+    <button type="button" id="testVid">Preview video ad</button>
+  </footer>
+</div>
+
+<!-- Phone-only result bar: headline figure while the results card is off screen -->
+<div class="mbar away" id="mbar" aria-live="polite">
+  <div><span id="mbarLbl">Monthly take-home</span><b id="mbarAmt">₹0</b></div>
+  <button type="button" id="mbarBtn">See details</button>
+</div>
+
+<!-- Legal page panel: filled from privacy.html or terms.html, opens instantly -->
+<div class="policy-overlay" id="policy" hidden role="dialog" aria-modal="true" aria-label="Privacy Policy">
+  <div class="policy-panel">
+    <button type="button" class="policy-close" id="policyClose" aria-label="Close privacy policy">×</button>
+    <div id="policyBody"></div>
+  </div>
+</div>
+
+<!-- Video ad overlay -->
+<div class="vid-overlay" id="vid" hidden role="dialog" aria-modal="true" aria-label="Video advertisement">
+  <div class="vid-box">
+    <span class="vid-tag">Ad</span>
+    <div id="vidMedia"></div>
+    <div class="vid-bar"><span id="vidMsg">Ad · you can skip in 5s</span><button id="vidSkip" disabled>Skip ad</button></div>
+  </div>
+</div>
+
+<script>
+/* ===== Ad settings ===== */
+const VIDEO_AD_SRC = "";            // put your .mp4 URL here; empty = animated placeholder
+const VIDEO_AD_EVERY_MS = 5 * 60 * 1000; // every 5 minutes
+const VIDEO_SKIP_AFTER_S = 5;
+const VIDEO_MAX_S = 15;
+
+/* ===== 7th CPC Pay Matrix: [level, entry pay, number of cells, 6th CPC pay band / grade pay] ===== */
+const LEVELS = [["1",18000,40,"PB-1 · GP 1800"],["2",19900,40,"PB-1 · GP 1900"],["3",21700,40,"PB-1 · GP 2000"],["4",25500,40,"PB-1 · GP 2400"],
+  ["5",29200,40,"PB-1 · GP 2800"],["6",35400,40,"PB-2 · GP 4200"],["7",44900,40,"PB-2 · GP 4600"],["8",47600,40,"PB-2 · GP 4800"],
+  ["9",53100,40,"PB-2 · GP 5400"],["10",56100,40,"PB-3 · GP 5400"],["11",67700,39,"PB-3 · GP 6600"],["12",78800,34,"PB-3 · GP 7600"],
+  ["13",123100,20,"PB-4 · GP 8700"],["13A",131100,18,"PB-4 · GP 8900"],["14",144200,15,"PB-4 · GP 10000"],["15",182200,8,"HAG 67000–79000"],
+  ["16",205400,4,"HAG+ 75500–80000"],["17",225000,1,"Apex 80000"],["18",250000,1,"Cabinet Secretary 90000"]];
+/* Academic Pay Matrix (UGC, university and college teachers): [key, entry pay, cells, 6th CPC Academic Grade Pay, level] */
+const ACADEMIC = [["A10",57700,34,"AGP 6000","10"],["A11",68900,34,"AGP 7000","11"],["A12",79800,34,"AGP 8000","12"],
+  ["A13A",131400,18,"AGP 9000","13A"],["A14",144200,15,"AGP 10000","14"]];
+const matrix = {}, levelName = {};
+const build = (p, n) => { const c = [p]; for (let i = 1; i < n; i++) c.push(Math.round(c[i-1] * 1.03 / 100) * 100); return c; };
+LEVELS.forEach(([l, p, n]) => { matrix[l] = build(p, n); levelName[l] = `Level ${l}`; });
+ACADEMIC.forEach(([k, p, n, agp, l]) => { matrix[k] = build(p, n); levelName[k] = `Academic Level ${l} (${agp})`; });
+const FITS = [1.92, 2.08, 2.28, 2.57, 2.86];
+
+const $ = id => document.getElementById(id);
+const inr = n => "₹" + Math.round(n).toLocaleString("en-IN");
+const levelNum = l => parseFloat(l.replace(/^A/, "")); // "13A" -> 13, "A12" -> 12
+
+$("level").innerHTML =
+  `<optgroup label="7th CPC Pay Matrix (6th CPC Grade Pay)">` +
+  LEVELS.map(([l, p, , gp]) => `<option value="${l}">Level ${l} · ${gp} · from ${inr(p)}</option>`).join("") + `</optgroup>` +
+  `<optgroup label="Academic Pay Matrix · UGC (Academic Grade Pay)">` +
+  ACADEMIC.map(([k, p, , agp, l]) => `<option value="${k}">Academic Level ${l} · ${agp} · from ${inr(p)}</option>`).join("") + `</optgroup>`;
+$("level").value = "6";
+const mode = () => $("wrap").dataset.mode;
+const fitVal = () => Math.max(1, +$("fit").value || 1);
+const to8 = b => Math.round(b * fitVal() / 100) * 100;
+
+/* Basic pay dropdown: the level's Pay Matrix amounts. In the 8th tab each option also shows the estimated 8th CPC basic. */
+function fillBasic() {
+  const cells = matrix[$("level").value], prev = $("basicSel").value, eighth = mode() === "8";
+  $("basicLbl").textContent = eighth ? "Basic pay (current 7th CPC → estimated 8th CPC)" : "Basic pay (7th CPC Pay Matrix)";
+  $("basicSel").innerHTML = cells.map(p =>
+    `<option value="${p}">${eighth ? `${inr(p)} → ${inr(to8(p))}` : inr(p)}</option>`).join("")
+    + `<option value="other">Other amount…</option>`;
+  $("basicSel").value = [...$("basicSel").options].some(o => o.value === prev) ? prev : String(cells[0]);
+  basicHint();
+}
+function basicHint() {
+  const other = $("basicSel").value === "other";
+  $("basicOther").hidden = !other;
+  const cells = matrix[$("level").value], lo = cells[0], hi = cells[cells.length - 1], b = +$("basic").value;
+  const name = levelName[$("level").value];
+  const range = lo === hi ? `${name} has one basic pay: ${inr(lo)}.` : `${name}: ${inr(lo)} to ${inr(hi)}.`;
+  $("basicHint").textContent = other && b && (b < lo || b > hi) ? `${inr(b)} is outside this level. ${range}` : range;
+}
+function basic7() { return $("basicSel").value === "other" ? Math.max(0, +$("basic").value || 0) : +$("basicSel").value; }
+/* ===== HRA city classification (7th CPC, Ministry of Finance list). Cities not listed are class Z. ===== */
+const CITIES = {
+  X: ["Ahmedabad","Bengaluru (Bangalore)","Chennai","Delhi","New Delhi","Hyderabad","Secunderabad","Kolkata","Howrah","Mumbai","Navi Mumbai","Thane","Pune",
+      "Noida","Greater Noida","Ghaziabad","Gurugram (Gurgaon)","Faridabad"],
+  Y: ["Agra","Ajmer","Aligarh","Amravati","Amritsar","Anand","Asansol","Aurangabad","Bareilly","Belagavi (Belgaum)","Bhavnagar","Bhilai","Bhiwandi","Bhopal",
+      "Bhubaneswar","Bikaner","Bilaspur","Bokaro Steel City","Chandigarh","Coimbatore","Cuttack","Dehradun","Dhanbad","Durg","Durgapur","Erode","Firozabad",
+      "Gandhinagar","Gorakhpur","Guntur","Guwahati","Gwalior","Hamirpur","Hubballi-Dharwad","Indore","Jabalpur","Jaipur","Jalandhar","Jalgaon","Jammu","Jamnagar",
+      "Jamshedpur","Jhansi","Jodhpur","Kakinada","Kalaburagi (Gulbarga)","Kannur","Kanpur","Karnal","Kochi (Ernakulam)","Kolhapur","Kollam","Kota","Kottayam",
+      "Kozhikode","Kurnool","Lucknow","Ludhiana","Madurai","Malappuram","Malegaon","Mangaluru (Mangalore)","Mathura","Meerut","Moradabad","Mysuru (Mysore)",
+      "Nagpur","Nanded","Nashik","Nellore","Palakkad","Patna","Puducherry","Prayagraj (Allahabad)","Purulia","Raipur","Rajahmundry","Rajkot","Ranchi","Ratlam",
+      "Rourkela","Saharanpur","Salem","Sangli","Shimla","Siliguri","Solapur","Srinagar","Surat","Thanjavur","Thiruvananthapuram","Thrissur","Tiruchirappalli",
+      "Tirunelveli","Tiruppur","Tiruvannamalai","Ujjain","Vadodara","Varanasi","Vasai-Virar","Vellore","Vijayapura (Bijapur)","Vijayawada","Visakhapatnam","Warangal"]
+};
+const cityClass = {};
+Object.entries(CITIES).forEach(([cls, list]) => list.forEach(c => cityClass[c.toLowerCase()] = cls));
+$("cityList").innerHTML = [...CITIES.X, ...CITIES.Y].sort().map(c => `<option value="${c}"></option>`).join("");
+const findCity = q => {
+  q = q.trim().toLowerCase(); if (!q) return null;
+  const key = Object.keys(cityClass).find(k => k === q || k.split(" (")[0] === q || k.includes("(" + q + ")"));
+  return key ? { name: [...CITIES.X, ...CITIES.Y].find(c => c.toLowerCase() === key), cls: cityClass[key] } : null;
+};
+const clsText = c => ({ X: "Class X", Y: "Class Y", Z: "Class Z" })[c];
+$("citySearch").addEventListener("input", () => {
+  const q = $("citySearch").value.trim();
+  if (!q) { $("cityMsg").textContent = "Pick a city to set the HRA class, or choose the class yourself below."; return; }
+  const hit = findCity(q);
+  if (hit) { $("city").value = hit.cls; $("cityMsg").textContent = `${hit.name}: ${clsText(hit.cls)}. HRA class set to ${hit.cls}.`; }
+  else if (q.length >= 3 && !Object.keys(cityClass).some(k => k.includes(q.toLowerCase()))) {
+    $("city").value = "Z"; $("cityMsg").textContent = `"${q}" is not on the X or Y list, so it is Class Z. Change the class below if your office says otherwise.`;
+  } else $("cityMsg").textContent = "Keep typing and pick your city from the list.";
+});
+$("city").addEventListener("change", () => {
+  if ($("citySearch").value.trim()) $("cityMsg").textContent = `HRA class chosen manually: ${clsText($("city").value)}.`;
+});
+
+/* ===== DA rates. Edit these lists when the government announces a new rate. ===== */
+const DA7 = [
+  { v: 60, t: "60% · from Jan 2026 (current)", sel: true },
+  { v: 63, t: "63% · Jul 2026 (expected)" },
+  { v: 66, t: "66% · Jan 2027 (expected)" },
+  { v: 69, t: "69% · Jul 2027 (expected)" },
+  { v: 58, t: "58% · Jul 2025" },
+  { v: 55, t: "55% · Jan 2025" },
+  { v: 53, t: "53% · Jul 2024" },
+  { v: 50, t: "50% · Jan 2024" }
+];
+const DA8 = [
+  { v: 0, t: "0% · when 8th CPC starts", sel: true },
+  { v: 3, t: "3% · after 6 months (expected)" },
+  { v: 6, t: "6% · after 1 year (expected)" },
+  { v: 9, t: "9% · after 18 months (expected)" },
+  { v: 12, t: "12% · after 2 years (expected)" }
+];
+function setupDA(sel, input, box, list) {
+  $(sel).innerHTML = list.map(o => `<option value="${o.v}"${o.sel ? " selected" : ""}>${o.t}</option>`).join("")
+    + `<option value="manual">Enter DA % manually…</option>`;
+  const sync = () => {
+    const manual = $(sel).value === "manual";
+    $(box).hidden = !manual;
+    if (!manual) $(input).value = $(sel).value;
+  };
+  // "input" runs on the select before the form's own input handler recalculates
+  $(sel).addEventListener("input", sync); $(sel).addEventListener("change", sync); sync();
+}
+setupDA("da7Sel", "da7", "da7Manual", DA7);
+setupDA("da8Sel", "da8", "da8Manual", DA8);
+
+$("fitChips").innerHTML = FITS.map(f => `<button type="button" data-f="${f}">${f.toFixed(2)}</button>`).join("");
+$("fitChips").addEventListener("click", e => { const f = e.target.dataset.f; if (f) { $("fit").value = f; fillBasic(); calc(); } });
+
+function hraRate(city, da) {
+  const t = da >= 50 ? [30,20,10] : da >= 25 ? [27,18,9] : [24,16,8];
+  return t["XYZ".indexOf(city)] / 100;
+}
+function transport(level, basic, city) {
+  const n = levelNum(level), high = city === "X";
+  if (n >= 9) return high ? 7200 : 3600;
+  if (n >= 3 || basic >= 24200) return high ? 3600 : 1800;
+  return high ? 1350 : 900;
+}
+/* ===== Your own allowances and deductions (same monthly amount under both pay commissions) ===== */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+const lv = () => levelNum($("level").value);
+const ALLOW_PRESETS = [
+  { n: "Children Education Allowance", a: () => 2813 },
+  { n: "Special Duty Allowance", a: () => "" },
+  { n: "Overtime Allowance", a: () => "" },
+  { n: "Night Duty Allowance", a: () => "" },
+  { n: "", a: () => "", label: "Custom" }
+];
+const DED_PRESETS = [
+  { n: "CGHS", a: () => lv() <= 5 ? 250 : lv() === 6 ? 450 : lv() <= 11 ? 650 : 1000 },
+  { n: "CGEGIS", a: () => lv() <= 5 ? 30 : lv() <= 9 ? 60 : 120 },
+  { n: "GPF subscription", a: () => "" },
+  { n: "Professional tax", a: () => 200 },
+  { n: "Loan / advance recovery", a: () => "" },
+  { n: "", a: () => "", label: "Custom" }
+];
+function addItem(listId, name, amt) {
+  const row = document.createElement("div"); row.className = "item";
+  row.innerHTML = `<input type="text" class="it-name" placeholder="Name" value="${esc(name)}" aria-label="Name">
+    <input type="number" class="it-amt" min="0" step="1" placeholder="₹ / month" value="${amt}" aria-label="Amount per month">
+    <button type="button" class="rm" aria-label="Remove">×</button>`;
+  row.querySelector(".rm").addEventListener("click", () => { row.remove(); calc(); });
+  $(listId).appendChild(row);
+  (name ? row.querySelector(".it-amt") : row.querySelector(".it-name")).focus();
+  calc();
+}
+function setupQuick(quickId, listId, presets) {
+  $(quickId).innerHTML = presets.map((p, i) => `<button type="button" data-i="${i}">+ ${esc(p.label || p.n)}</button>`).join("");
+  $(quickId).addEventListener("click", e => { const b = e.target.closest("[data-i]"); if (b) { const p = presets[b.dataset.i]; addItem(listId, p.n, p.a()); } });
+}
+setupQuick("allowQuick", "allowList", ALLOW_PRESETS);
+setupQuick("dedQuick", "dedList", DED_PRESETS);
+const readItems = listId => [...$(listId).children].map(r => ({
+  name: r.querySelector(".it-name").value.trim() || "Other", amt: Math.max(0, +r.querySelector(".it-amt").value || 0) }));
+
+/* 8th CPC HRA choice: a fixed rate set (X rate 30/27/24 → Y and Z follow) or "auto" = follow DA like the 7th CPC rule */
+function hraRate8(city, da) {
+  const v = $("hra8").value;
+  if (v === "auto") return hraRate(city, da);
+  const sets = { 30: [30,20,10], 27: [27,18,9], 24: [24,16,8] };
+  return sets[v]["XYZ".indexOf(city)] / 100;
+}
+function pay(basic, daPct, level, city, rateFn = hraRate) {
+  const da = basic * daPct / 100;
+  const rate = rateFn(city, daPct);
+  const hra = Math.max(basic * rate, [5400,3600,1800]["XYZ".indexOf(city)]);
+  const taBase = transport(level, basic, city), ta = taBase * (1 + daPct / 100);
+  const extraA = readItems("allowList").reduce((s, x) => s + x.amt, 0);
+  const extraD = readItems("dedList").reduce((s, x) => s + x.amt, 0);
+  const gross = basic + da + hra + ta + extraA;
+  const npsAmt = $("nps").checked ? (basic + da) * Math.max(0, +$("npsPct").value || 0) / 100 : 0;
+  const totalDed = npsAmt + extraD;
+  return { basic, da, hra, ta, gross, npsAmt, totalDed, net: gross - totalDed, hraPct: Math.round(rate * 100) };
+}
+
+/* ===== Income tax (salary income, full year at this monthly pay). Edit the slabs here if the Budget changes them. ===== */
+const TAX = {
+  new: { std: 75000, slabs: [[400000, 0], [800000, .05], [1200000, .10], [1600000, .15], [2000000, .20], [2400000, .25], [Infinity, .30]],
+         rebateUpTo: 1200000, marginalRebate: true, maxSurcharge: .25 },
+  old: { std: 50000, slabs: [[250000, 0], [500000, .05], [1000000, .20], [Infinity, .30]],
+         rebateUpTo: 500000, rebateMax: 12500, marginalRebate: false, maxSurcharge: .37 }
+};
+const HRA_50_CITIES = ["delhi", "new delhi", "mumbai", "kolkata", "chennai"]; // 50% HRA exemption; other cities 40%
+const num = id => Math.max(0, +$(id).value || 0);
+function taxCalc(p, regime) {
+  const R = TAX[regime], annual = p.gross * 12, bd = (p.basic + p.da) * 12, deds = readItems("dedList");
+  const pick = re => deds.filter(x => re.test(x.name)).reduce((s, x) => s + x.amt, 0) * 12;
+  const L = { gross: annual, hraEx: 0, std: Math.min(R.std, annual), ptax: 0, c80: 0, c1b: 0, d80: 0, hl: 0 };
+  if (regime === "old") {
+    const rent = num("rent"), hit = findCity($("citySearch").value);
+    const metro = hit && HRA_50_CITIES.includes(hit.name.toLowerCase());
+    L.hraEx = rent ? Math.max(0, Math.min(p.hra * 12, rent - 0.1 * bd, (metro ? .5 : .4) * bd)) : 0;
+    L.ptax = Math.min(2500, pick(/professional tax/i));
+    L.c80 = Math.min(150000, p.npsAmt * 12 + pick(/gpf/i) + num("inv80c"));
+    L.c1b = Math.min(50000, num("nps1b"));
+    L.d80 = Math.min(100000, num("med80d"));
+    L.hl = Math.min(200000, num("homeLoan"));
+  }
+  const taxable = Math.max(0, Math.round((annual - L.hraEx - L.std - L.ptax - L.c80 - L.c1b - L.d80 - L.hl) / 10) * 10);
+  let prev = 0, slabTax = 0; const slabs = [];
+  for (const [upto, rate] of R.slabs) {
+    const part = Math.max(0, Math.min(taxable, upto) - prev);
+    slabs.push({ from: prev, to: upto, rate, amt: part * rate, part });
+    slabTax += part * rate; prev = upto; if (taxable <= upto) break;
+  }
+  let rebate = 0;
+  if (taxable <= R.rebateUpTo) rebate = R.rebateMax ? Math.min(slabTax, R.rebateMax) : slabTax;
+  else if (R.marginalRebate && slabTax > taxable - R.rebateUpTo) rebate = slabTax - (taxable - R.rebateUpTo);
+  const afterRebate = slabTax - rebate;
+  const sr = taxable > 50000000 ? R.maxSurcharge : taxable > 20000000 ? .25 : taxable > 10000000 ? .15 : taxable > 5000000 ? .10 : 0;
+  const surcharge = afterRebate * sr, cess = (afterRebate + surcharge) * .04;
+  const total = Math.round(afterRebate + surcharge + cess);
+  return { ...L, taxable, slabs, slabTax, rebate, surcharge, cess, total, monthly: total / 12 };
+}
+function renderTax(t, label, regime) {
+  const n = t.new, o = t.old, other = regime === "new" ? "old" : "new";
+  const save = t[other].total - t[regime].total;
+  const best = n.total <= o.total ? "new" : "old";
+  const cls = r => r === regime ? "pick" : "";
+  const line = (lbl, k, sign = "", cl = "") => {
+    if (!n[k] && !o[k] && sign) return "";
+    const v = x => sign ? (x ? sign + inr(x) : "—") : inr(x);
+    return `<tr class="${cl}"><td>${lbl}</td><td class="${cls("new")}">${v(n[k])}</td><td class="${cls("old")}">${v(o[k])}</td></tr>`;
+  };
+  const slabRows = t[regime].slabs.map(s => `<tr><td>${inr(s.from)} – ${s.to === Infinity ? "above" : inr(s.to)}</td><td>${Math.round(s.rate * 100)}%</td><td>${inr(s.part)}</td><td>${inr(s.amt)}</td></tr>`).join("");
+  $("taxDetail").innerHTML = `
+    <div class="verdict">${best === regime
+      ? `The <b>${regime} regime</b> you chose is better here${save > 0 ? `, saving <b>${inr(save)}</b> a year` : ""}.`
+      : `The <b>${best} regime</b> would save you <b>${inr(-save)}</b> a year. Change it under Income tax.`}</div>
+    <div><h3>Yearly tax · ${label}</h3>
+    <div class="statement"><table>
+      <thead><tr><th></th><th class="${cls("new")}">New regime</th><th class="${cls("old")}">Old regime</th></tr></thead>
+      <tbody>
+        ${line("Gross salary (12 months)", "gross")}
+        ${line("HRA exemption", "hraEx", "−")}
+        ${line("Standard deduction", "std", "−")}
+        ${line("Professional tax", "ptax", "−")}
+        ${line("80C (incl. NPS/UPS, GPF)", "c80", "−")}
+        ${line("80CCD(1B) extra NPS", "c1b", "−")}
+        ${line("80D health insurance", "d80", "−")}
+        ${line("Home loan interest", "hl", "−")}
+        ${line("Taxable income", "taxable", "", "sep")}
+        ${line("Tax as per slabs", "slabTax")}
+        ${line("Rebate u/s 87A", "rebate", "−")}
+        ${line("Surcharge", "surcharge", "+")}
+        ${line("Health & education cess (4%)", "cess", "+")}
+        ${line("Total tax for the year", "total", "", "sep")}
+        ${line("Tax per month", "monthly")}
+      </tbody></table></div></div>
+    <div><h3>Slab-wise tax · ${regime} regime</h3>
+    <div class="statement"><table>
+      <thead><tr><th>Income slab</th><th>Rate</th><th>Your income in slab</th><th>Tax</th></tr></thead>
+      <tbody>${slabRows}</tbody></table></div></div>
+    <p class="muted" style="margin:0;font-size:12.5px">Assumes 12 months at this monthly pay. Uses the slab rates set in the Union Budget 2025. Employer NPS contribution is left out because it is added to income and deducted again under 80CCD(2).</p>`;
+  $("taxVerdict").textContent = best === regime ? `${regime === "new" ? "New" : "Old"} regime is better` : `${best === "new" ? "New" : "Old"} regime saves ${inr(-save)}`;
+}
+
+/* Take-home figure rolls smoothly to its new value */
+const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+function countTo(el, target) {
+  const from = el._val ?? 0; el._val = target; cancelAnimationFrame(el._raf);
+  if (calm || Math.abs(target - from) < 1) { el.textContent = inr(target); return; }
+  const t0 = performance.now(), dur = 550;
+  const step = t => { const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+    el.textContent = inr(from + (target - from) * e); if (k < 1) el._raf = requestAnimationFrame(step); };
+  el._raf = requestAnimationFrame(step);
+}
+
+function calc() {
+  const level = $("level").value, city = $("city").value;
+  const b7 = basic7();
+  basicHint();
+  const fit = fitVal();
+  const b8 = to8(b7);
+  const da7 = Math.max(0, +$("da7").value || 0), da8 = Math.max(0, +$("da8").value || 0), nps = $("nps").checked;
+  const a = pay(b7, da7, level, city), b = pay(b8, da8, level, city, hraRate8);
+  const allows = readItems("allowList"), deds = readItems("dedList");
+  const taxOn = $("taxOn").checked, regime = $("regime").value;
+  for (const p of [a, b]) {
+    p.taxes = { new: taxCalc(p, "new"), old: taxCalc(p, "old") };
+    p.tax = taxOn ? p.taxes[regime].monthly : 0;
+    p.totalDed += p.tax; p.net -= p.tax;
+  }
+  const same =(name, amt, cls = "") => `<tr class="${cls}"><td>${esc(name)}</td><td class="c7">${inr(amt)}</td><td class="cpc8">${inr(amt)}</td></tr>`;
+  const npsLbl = `${$("npsType").value} (${+$("npsPct").value || 0}% of basic + DA)`;
+  [...$("fitChips").children].forEach(x => x.setAttribute("aria-pressed", +x.dataset.f === fit));
+  const row = (name, k, cls = "", subA = "", subB = "") =>
+    `<tr class="${cls}"><td>${name}</td><td class="c7">${inr(a[k])}${subA ? `<small>${subA}</small>` : ""}</td><td class="cpc8">${inr(b[k])}${subB ? `<small>${subB}</small>` : ""}</td></tr>`;
+  $("rows").innerHTML =
+    row("Basic pay", "basic", "", "", `× ${fit.toFixed(2)}`) +
+    row("Dearness Allowance", "da", "", `${da7}%`, `${da8}%`) +
+    row("House Rent Allowance", "hra", "", `${a.hraPct}% (${city})`, `${b.hraPct}% (${city})`) +
+    row("Transport Allowance + DA", "ta") +
+    allows.map(x => same(x.name, x.amt)).join("") +
+    row("Gross salary", "gross", "total") +
+    (nps ? row(npsLbl, "npsAmt", "ded") : "") +
+    deds.map(x => same(x.name, x.amt, "ded")).join("") +
+    (taxOn ? row(`<button type="button" data-open-tax>Income tax</button>`, "tax", "ded tax", `${regime} regime · per month`, `${regime} regime · per month`) : "") +
+    (deds.length || taxOn ? row("Total deductions", "totalDed", "ded") : "") +
+    row("Take-home pay", "net", "net");
+  const diff = b.gross - a.gross;
+  $("hikeAmt").textContent = (diff >= 0 ? "+" : "−") + inr(Math.abs(diff));
+  $("hikePct").textContent = (a.gross ? (diff / a.gross * 100).toFixed(1) : 0) + "%";
+  const cur = mode() === "8" ? b : a;
+  $("heroLbl").textContent = mode() === "8" ? "Estimated monthly take-home · 8th CPC" : "Monthly take-home · 7th CPC";
+  countTo($("heroAmt"), cur.net);
+  $("heroGross").textContent = inr(cur.gross);
+  $("heroTaxWrap").hidden = !taxOn;
+  $("heroTax").textContent = inr(cur.tax) + "/mo";
+  renderTax(cur.taxes, mode() === "8" ? "8th CPC pay (estimate)" : "7th CPC pay", regime);
+  $("sumTax").textContent = taxOn ? `${regime === "new" ? "New" : "Old"} regime · ${inr(cur.tax)}/mo` : "Not deducted";
+  // Section summaries shown on the collapsed headers
+  const hit = findCity($("citySearch").value);
+  $("sumHra").textContent = `${hit ? hit.name.split(" (")[0] + " · " : ""}Class ${city} · ${cur.hraPct}%`;
+  $("sumDa").textContent = mode() === "8" ? `${da7}% → ${da8}%` : `${da7}%`;
+  const allowTotal = allows.reduce((s, x) => s + x.amt, 0);
+  $("sumAllow").textContent = allows.length ? `${allows.length} added · +${inr(allowTotal)}` : "None added";
+  $("sumDed").textContent = cur.totalDed ? `−${inr(cur.totalDed)}` : "None";
+  calcArrears(a, b);
+  // Phone result bar mirrors the headline figure of whichever view is showing
+  const arrearsView = mode() === "8" && view() === "arrears";
+  $("mbarLbl").textContent = arrearsView ? "Arrears receivable" : mode() === "8" ? "8th CPC take-home / month" : "Take-home / month";
+  $("mbarAmt").textContent = inr(arrearsView ? $("arrAmt")._val || 0 : cur.net);
+}
+
+/* ===== 8th CPC arrears: month by month from the effective date up to the month before the new pay starts ===== */
+const view = () => $("wrap").dataset.view;
+const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const toIdx = s => { const [y, m] = String(s).split("-").map(Number); return y * 12 + (m - 1); };   // "2026-01" -> month number
+const idxText = i => `${MON[i % 12]} ${Math.floor(i / 12)}`;
+const r100 = x => Math.round(x / 100) * 100;
+const DA7_JAN2026 = 60, JAN2026 = toIdx("2026-01");
+function nextBasic7(b) {                       // next Pay Matrix cell, or +3% for a custom amount
+  const cells = matrix[$("level").value], i = cells.indexOf(b);
+  if (i >= 0) return cells[Math.min(i + 1, cells.length - 1)];
+  return r100(b * 1.03);
+}
+/* Tax on a given taxable income (slabs, 87A rebate, surcharge, 4% cess) */
+function taxOnIncome(taxable, regime) {
+  const R = TAX[regime]; let prev = 0, t = 0;
+  for (const [upto, rate] of R.slabs) { t += Math.max(0, Math.min(taxable, upto) - prev) * rate; prev = upto; if (taxable <= upto) break; }
+  let rebate = 0;
+  if (taxable <= R.rebateUpTo) rebate = R.rebateMax ? Math.min(t, R.rebateMax) : t;
+  else if (R.marginalRebate && t > taxable - R.rebateUpTo) rebate = t - (taxable - R.rebateUpTo);
+  const after = t - rebate;
+  const sr = taxable > 50000000 ? R.maxSurcharge : taxable > 20000000 ? .25 : taxable > 10000000 ? .15 : taxable > 5000000 ? .10 : 0;
+  return Math.round(after * (1 + sr) * 1.04);
+}
+const fyOf = i => (i % 12 >= 3 ? Math.floor(i / 12) : Math.floor(i / 12) - 1);   // financial year starting April
+const fyText = y => `FY ${y}-${String(y + 1).slice(2)}`;
+/* Arrears view: move the HRA settings and pension settings to sit right under the tick boxes that use them,
+   and put them back in their own sections everywhere else. Same controls, so choices carry over. */
+const HRA_BODY = document.querySelector(".fold-hra .fold-body");   // kept as a reference because it moves
+function placeArrearsControls() {
+  const inArr = mode() === "8" && view() === "arrears";
+  const hraBody = HRA_BODY, npsBox = $("npsBox");
+  const wantHra = inArr && $("arrHra").checked, wantNps = inArr && $("arrNps").checked;
+  // Transport allowance alone: a simple city-type choice (with HRA ticked, the full city settings above cover it)
+  $("slotTa").hidden = !(inArr && $("arrTa").checked && !$("arrHra").checked);
+  $("taCity").value = $("city").value === "X" ? "high" : "other";
+  if (wantHra && hraBody.parentElement !== $("slotHra")) $("slotHra").appendChild(hraBody);
+  if (!wantHra && hraBody.parentElement === $("slotHra")) document.querySelector(".fold-hra").appendChild(hraBody);
+  if (wantNps && npsBox.parentElement !== $("slotNps")) { $("slotNps").appendChild(npsBox); $("npsPct").disabled = $("npsType").disabled = false; }
+  if (!wantNps && npsBox.parentElement === $("slotNps")) {
+    document.querySelector(".fold-ded .fold-body").prepend(npsBox);
+    $("npsPct").disabled = $("npsType").disabled = !$("nps").checked;
+  }
+}
+function calcArrears(pa, pb) {
+  placeArrearsControls();
+  if (!(mode() === "8" && view() === "arrears")) return;
+  const level = $("level").value, city = $("city").value, step = Math.max(0, +$("daStep").value || 0);
+  const inc = $("arrInc").checked, withHra = $("arrHra").checked, withTa = $("arrTa").checked;
+  const npsOn = $("arrNps").checked, npsPct = Math.max(0, +$("npsPct").value || 0) / 100;
+  const start = toIdx($("effFrom").value || "2026-01");
+  const end = toIdx($("implSel").value === "custom" ? ($("implMonth").value || "2028-01") : $("implSel").value);
+  if (!(end > start)) {
+    $("arrRows").innerHTML = ""; countTo($("arrAmt"), 0); $("arrGross").textContent = inr(0);
+    $("arrPeriod").textContent = "Choose a start month after the effective date.";
+    $("arrTaxWrap").hidden = $("arrNpsWrap").hidden = $("arrTaxBox").hidden = true; $("arrMonthSum").textContent = "";
+    $("arrNote").textContent = ""; return;
+  }
+  const minHra = [5400, 3600, 1800]["XYZ".indexOf(city)];
+  let b7 = basic7(), b8 = r100(b7 * fitVal());
+  const segs = [], byFY = {};
+  for (let i = start; i < Math.min(end, start + 120); i++) {
+    if (inc && i > start && i % 12 === 6) { b7 = nextBasic7(b7); b8 = r100(b8 * 1.03); }   // July increment
+    const da7 = DA7_JAN2026 + step * Math.max(0, Math.floor((i - JAN2026) / 6));
+    const da8 = step * (Math.floor(i / 6) - Math.floor(start / 6));                        // 0% from the effective date, rises each Jan/Jul
+    const pay7 = b7 * (1 + da7 / 100), pay8 = b8 * (1 + da8 / 100);
+    let old = pay7, neu = pay8;
+    if (withHra) {
+      old += Math.max(b7 * hraRate(city, da7), minHra);
+      neu += Math.max(b8 * hraRate8(city, da8), minHra);
+    }
+    if (withTa) {
+      old += transport(level, b7, city) * (1 + da7 / 100);
+      neu += transport(level, b8, city) * (1 + da8 / 100);
+    }
+    const nps = npsOn ? (pay8 - pay7) * npsPct : 0;
+    byFY[fyOf(i)] = (byFY[fyOf(i)] || 0) + (neu - old);
+    const last = segs[segs.length - 1];
+    if (last && last.old === old && last.neu === neu) { last.to = i; last.n++; }
+    else segs.push({ from: i, to: i, n: 1, old, neu, nps, da7, da8, b7, b8 });
+  }
+  let total = 0, npsTotal = 0, months = 0;
+  $("arrRows").innerHTML = segs.map(s => {
+    const amt = (s.neu - s.old) * s.n; total += amt; npsTotal += s.nps * s.n; months += s.n;
+    const period = s.n === 1 ? idxText(s.from) : `${idxText(s.from)} – ${idxText(s.to)}`;
+    return `<tr><td>${period}<small>${s.n} month${s.n > 1 ? "s" : ""} · DA ${s.da7}% → ${s.da8}%</small></td>
+      <td>${inr(s.old)}<small>basic ${inr(s.b7)}</small></td><td>${inr(s.neu)}<small>basic ${inr(s.b8)}</small></td>
+      <td class="${amt < 0 ? "neg" : ""}">${amt < 0 ? "−" : ""}${inr(Math.abs(amt))}</td></tr>`;
+  }).join("") + `<tr class="total"><td>Total arrears</td><td></td><td></td><td>${inr(total)}</td></tr>`
+    + arrTaxRows();
+  function arrTaxRows() {
+    /* Tax: all arrears are paid in the month the new pay starts, so they are taxed in that financial year.
+       Section 89 relief = extra tax in the year of receipt on arrears for earlier years
+                           − extra tax those arrears would have caused in their own years. */
+    const taxOn = $("arrTaxOn").checked, rg = $("arrRegime").value, use89 = $("arr89").checked;
+    const recvFY = fyOf(end), base7 = pa.taxes[rg].taxable, baseR = pb.taxes[rg].taxable;
+    const arrTotal = Math.max(0, total), sameYear = Math.max(0, byFY[recvFY] || 0);
+    const earlier = Object.keys(byFY).map(Number).filter(y => y < recvFY).sort().map(y => {
+      const amt = Math.max(0, byFY[y]);
+      return { y, amt, extra: taxOnIncome(base7 + amt, rg) - taxOnIncome(base7, rg) };
+    });
+    const earlierAmt = earlier.reduce((s, x) => s + x.amt, 0);
+    const taxAll = taxOnIncome(baseR + arrTotal, rg) - taxOnIncome(baseR, rg);
+    const taxEarlierInRecv = taxOnIncome(baseR + sameYear + earlierAmt, rg) - taxOnIncome(baseR + sameYear, rg);
+    const taxEarlierSpread = earlier.reduce((s, x) => s + x.extra, 0);
+    const relief = use89 ? Math.max(0, taxEarlierInRecv - taxEarlierSpread) : 0;
+    const tax = taxOn ? Math.max(0, taxAll - relief) : 0;
+    const inHand = total - npsTotal - tax;
+    const rgName = rg === "new" ? "new regime" : "old regime";
+
+    // Headline = what actually reaches you: arrears minus tax (and NPS when chosen)
+    countTo($("arrAmt"), inHand);
+    $("arrLbl").textContent = taxOn ? (npsOn ? "Estimated arrears receivable after tax and " + $("npsType").value : "Estimated arrears receivable after tax")
+                                    : (npsOn ? "Estimated arrears receivable after " + $("npsType").value : "Estimated arrears receivable");
+    $("arrPeriod").textContent = `${months} months · ${idxText(start)} to ${idxText(end - 1)}`;
+    $("arrGross").textContent = inr(total);
+    $("arrTaxWrap").hidden = !taxOn; $("arrTaxHero").textContent = "−" + inr(tax);
+    $("arrNpsWrap").hidden = !npsOn; $("arrNpsLbl").textContent = $("npsType").value; $("arrNpsHero").textContent = "−" + inr(npsTotal);
+    $("arrMonthSum").textContent = `${segs.length} period${segs.length > 1 ? "s" : ""} · ${months} months`;
+    $("arrTaxBox").hidden = !taxOn;
+    $("arrTaxVerdict").textContent = taxOn && relief ? `Section 89 saves ${inr(relief)}` : "";
+
+    if (taxOn) {
+      const row = (lbl, v, cls = "") => `<tr class="${cls}"><td>${lbl}</td><td>${v}</td></tr>`;
+      $("arrTaxDetail").innerHTML = `
+        <div><h3>Tax in the year you receive arrears · ${fyText(recvFY)}, ${rgName}</h3>
+        <div class="statement"><table><tbody>
+          ${row("Taxable income for the year without arrears (at 8th CPC pay)", inr(baseR))}
+          ${row("Add: arrears received", "+" + inr(arrTotal))}
+          ${row("Tax without arrears", inr(taxOnIncome(baseR, rg)))}
+          ${row("Tax with arrears", inr(taxOnIncome(baseR + arrTotal, rg)))}
+          ${row("Extra tax because of arrears", inr(taxAll), "sep")}
+        </tbody></table></div></div>
+        ${earlier.length ? `<div><h3>Section 89 relief · arrears spread back to the years they belong to</h3>
+        <div class="statement"><table>
+          <thead><tr><th>Year</th><th>Arrears for that year</th><th>Extra tax in that year</th></tr></thead>
+          <tbody>${earlier.map(x => `<tr><td>${fyText(x.y)}</td><td>${inr(x.amt)}</td><td>${inr(x.extra)}</td></tr>`).join("")}
+          <tr class="sep"><td>Total</td><td>${inr(earlierAmt)}</td><td>${inr(taxEarlierSpread)}</td></tr></tbody></table></div>
+        <div class="statement"><table><tbody>
+          ${row(`Extra tax on these arrears if taxed in ${fyText(recvFY)}`, inr(taxEarlierInRecv))}
+          ${row("Extra tax if taxed in their own years", "−" + inr(taxEarlierSpread))}
+          ${row(use89 ? "Relief under Section 89" : "Relief under Section 89 (not claimed)", inr(Math.max(0, taxEarlierInRecv - taxEarlierSpread)), "sep")}
+        </tbody></table></div></div>` : `<p class="muted" style="margin:0">All arrears belong to ${fyText(recvFY)}, so there is no Section 89 relief.</p>`}
+        <div class="verdict">Estimated tax on arrears: <b>${inr(tax)}</b>${relief ? ` after <b>${inr(relief)}</b> Section 89 relief` : ""}. Arrears in hand: <b>${inr(inHand)}</b>.</div>
+        <p class="muted" style="margin:0;font-size:12.5px">Earlier years use your 7th CPC taxable income from the Monthly pay view as the base; the year of receipt uses your 8th CPC taxable income. Slab rates from the Union Budget 2025 are applied to every year. To claim relief, file Form 10E on the income tax portal before filing your return.</p>`;
+    }
+    return (npsOn ? `<tr class="ded"><td>${$("npsType").value} on arrears (${+$("npsPct").value || 0}%)</td><td></td><td></td><td>−${inr(npsTotal)}</td></tr>` : "")
+      + (taxOn ? `<tr class="ded"><td>Income tax on arrears<small>${fyText(recvFY)}, ${rgName}${relief ? `, after ${inr(relief)} Section 89 relief` : ""}</small></td><td></td><td></td><td>−${inr(tax)}</td></tr>` : "")
+      + (npsOn || taxOn ? `<tr class="net"><td>Arrears in hand</td><td></td><td></td><td>${inr(inHand)}</td></tr>` : "");
+  }
+  $("arrNote").textContent = `Arrears are the difference between 8th CPC pay due and 7th CPC pay actually paid, on ${["basic pay and DA", withHra && "HRA", withTa && "transport allowance"].filter(Boolean).join(", ").replace(/, ([^,]*)$/, " and $1")}. `
+    + `7th CPC DA is taken as ${DA7_JAN2026}% from January 2026 and 8th CPC DA as 0% from ${idxText(start)}, both rising ${step}% every January and July. `
+    + (inc ? "Yearly increments are added every July. " : "")
+    + "Arrears are taxable in the year you receive them; you can reduce the extra tax by claiming relief under Section 89 (Form 10E). All figures are estimates until the 8th CPC is notified.";
+}
+
+$("level").addEventListener("change", () => {
+  // Keep "Other amount" if chosen; otherwise the list resets to the new level's starting pay
+  if ($("basicSel").value !== "other") $("basicSel").value = "";
+  fillBasic(); calc();
+});
+$("fit").addEventListener("input", fillBasic);
+// Clicking "Income tax" in the pay statement opens the breakdown
+$("rows").addEventListener("click", e => { if (e.target.closest("[data-open-tax]")) { $("taxBox").open = true; $("taxBox").scrollIntoView({ behavior: "smooth", block: "nearest" }); } });
+$("nps").addEventListener("change", () => { $("npsPct").disabled = $("npsType").disabled = !$("nps").checked; });
+$("f").addEventListener("input", calc);
+$("f").addEventListener("submit", e => e.preventDefault());
+
+/* ===== Reset: back to the starting values, keeping the current 7th/8th tab ===== */
+let toastTimer;
+$("resetBtn").addEventListener("click", () => {
+  $("f").reset();                                   // inputs back to their default values
+  $("level").value = "6"; $("basicSel").value = "";
+  $("allowList").innerHTML = ""; $("dedList").innerHTML = "";
+  ["da7Sel", "da8Sel"].forEach(id => $(id).dispatchEvent(new Event("change")));
+  $("nps").dispatchEvent(new Event("change"));
+  $("cityMsg").textContent = "Pick a city to set the HRA class, or choose the class yourself below.";
+  $("implCustom").hidden = true;
+  document.querySelectorAll("details").forEach(d => d.open = false);
+  fillBasic(); calc();
+  $("toast").hidden = false; clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => $("toast").hidden = true, 2500);
+});
+fillBasic(); calc();
+
+/* ===== 7th / 8th tabs (link straight to one with #7th or #8th) ===== */
+function setMode(m) {
+  $("wrap").dataset.mode = m;
+  $("tab7").setAttribute("aria-selected", m === "7"); $("tab8").setAttribute("aria-selected", m === "8");
+  $("outTitle").textContent = "Monthly pay statement";
+  try { history.replaceState(null, "", "#" + (m === "8" && view() === "arrears" ? "arrears" : m + "th")); } catch (e) {}
+  fillBasic(); calc();
+}
+/* 8th CPC sub-switch: Monthly pay | Arrears (link straight to arrears with #arrears) */
+function setView(v) {
+  $("wrap").dataset.view = v;
+  $("viewPay").setAttribute("aria-selected", v === "pay"); $("viewArr").setAttribute("aria-selected", v === "arrears");
+  setMode("8");
+}
+document.querySelector(".subtabs").addEventListener("click", e => { const b = e.target.closest("[data-view]"); if (b) setView(b.dataset.view); });
+// City type for transport allowance sets the HRA class (runs before the form recalculates)
+$("taCity").addEventListener("input", () => {
+  const c = $("city").value;
+  $("city").value = $("taCity").value === "high" ? "X" : (c === "X" ? "Y" : c);
+});
+$("implSel").addEventListener("change", () => { $("implCustom").hidden = $("implSel").value !== "custom"; });
+if (location.hash === "#arrears") $("wrap").dataset.view = "arrears", $("viewPay").setAttribute("aria-selected", false), $("viewArr").setAttribute("aria-selected", true);
+document.querySelector(".tabs").addEventListener("click", e => { const b = e.target.closest("[data-mode]"); if (b) setMode(b.dataset.mode); });
+document.querySelector(".tabs").addEventListener("keydown", e => {
+  if (e.key === "ArrowLeft" || e.key === "ArrowRight") { const m = $("wrap").dataset.mode === "7" ? "8" : "7"; setMode(m); $("tab" + m).focus(); }
+});
+setMode(location.hash === "#8th" || location.hash === "#arrears" ? "8" : "7");
+
+/* ===== Legal pages (Privacy Policy, Terms of Use): each page is loaded in the background, then opened in a panel
+   with no page load. Any footer link with data-doc works this way. If loading fails (e.g. opened as a local file),
+   the link simply goes to the page. ===== */
+const docHTML = {}, docLoad = {};
+function loadDoc(url) {
+  if (!docLoad[url]) docLoad[url] = fetch(url).then(r => r.ok ? r.text() : Promise.reject())
+    .then(t => { const main = new DOMParser().parseFromString(t, "text/html").querySelector("main");
+      main.querySelector(".back")?.remove(); return docHTML[url] = main.innerHTML; })
+    .catch(() => { delete docLoad[url]; return null; });
+  return docLoad[url];
+}
+let lastFocus;
+function openDoc(url, title) {
+  $("policyBody").innerHTML = docHTML[url]; $("policy").hidden = false;
+  $("policy").setAttribute("aria-label", title); $("policyClose").setAttribute("aria-label", "Close " + title);
+  document.documentElement.style.overflow = "hidden";
+  lastFocus = document.activeElement; $("policyClose").focus(); $("policy").querySelector(".policy-panel").scrollTop = 0;
+}
+function closePolicy() {
+  $("policy").hidden = true; document.documentElement.style.overflow = "";
+  lastFocus?.focus();
+}
+document.querySelectorAll("[data-doc]").forEach(link => link.addEventListener("click", async e => {
+  e.preventDefault();
+  const url = link.getAttribute("href");
+  if (docHTML[url] || await loadDoc(url)) openDoc(url, link.textContent); else location.href = url;
+}));
+$("policyClose").addEventListener("click", closePolicy);
+// Contents links scroll within the panel instead of changing the page address
+$("policyBody").addEventListener("click", async e => {
+  // A link to the other legal page (e.g. Terms → Privacy Policy) swaps the panel's content
+  const doc = e.target.closest('a[href="privacy.html"], a[href="terms.html"]');
+  if (doc) {
+    e.preventDefault(); const url = doc.getAttribute("href");
+    if (docHTML[url] || await loadDoc(url)) openDoc(url, url === "terms.html" ? "Terms of Use" : "Privacy Policy"); else location.href = url;
+    return;
+  }
+  const a = e.target.closest('a[href^="#"]'); if (!a) return;
+  e.preventDefault();
+  const target = $("policyBody").querySelector(a.getAttribute("href")), panel = $("policy").querySelector(".policy-panel");
+  if (target) panel.scrollTop = target.offsetTop - 48; // offsetTop is measured from the panel (position: relative)
+});
+$("policy").addEventListener("click", e => { if (e.target === $("policy")) closePolicy(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("policy").hidden) closePolicy(); });
+(window.requestIdleCallback || (f => setTimeout(f, 1200)))(() => document.querySelectorAll("[data-doc]").forEach(l => loadDoc(l.getAttribute("href"))));
+
+/* ===== Side ads: close buttons (ad comes back on reload) ===== */
+document.querySelectorAll(".ad-side .x, .ad-bottom .x, .ad-inline .x").forEach(b => b.addEventListener("click", () => {
+  b.parentElement.hidden = true;
+  if (b.parentElement.classList.contains("ad-bottom")) document.documentElement.style.setProperty("--bot-h", "0px");   // free the space it used
+}));
+
+/* ===== Phone result bar: visible while the results card is off screen; tap to jump to the results ===== */
+if ("IntersectionObserver" in window) {
+  new IntersectionObserver(([e]) => $("mbar").classList.toggle("away", e.isIntersecting), { threshold: 0.15 }).observe($("resultCard"));
+} else $("mbar").classList.remove("away");
+$("mbarBtn").addEventListener("click", () => $("resultCard").scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "start" }));
+
+/* ===== Video ad every 5 minutes ===== */
+let vidTimer, raf;
+function drawPlaceholder(canvas) {
+  const ctx = canvas.getContext("2d"); canvas.width = 640; canvas.height = 360;
+  const t0 = performance.now();
+  (function frame(t) {
+    const s = (t - t0) / 1000;
+    const g = ctx.createLinearGradient(0, 0, 640, 360);
+    g.addColorStop(0, `hsl(${168 + Math.sin(s) * 10},70%,18%)`); g.addColorStop(1, `hsl(${160 + Math.cos(s) * 10},55%,38%)`);
+    ctx.fillStyle = g; ctx.fillRect(0, 0, 640, 360);
+    ctx.fillStyle = "rgba(255,255,255,.12)";
+    for (let i = 0; i < 6; i++) { ctx.beginPath(); ctx.arc((i * 130 + s * 60) % 760 - 60, 180 + Math.sin(s + i) * 90, 40, 0, 7); ctx.fill(); }
+    ctx.fillStyle = "#fff"; ctx.textAlign = "center";
+    ctx.font = "700 38px 'Bricolage Grotesque', Arial, sans-serif"; ctx.fillText("Your video ad here", 320, 170);
+    ctx.font = "18px Figtree, Arial, sans-serif"; ctx.fillText("Set VIDEO_AD_SRC to play your own video", 320, 205);
+    raf = requestAnimationFrame(frame);
+  })(t0);
+}
+function showVideoAd() {
+  const box = $("vidMedia"); box.innerHTML = "";
+  if (VIDEO_AD_SRC) {
+    const v = document.createElement("video"); v.src = VIDEO_AD_SRC; v.muted = true; v.autoplay = true; v.playsInline = true;
+    v.addEventListener("ended", closeVideoAd); box.appendChild(v);
+  } else { const c = document.createElement("canvas"); box.appendChild(c); drawPlaceholder(c); }
+  $("vid").hidden = false;
+  let left = VIDEO_SKIP_AFTER_S, elapsed = 0;
+  $("vidSkip").disabled = true; $("vidMsg").textContent = `Ad · you can skip in ${left}s`;
+  clearInterval(vidTimer);
+  vidTimer = setInterval(() => {
+    elapsed++; left--;
+    if (left > 0) $("vidMsg").textContent = `Ad · you can skip in ${left}s`;
+    else { $("vidSkip").disabled = false; $("vidMsg").textContent = "Ad"; }
+    if (elapsed >= VIDEO_MAX_S && !VIDEO_AD_SRC) closeVideoAd();
+  }, 1000);
+}
+function closeVideoAd() {
+  clearInterval(vidTimer); cancelAnimationFrame(raf);
+  $("vidMedia").innerHTML = ""; $("vid").hidden = true;
+}
+$("vidSkip").addEventListener("click", closeVideoAd);
+$("testVid").addEventListener("click", showVideoAd);
+setInterval(showVideoAd, VIDEO_AD_EVERY_MS);
+</script>

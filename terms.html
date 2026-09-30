@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Terms of Use · Pay Commission Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Figtree:wght@400;600&display=swap">
+<style>
+/* Layout: single reading column with the calculator's teal palette (matches privacy.html) */
+:root {
+  --bg: #f4f6f5; --surface: #ffffff; --ink: #10201e; --muted: #5d6b68; --line: #e2e7e5; --accent: #0e6b5c; --accent-soft: #e3f1ed; --gold: #b8892b;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d1413; --surface: #151f1d; --ink: #e8efed; --muted: #93a19d; --line: #25322f; --accent: #4fc3a8; --accent-soft: #1a3430; --gold: #e0b75a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0d1413; --surface: #151f1d; --ink: #e8efed; --muted: #93a19d; --line: #25322f; --accent: #4fc3a8; --accent-soft: #1a3430; --gold: #e0b75a; color-scheme: dark }
+* { box-sizing: border-box }
+html { padding-block: env(safe-area-inset-top, 0px) env(safe-area-inset-bottom, 0px); scroll-behavior: smooth }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.65 var(--f-body); padding-inline: 16px; padding-block: 40px 64px; -webkit-font-smoothing: antialiased }
+main { max-width: 760px; margin: 0 auto; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: clamp(22px, 5vw, 44px) }
+.back { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 14px; color: var(--accent); text-decoration: none; margin-bottom: 18px }
+.back:hover { text-decoration: underline; text-underline-offset: 3px }
+h1 { font: 700 clamp(1.9rem, 5vw, 2.6rem)/1.1 var(--f-display); letter-spacing: -.02em; margin: 0 0 6px; text-wrap: balance }
+.date { color: var(--muted); font-size: 14px; margin: 0 0 24px }
+h2 { font: 700 1.2rem/1.3 var(--f-display); margin: 34px 0 8px; text-wrap: balance; scroll-margin-top: 16px }
+h3 { font: 600 1rem/1.4 var(--f-body); margin: 18px 0 6px }
+p, li { color: var(--ink); max-width: 68ch }
+p { margin: 0 0 12px }
+ul, ol { padding-left: 20px; margin: 0 0 12px }
+li { margin-bottom: 6px }
+a { color: var(--accent) }
+.summary { background: var(--accent-soft); border-radius: 12px; padding: 16px 18px; margin-bottom: 8px }
+.summary p { margin: 0 0 6px } .summary ul { margin: 0 } .summary li { margin-bottom: 3px }
+.fill { background: color-mix(in srgb, var(--gold) 22%, transparent); border-radius: 4px; padding: 0 4px; font-weight: 600 }
+.toc { border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; margin: 20px 0 8px }
+.toc p { margin: 0 0 6px; font-weight: 600 }
+.toc ol { columns: 2; column-gap: 28px; margin: 0; font-size: 14.5px } .toc li { margin-bottom: 4px; break-inside: avoid }
+.caps { text-transform: none; font-weight: 600 }
+.contact { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; margin: 0 0 12px }
+.contact p { margin: 0 0 4px }
+footer { max-width: 760px; margin: 20px auto 0; text-align: center; color: var(--muted); font-size: 13px }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px }
+@media (max-width: 560px) { .toc ol { columns: 1 } }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="./">← Back to the calculator</a>
+  <h1>Terms of Use</h1>
+  <p class="date">Effective date: 30 September 2026 · Last updated: 30 September 2026</p>
+
+  <div class="summary">
+    <p><b>The short version</b></p>
+    <ul>
+      <li>The calculator is free and gives <b>estimates only</b>. It is not an official Government tool.</li>
+      <li>8th Pay Commission figures are projections, because the 8th CPC has not been notified.</li>
+      <li>Nothing here is tax, legal or financial advice. Always check with your office, DDO or a qualified professional.</li>
+      <li>You use the website at your own risk, and the owner is not liable for decisions made using it.</li>
+      <li>Please use the website fairly: no hacking, scraping, copying or misuse.</li>
+      <li>The website is for personal use only. <b>Commercial use of any kind needs the owner’s written permission.</b></li>
+    </ul>
+  </div>
+
+  <nav class="toc" aria-label="Contents">
+    <p>Contents</p>
+    <ol>
+      <li><a href="#t-accept">Acceptance of these terms</a></li>
+      <li><a href="#t-about">About the website</a></li>
+      <li><a href="#t-govt">No Government connection</a></li>
+      <li><a href="#t-estimates">Estimates only</a></li>
+      <li><a href="#t-advice">No professional advice</a></li>
+      <li><a href="#t-eligible">Who may use the website</a></li>
+      <li><a href="#t-use">Acceptable use</a></li>
+      <li><a href="#t-commercial">No commercial use without permission</a></li>
+      <li><a href="#t-ip">Intellectual property</a></li>
+      <li><a href="#t-ads">Advertisements and links</a></li>
+      <li><a href="#t-warranty">No warranties</a></li>
+      <li><a href="#t-liability">Limitation of liability</a></li>
+      <li><a href="#t-indemnity">Indemnity</a></li>
+      <li><a href="#t-availability">Availability and changes</a></li>
+      <li><a href="#t-privacy">Privacy</a></li>
+      <li><a href="#t-changes">Changes to these terms</a></li>
+      <li><a href="#t-law">Governing law</a></li>
+      <li><a href="#t-general">General</a></li>
+      <li><a href="#t-contact">Contact</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="t-accept">1. Acceptance of these terms</h2>
+  <p>These Terms of Use (“Terms”) apply to your use of Pay Commission Calculator at <span class="fill">[website address]</span> (“the website”). The website is created and run by an individual based in India, referred to here as “the owner of this website” (or “I”, “me”, “my”). It is not operated by a company, firm or registered business.</p>
+  <p>By opening or using the website, you agree to these Terms and to the <a href="privacy.html">Privacy Policy</a>. If you do not agree, please do not use the website.</p>
+
+  <h2 id="t-about">2. About the website</h2>
+  <p>The website is a free online calculator that estimates monthly salary, allowances, deductions and income tax for Central Government employees and teachers under the 7th Central Pay Commission, and gives projections for the 8th Central Pay Commission. It does not ask for any personal details and does not require an account. All calculations run in your own browser.</p>
+
+  <h2 id="t-govt">3. No Government connection</h2>
+  <p>The website is an independent personal project. It is not an official website and is not connected to, endorsed by, sponsored by or run on behalf of the Government of India, any State Government, the Ministry of Finance, the Department of Personnel and Training, the Department of Expenditure, the University Grants Commission, the Income Tax Department, any Pay Commission, or any other public authority. Any names of Government bodies, schemes or pay scales are used only to describe what the calculator covers.</p>
+
+  <h2 id="t-estimates">4. Estimates only</h2>
+  <p>All results are estimates for general information. They are not a pay slip, pay fixation, sanction, entitlement or official statement of any kind. In particular:</p>
+  <ul>
+    <li><b>8th Pay Commission:</b> the fitment factor, pay matrix, DA, HRA and other rates for the 8th CPC have not been notified. All 8th CPC figures are assumptions and will likely differ from the final orders.</li>
+    <li><b>Pay matrix and rates:</b> pay matrix values, DA and HRA rates, city classifications, transport allowance and other figures are compiled from public sources, may be simplified, and may contain errors or be out of date.</li>
+    <li><b>Income tax:</b> tax is estimated for a full year at the monthly pay shown, using slab rates the owner believes to be current. It leaves out many personal factors and is not a tax computation.</li>
+    <li><b>Your inputs:</b> results depend on the figures and options you choose. Wrong inputs will give wrong results.</li>
+  </ul>
+  <p>Your actual pay and tax are decided only by your department, your Drawing and Disbursing Officer (DDO), official Government orders and the Income Tax Department. Always check with them before relying on any figure.</p>
+
+  <h2 id="t-advice">5. No professional advice</h2>
+  <p>Nothing on the website is financial, investment, tax, legal, accounting or career advice, and no professional or advisory relationship is created by using it. Do not make decisions about loans, investments, tax filing, choosing a tax regime or pension scheme, career moves or legal claims based only on this website. Consult a qualified professional or your office.</p>
+
+  <h2 id="t-eligible">6. Who may use the website</h2>
+  <p>The website is intended for adults (18 years or older). If you are under 18, please use it only with the involvement of a parent or guardian.</p>
+
+  <h2 id="t-use">7. Acceptable use</h2>
+  <p>You may use the website only for your own personal, non-commercial purposes (see section 8). You agree not to:</p>
+  <ul>
+    <li>use the website for anything unlawful, fraudulent or misleading, including presenting its results as an official Government calculation or document;</li>
+    <li>attempt to hack, disrupt, overload or gain unauthorised access to the website, its hosting or related systems;</li>
+    <li>introduce viruses, malicious code or harmful content;</li>
+    <li>use bots, scrapers or automated tools to copy or extract content in bulk;</li>
+    <li>copy, reproduce, republish, frame or mirror the website or substantial parts of it, or pass it off as your own;</li>
+    <li>click on advertisements artificially, generate fake traffic, or encourage others to do so;</li>
+    <li>remove or change any notice, disclaimer or attribution on the website.</li>
+  </ul>
+  <p>The owner may block access for anyone who breaks these rules.</p>
+
+  <h2 id="t-commercial">8. No commercial use without permission</h2>
+  <p>The website is offered <b>only for personal, non-commercial use</b>. Nobody may use the website, its calculator, its results or its content for any commercial purpose without the prior written permission of the owner of this website.</p>
+  <p>“Commercial use” includes, for example:</p>
+  <ul>
+    <li>using the calculator or its results as part of a paid service, such as salary, pay fixation, arrears, pension or tax consultancy, coaching, or preparing figures for clients;</li>
+    <li>selling, licensing or charging for access to the calculator, its results, or reports or documents based on them;</li>
+    <li>copying, embedding, framing, re-creating or imitating the calculator in another website, app, software, publication, video or social media channel that earns money, including through advertising, subscriptions or sponsorships;</li>
+    <li>using the website’s content, design, rates or code to build or promote a competing product or service;</li>
+    <li>collecting, scraping or extracting data or content from the website for any business purpose, including building datasets or training software or artificial intelligence models;</li>
+    <li>using the website on behalf of a company, firm, agency or organisation to provide services to others for a fee.</li>
+  </ul>
+  <p><b>What is allowed without permission:</b> using the calculator for your own pay, allowances and tax, including as a government employee or pensioner checking your own figures; sharing a link to the website; and sharing your own results with family, friends or colleagues free of charge.</p>
+  <h3>How to ask for permission</h3>
+  <p>If you would like to use the website or any part of it commercially, email the owner (section 19) before any such use, explaining who you are, what you want to use, and how and where it will be used. Permission is valid only if given in writing by the owner. It may be refused, may come with conditions or a fee, applies only to the use described, and may be withdrawn at any time. Silence or a lack of reply does not mean permission.</p>
+  <p>Commercial use without written permission is a breach of these Terms and may infringe the owner’s rights. The owner may block access, ask for the use to stop, and take any action available under law.</p>
+
+  <h2 id="t-ip">9. Intellectual property</h2>
+  <p>The website’s design, layout, text, graphics, code and the way the calculator is put together belong to the owner of this website, except for third-party material such as fonts and advertisements, which belong to their respective owners. Government orders, pay scales and tax slabs themselves are public information and are not claimed by the owner.</p>
+  <p>You may share links to the website and quote short extracts of your own results with a link back. Any other copying or adaptation, and any commercial use, requires the owner’s prior written permission as explained in section 8.</p>
+
+  <h2 id="t-ads">10. Advertisements and links</h2>
+  <p>The website shows advertisements, including display and video ads, supplied by third parties such as Google AdSense. It may also contain links to other websites. The owner does not control, check or endorse these ads, advertisers, products, services or websites, and is not responsible for their content, accuracy, offers or privacy practices. Any dealings you have with advertisers or linked websites are solely between you and them.</p>
+
+  <h2 id="t-warranty">11. No warranties</h2>
+  <p class="caps">The website and all its content and results are provided “as is” and “as available”, without any warranty of any kind, express or implied. To the fullest extent permitted by law, the owner makes no warranty that the website or its results will be accurate, complete, current, reliable, fit for a particular purpose, uninterrupted, secure or free of errors, viruses or other harmful components.</p>
+
+  <h2 id="t-liability">12. Limitation of liability</h2>
+  <p class="caps">To the fullest extent permitted by law, the owner of this website will not be liable for any loss or damage of any kind arising from or connected with your use of, or inability to use, the website or its results. This includes, without limitation, loss of income, salary, arrears, tax, interest, penalties, savings, investments, opportunities or data, and any direct, indirect, incidental, special, consequential or punitive damages, even if the owner was told such loss was possible.</p>
+  <p>The website is provided free of charge. You agree that you use it entirely at your own risk and that you are solely responsible for checking any figure before relying on it. Nothing in these Terms excludes liability that cannot be excluded under Indian law.</p>
+
+  <h2 id="t-indemnity">13. Indemnity</h2>
+  <p>You agree to indemnify and hold harmless the owner of this website from any claim, loss, liability, cost or expense (including reasonable legal fees) arising from your misuse of the website, your breach of these Terms, or your violation of any law or the rights of any other person.</p>
+
+  <h2 id="t-availability">14. Availability and changes to the website</h2>
+  <p>The owner may change, update, suspend or stop the website, or any feature, rate or content on it, at any time and without notice. The owner has no obligation to keep the website available, to update it when rates change, or to correct any error, though reasonable efforts will be made to keep it useful and accurate.</p>
+
+  <h2 id="t-privacy">15. Privacy</h2>
+  <p>The website does not ask for any personal details. How technical information, cookies and advertising are handled is explained in the <a href="privacy.html">Privacy Policy</a>, which forms part of these Terms.</p>
+
+  <h2 id="t-changes">16. Changes to these terms</h2>
+  <p>The owner may update these Terms from time to time. The updated version will be posted on this page with a new “Last updated” date. Continuing to use the website after an update means you accept the revised Terms.</p>
+
+  <h2 id="t-law">17. Governing law</h2>
+  <p>These Terms are governed by the laws of India. Any dispute arising from or relating to these Terms or the website is subject to the jurisdiction of the courts of India. Before starting any formal proceedings, you agree to first contact the owner by email and try to resolve the matter informally for at least 30 days.</p>
+
+  <h2 id="t-general">18. General</h2>
+  <ul>
+    <li><b>Severability:</b> if any part of these Terms is found invalid or unenforceable, the rest remains in full effect.</li>
+    <li><b>No waiver:</b> if the owner does not enforce a right under these Terms, that does not waive the right.</li>
+    <li><b>Entire agreement:</b> these Terms, together with the Privacy Policy and the disclaimer on the website, are the entire agreement between you and the owner about the website.</li>
+  </ul>
+
+  <h2 id="t-contact">19. Contact</h2>
+  <p>For questions about these Terms, to request permission for commercial use, to report an error in the calculator, or to raise a concern, contact:</p>
+  <div class="contact">
+    <p><b>Contact:</b> The owner of this website</p>
+    <p><b>Email:</b> <span class="fill">[website email, to be added]</span></p>
+  </div>
+  <p>Please do not send pay slips, identity documents or other personal details by email.</p>
+</main>
+<footer>© 2026 The owner of this website · Pay Commission Calculator is a personal project and not an official Government website.</footer>
+</body>
+</html>

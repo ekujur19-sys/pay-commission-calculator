@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacy Policy · Pay Commission Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Figtree:wght@400;600&display=swap">
+<style>
+/* Layout: single reading column with the calculator's teal palette */
+:root {
+  --bg: #f4f6f5; --surface: #ffffff; --ink: #10201e; --muted: #5d6b68; --line: #e2e7e5; --accent: #0e6b5c; --accent-soft: #e3f1ed; --gold: #b8892b;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d1413; --surface: #151f1d; --ink: #e8efed; --muted: #93a19d; --line: #25322f; --accent: #4fc3a8; --accent-soft: #1a3430; --gold: #e0b75a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0d1413; --surface: #151f1d; --ink: #e8efed; --muted: #93a19d; --line: #25322f; --accent: #4fc3a8; --accent-soft: #1a3430; --gold: #e0b75a; color-scheme: dark }
+* { box-sizing: border-box }
+html { padding-block: env(safe-area-inset-top, 0px) env(safe-area-inset-bottom, 0px); scroll-behavior: smooth }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.65 var(--f-body); padding-inline: 16px; padding-block: 40px 64px; -webkit-font-smoothing: antialiased }
+main { max-width: 760px; margin: 0 auto; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: clamp(22px, 5vw, 44px) }
+.back { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 14px; color: var(--accent); text-decoration: none; margin-bottom: 18px }
+.back:hover { text-decoration: underline; text-underline-offset: 3px }
+h1 { font: 700 clamp(1.9rem, 5vw, 2.6rem)/1.1 var(--f-display); letter-spacing: -.02em; margin: 0 0 6px; text-wrap: balance }
+.date { color: var(--muted); font-size: 14px; margin: 0 0 24px }
+h2 { font: 700 1.2rem/1.3 var(--f-display); margin: 34px 0 8px; text-wrap: balance; scroll-margin-top: 16px }
+h3 { font: 600 1rem/1.4 var(--f-body); margin: 18px 0 6px }
+p, li { color: var(--ink); max-width: 68ch }
+p { margin: 0 0 12px }
+ul, ol { padding-left: 20px; margin: 0 0 12px }
+li { margin-bottom: 6px }
+a { color: var(--accent) }
+.summary { background: var(--accent-soft); border-radius: 12px; padding: 16px 18px; margin-bottom: 8px }
+.summary p { margin: 0 0 6px } .summary ul { margin: 0 } .summary li { margin-bottom: 3px }
+.fill { background: color-mix(in srgb, var(--gold) 22%, transparent); border-radius: 4px; padding: 0 4px; font-weight: 600 }
+.toc { border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; margin: 20px 0 8px }
+.toc p { margin: 0 0 6px; font-weight: 600 }
+.toc ol { columns: 2; column-gap: 28px; margin: 0; font-size: 14.5px } .toc li { margin-bottom: 4px; break-inside: avoid }
+.table-wrap { overflow-x: auto; margin: 0 0 14px }
+table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 520px }
+th, td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid var(--line) }
+th { font-weight: 600; color: var(--muted); font-size: 13px; background: color-mix(in srgb, var(--accent-soft) 50%, transparent) }
+.contact { border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; margin: 0 0 12px }
+.contact p { margin: 0 0 4px }
+footer { max-width: 760px; margin: 20px auto 0; text-align: center; color: var(--muted); font-size: 13px }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px }
+@media (max-width: 560px) { .toc ol { columns: 1 } }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="./">← Back to the calculator</a>
+  <h1>Privacy Policy</h1>
+  <p class="date">Effective date: 30 September 2026 · Last updated: 30 September 2026</p>
+
+  <div class="summary">
+    <p><b>This website does not ask for any personal details.</b> There are no sign-ups, accounts, logins, contact forms, newsletters or payment pages. You can use the whole calculator without telling anyone who you are.</p>
+    <p><b>The short version</b></p>
+    <ul>
+      <li>This is a personal project run by one individual, not a company.</li>
+      <li>The calculator never asks for your name, phone number, email, address, date of birth, employee ID, PAN, Aadhaar or bank details.</li>
+      <li>The pay, allowance and tax figures you enter are processed only in your own browser. I do not receive, store or sell them.</li>
+      <li>The hosting service keeps basic technical logs, and advertising partners such as Google may use cookies to show and measure ads.</li>
+      <li>You can control advertising cookies, and you can email me with any privacy question.</li>
+    </ul>
+  </div>
+
+  <nav class="toc" aria-label="Contents">
+    <p>Contents</p>
+    <ol>
+      <li><a href="#p-about">Who runs this website</a></li>
+      <li><a href="#p-scope">Scope of this policy</a></li>
+      <li><a href="#p-entered">No personal details asked for</a></li>
+      <li><a href="#p-collected">Information collected automatically</a></li>
+      <li><a href="#p-cookies">Cookies and similar technologies</a></li>
+      <li><a href="#p-ads">Advertising</a></li>
+      <li><a href="#p-third">Third-party services</a></li>
+      <li><a href="#p-purpose">Why information is used</a></li>
+      <li><a href="#p-basis">Consent and legal basis</a></li>
+      <li><a href="#p-share">Sharing and disclosure</a></li>
+      <li><a href="#p-retention">How long information is kept</a></li>
+      <li><a href="#p-transfer">Transfers outside India</a></li>
+      <li><a href="#p-security">Security</a></li>
+      <li><a href="#p-rights">Your rights</a></li>
+      <li><a href="#p-children">Children</a></li>
+      <li><a href="#p-dnt">Do Not Track</a></li>
+      <li><a href="#p-links">Links to other websites</a></li>
+      <li><a href="#p-intl">Visitors from outside India</a></li>
+      <li><a href="#p-changes">Changes to this policy</a></li>
+      <li><a href="#p-law">Governing law</a></li>
+      <li><a href="#p-grievance">Contact and grievances</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="p-about">1. Who runs this website</h2>
+  <p>Pay Commission Calculator (“the website”) is a free online tool that estimates salary, allowances and income tax for employees under the 7th and projected 8th Central Pay Commission. It is created and run by an individual based in India, referred to in this policy as “the owner of this website” (or “I”, “me”, “my”). It is not operated by a company, firm or registered business.</p>
+  <p>For the limited personal data described below, I am the “Data Fiduciary” as defined in India’s Digital Personal Data Protection Act, 2023 (“DPDP Act”).</p>
+  <p>This website is independent and is not connected to, endorsed by or run on behalf of the Government of India, any State Government, any Ministry or any Pay Commission.</p>
+
+  <h2 id="p-scope">2. Scope of this policy</h2>
+  <p>This policy explains what information is handled when you visit or use the website <span class="fill">[website address]</span>, including the calculator, its pages and any ads shown on it. It does not cover websites you reach through links or advertisements; those sites have their own policies.</p>
+  <p>By using the website, you agree to the practices described here. If you do not agree, please do not use the website.</p>
+
+  <h2 id="p-entered">3. No personal details are asked for</h2>
+  <p>This website does not ask you to provide any personal details, at any point. In particular:</p>
+  <ul>
+    <li>There is no registration, account, login or password.</li>
+    <li>There are no contact forms, feedback forms, surveys, comment boxes or newsletter sign-ups.</li>
+    <li>There are no payments, so no card, UPI or bank details are ever requested.</li>
+    <li>The website never asks for your name, phone number, email address, postal address, date of birth, gender, photograph, employee ID, department, PAN, Aadhaar, bank account, passwords or health information.</li>
+  </ul>
+  <h3>Figures you enter in the calculator</h3>
+  <p>To give you an estimate, the calculator lets you enter or select anonymous figures such as pay level, basic pay, city or HRA class, DA rate, pension contribution, allowances, deductions, rent paid, investments and tax regime. None of these identify you.</p>
+  <ul>
+    <li><b>Processed on your device only.</b> All calculations run in your web browser using code on the page. These figures are not sent to me or to anyone else.</li>
+    <li><b>Not stored.</b> Your entries are not saved in any database, cookie or browser storage. They disappear when you reload or close the page.</li>
+    <li><b>Please keep it anonymous.</b> Do not type personal details into any field, including the free-text names for custom allowances and deductions.</li>
+  </ul>
+  <p>Because I never receive these figures, I cannot view, correct, export or delete them. You stay in full control of them.</p>
+  <p>If you choose to email me, I will receive your email address and whatever you write. That is the only way I would ever receive information you give directly, and it is used only to reply to you.</p>
+
+  <h2 id="p-collected">4. Information collected automatically</h2>
+  <p>Although this website does not ask for personal details, the services that deliver the website and its ads automatically receive some technical information whenever you visit any web page. This is standard for all websites and does not include your name or contact details:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Information</th><th>Collected by</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>IP address, browser and device type, operating system, referring page, pages requested, date and time</td><td>The hosting service, in server logs</td><td>Delivering the site, security, preventing abuse, fixing errors</td></tr>
+      <tr><td>IP address and browser details when fonts load</td><td>Google Fonts</td><td>Delivering the typefaces used on the page</td></tr>
+      <tr><td>Cookie and device identifiers, approximate location from IP, ad views and clicks</td><td>Advertising partners (see sections 5 and 6)</td><td>Showing, limiting and measuring ads, fraud prevention</td></tr>
+      <tr><td><span class="fill">[Only if you add analytics: pages viewed, time on page, general location, device type]</span></td><td><span class="fill">[Analytics provider, e.g. Google Analytics]</span></td><td><span class="fill">[Understanding overall usage to improve the site]</span></td></tr>
+    </tbody>
+  </table></div>
+  <p>I do not use this information to identify you personally, and I do not combine it with any other data to build a profile of you.</p>
+
+  <h2 id="p-cookies">5. Cookies and similar technologies</h2>
+  <p>Cookies are small text files stored on your device. Similar technologies include web beacons, pixels and local storage.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Type</th><th>Set by</th><th>Used for</th><th>Can you refuse?</th></tr></thead>
+    <tbody>
+      <tr><td>Calculator</td><td>—</td><td>The calculator itself sets no cookies and uses no browser storage.</td><td>Not applicable</td></tr>
+      <tr><td>Advertising</td><td>Google and other ad partners</td><td>Showing ads, limiting how often you see an ad, measuring performance, personalising ads where permitted</td><td>Yes, see below</td></tr>
+      <tr><td>Analytics <span class="fill">[if used]</span></td><td><span class="fill">[provider]</span></td><td>Counting visits and understanding usage</td><td>Yes, through browser settings or the provider’s opt-out</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Managing cookies</h3>
+  <ul>
+    <li>Most browsers let you block or delete cookies in their settings. Blocking cookies does not affect the calculator.</li>
+    <li>Where required by law, you will be asked for consent before non-essential cookies are used, through a consent banner.</li>
+  </ul>
+
+  <h2 id="p-ads">6. Advertising</h2>
+  <p>The website is free to use. Advertisements, including display and video ads, help cover the cost of running it. Ads may be provided by Google AdSense and other third-party ad networks.</p>
+  <ul>
+    <li>Third-party vendors, including Google, use cookies to serve ads based on your previous visits to this website or other websites.</li>
+    <li>Google’s use of advertising cookies enables it and its partners to serve ads to you based on your visits to this site and/or other sites on the internet.</li>
+    <li>You may opt out of personalised advertising by visiting <a href="https://adssettings.google.com" rel="noopener">Google Ads Settings</a>. You can also opt out of some third-party vendors’ use of cookies for personalised advertising at <a href="https://www.aboutads.info/choices/" rel="noopener">www.aboutads.info</a> or <a href="https://www.youronlinechoices.eu/" rel="noopener">www.youronlinechoices.eu</a>.</li>
+    <li>Learn how Google uses information from sites that use its services at <a href="https://policies.google.com/technologies/partner-sites" rel="noopener">policies.google.com/technologies/partner-sites</a>.</li>
+  </ul>
+  <p>If you opt out, you will still see ads, but they may be less relevant to you. I do not control the content of ads, and showing an ad is not an endorsement of the product, service or advertiser.</p>
+
+  <h2 id="p-third">7. Third-party services</h2>
+  <p>As an individual, I rely on the following third-party services to run the website. Each handles information under its own privacy policy:</p>
+  <ul>
+    <li><b>Hosting:</b> <span class="fill">[hosting provider name]</span>, which stores and delivers the website files.</li>
+    <li><b>Fonts:</b> Google Fonts (<a href="https://policies.google.com/privacy" rel="noopener">Google Privacy Policy</a>).</li>
+    <li><b>Advertising:</b> Google AdSense <span class="fill">[and any other ad networks you use]</span>.</li>
+    <li><b>Analytics:</b> <span class="fill">[name, or delete this line if none]</span>.</li>
+  </ul>
+
+  <h2 id="p-purpose">8. Why information is used</h2>
+  <p>The limited information described above is used only to:</p>
+  <ol>
+    <li>deliver the website and keep it working on different devices;</li>
+    <li>protect the website against attacks, spam, fraud and misuse;</li>
+    <li>understand overall usage so I can improve the calculator;</li>
+    <li>show advertising that helps cover the cost of running the free service; and</li>
+    <li>meet legal obligations and respond to lawful requests.</li>
+  </ol>
+  <p>I do not sell, rent or trade personal data. I do not use it for automated decisions that have legal or similar effects on you.</p>
+
+  <h2 id="p-basis">9. Consent and legal basis</h2>
+  <p>Where the DPDP Act applies, personal data is processed on the basis of your consent, which you give by using the website and, where shown, by accepting a consent banner, or for other legitimate uses permitted by law, such as security and legal compliance. You may withdraw consent at any time by blocking cookies, adjusting ad settings, or contacting me. Withdrawing consent does not affect processing done before it.</p>
+
+  <h2 id="p-share">10. Sharing and disclosure</h2>
+  <p>I share information only:</p>
+  <ul>
+    <li>with the service providers listed in section 7, to the extent they need it to provide their services;</li>
+    <li>when required by law, court order, or a request from a government authority or law enforcement agency;</li>
+    <li>to protect the rights, property or safety of the website, its users or the public; or</li>
+    <li>if I hand the website over to someone else, in which case this policy continues to apply to information collected before the handover.</li>
+  </ul>
+
+  <h2 id="p-retention">11. How long information is kept</h2>
+  <ul>
+    <li><b>Figures you enter:</b> never received or kept by me.</li>
+    <li><b>Server logs:</b> kept by the hosting service for up to <span class="fill">[90 days]</span>, unless needed longer to investigate a security incident or meet a legal requirement.</li>
+    <li><b>Emails you send me:</b> kept only as long as needed to reply and to keep a record of the request, and then deleted.</li>
+    <li><b>Advertising and analytics data:</b> kept by those providers under their own retention policies.</li>
+  </ul>
+
+  <h2 id="p-transfer">12. Transfers outside India</h2>
+  <p>Some of the service providers I use, including Google, may process information on servers located outside India. Where this happens, it is done in line with the DPDP Act and any restrictions notified by the Government of India.</p>
+
+  <h2 id="p-security">13. Security</h2>
+  <p>I take reasonable steps to protect the website, including serving it over encrypted HTTPS connections and keeping the data it handles to a minimum. Because your calculator entries never leave your device, they cannot be exposed through my systems. However, no website or internet transmission is completely secure, and I cannot guarantee absolute security.</p>
+  <p>If a personal data breach affecting you occurs, I will notify you and the Data Protection Board of India where the law requires it.</p>
+
+  <h2 id="p-rights">14. Your rights</h2>
+  <p>Subject to applicable law, including the DPDP Act, you have the right to:</p>
+  <ul>
+    <li>ask what personal data about you is processed and how;</li>
+    <li>ask for your personal data to be corrected, completed, updated or erased;</li>
+    <li>withdraw your consent;</li>
+    <li>have your grievance addressed;</li>
+    <li>nominate another person to exercise your rights in case of death or incapacity; and</li>
+    <li>complain to the Data Protection Board of India if you are not satisfied with my response.</li>
+  </ul>
+  <p>To use these rights, email me (section 21). I may need to verify your request. Because this website does not ask for personal details, I hold no personal data that identifies you, other than short-lived technical logs kept by the hosting service and any email you choose to send me. In most cases there will be nothing to provide or delete.</p>
+
+  <h2 id="p-children">15. Children</h2>
+  <p>This website is meant for adults, mainly serving and retired government employees. It is not directed at anyone under 18. I do not knowingly process personal data of children, and I do not allow targeted or behavioural advertising aimed at children. If you believe a child has provided personal data through this website, please contact me and it will be deleted.</p>
+
+  <h2 id="p-dnt">16. Do Not Track</h2>
+  <p>Some browsers send a “Do Not Track” signal. There is no common standard for responding to it, so the website does not respond to these signals. You can still control cookies as described in section 5.</p>
+
+  <h2 id="p-links">17. Links to other websites</h2>
+  <p>Ads and links may take you to websites I do not operate. I am not responsible for their content, security or privacy practices. Please read their policies before sharing any information with them.</p>
+
+  <h2 id="p-intl">18. Visitors from outside India</h2>
+  <p>The website is run from India and intended mainly for users in India. If you visit from another country, your information may be processed in India and in the countries where my service providers operate. Where local laws such as the EU or UK GDPR or US state privacy laws give you additional rights, you may contact me to exercise them.</p>
+
+  <h2 id="p-changes">19. Changes to this policy</h2>
+  <p>I may update this policy when the website, the services I use, or the law change. The updated version will be posted on this page with a new “Last updated” date. If a change is significant, a notice will be shown on the website. Continuing to use the website after an update means you accept the revised policy.</p>
+
+  <h2 id="p-law">20. Governing law</h2>
+  <p>This policy is governed by the laws of India, including the Information Technology Act, 2000, the rules made under it, and the Digital Personal Data Protection Act, 2023. Any dispute relating to this policy is subject to the jurisdiction of the courts of India.</p>
+
+  <h2 id="p-grievance">21. Contact and grievances</h2>
+  <p>The owner of this website runs it alone and personally handles all privacy questions, requests and complaints. You can reach the owner at:</p>
+  <div class="contact">
+    <p><b>Contact:</b> The owner of this website</p>
+    <p><b>Email:</b> <span class="fill">[website email, to be added]</span></p>
+  </div>
+  <p>Email is the fastest way to reach me. I will acknowledge your message within 7 days and aim to resolve it within 30 days. Please do not send pay slips, identity documents or other sensitive details by email.</p>
+</main>
+<footer>© 2026 The owner of this website · Pay Commission Calculator is a personal project and not an official Government website.</footer>
+</body>
+</html>

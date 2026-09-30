@@ -16,6 +16,10 @@ Live at **https://8thpay.in** · Run by NE Media · Contact: nemedia909@gmail.co
 | `index.html` | The calculator (single page, no build step) |
 | `privacy.html` | Privacy Policy |
 | `terms.html` | Terms of Use |
+| `about.html`, `contact.html`, `faq.html` | About, Contact and FAQ pages |
+| `guides.html` | List of guides |
+| `8th-pay-commission.html`, `fitment-factor.html`, `da-hike-history.html`, `hra-city-classification.html`, `arrears-section-89.html` | Guide articles |
+| `site.css` | Shared style for the About, Contact, FAQ and guide pages |
 | `404.html` | "Page not found" page |
 | `sitemap.xml` | Page list for Google Search Console |
 | `robots.txt` | Tells search engines they may index the site and where the sitemap is |

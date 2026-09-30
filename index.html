@@ -57,6 +57,10 @@ body { color: var(--ink); background-color: var(--bg);
 .wrap { max-width: 960px; margin: 0 auto; display: grid; gap: 28px }
 
 header { display: grid; gap: 10px; justify-items: center; text-align: center }
+.topnav { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 20px; margin-bottom: -12px; font-size: 14.5px; font-weight: 600 }
+.topnav a { color: var(--muted); text-decoration: none; padding: 4px 2px }
+.topnav a:hover { color: var(--accent) }
+.topnav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px }
 .badge { font: 600 12px/1 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); padding: 7px 12px; border-radius: 999px }
 header h1 { font: 700 clamp(2.1rem, 5vw, 3.4rem)/1.05 var(--f-display); letter-spacing: -.03em; margin: 0; text-wrap: balance;
   background: linear-gradient(100deg, var(--ink) 20%, var(--accent) 65%, var(--gold) 100%); -webkit-background-clip: text; background-clip: text; color: transparent }
@@ -370,6 +374,9 @@ footer button { font: inherit; color: var(--accent); background: none; border: 0
 <aside class="ad-bottom" aria-label="Advertisement"><span class="tag">Ad</span><button class="x" aria-label="Close ad">×</button><div><b>Your ad here</b>Bottom banner · 728×90</div></aside>
 
 <div class="wrap" id="wrap" data-mode="7" data-view="pay">
+  <nav class="topnav" aria-label="Main">
+    <a href="guides.html">Guides</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="contact.html">Contact</a>
+  </nav>
   <header>
     <span class="emblem" aria-hidden="true">₹</span>
     <h1>Pay Commission Calculator</h1>
@@ -619,6 +626,9 @@ footer button { font: inherit; color: var(--accent); background: none; border: 0
   <footer>
     <span>© 2026 NE Media · Pay Commission Calculator · Estimates only, not an official Government tool.</span>
     <span>Contact: <a href="mailto:nemedia909@gmail.com">nemedia909@gmail.com</a></span>
+    <a href="guides.html">Guides</a>
+    <a href="faq.html">FAQ</a>
+    <a href="about.html">About</a>
     <a href="terms.html" id="termsLink" data-doc>Terms of Use</a>
     <a href="privacy.html" id="privacyLink" data-doc>Privacy Policy</a>
     <button type="button" id="testVid">Preview video ad</button>

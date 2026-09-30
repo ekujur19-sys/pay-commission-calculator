@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contact · Pay Commission Calculator</title>
+<meta name="description" content="Contact NE Media about Pay Commission Calculator: report an error, suggest a feature, ask about commercial use or a privacy question.">
+<link rel="canonical" href="https://8thpay.in/contact.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230e6b5c'/%3E%3Ctext x='32' y='45' font-size='38' font-family='Arial,sans-serif' font-weight='700' text-anchor='middle' fill='white'%3E%E2%82%B9%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pay Commission Calculator">
+<meta property="og:title" content="Contact Pay Commission Calculator">
+<meta property="og:url" content="https://8thpay.in/contact.html">
+<meta name="theme-color" content="#0e6b5c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Figtree:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="site.css">
+<!-- AdSense code goes here -->
+<style>
+.mail { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: 18px 0 8px; padding: 18px 20px; border: 1px solid var(--line); border-radius: 14px; background: var(--field) }
+.mail a { font: 700 1.2rem var(--f-display); text-decoration: none; word-break: break-all }
+.mail button { font: 600 14px var(--f-body); color: var(--accent); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; cursor: pointer }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="./"><i>₹</i>Pay Commission Calculator</a>
+  <nav class="nav" aria-label="Main">
+    <a href="./">Calculator</a><a href="guides.html">Guides</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="contact.html" aria-current="page">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Contact</h1>
+  <p class="lede">Questions, corrections and suggestions are welcome. The quickest way to reach NE Media is by email.</p>
+
+  <div class="mail">
+    <a href="mailto:nemedia909@gmail.com" id="mailAddr">nemedia909@gmail.com</a>
+    <button type="button" id="copyBtn">Copy address</button>
+  </div>
+  <p style="font-size:14.5px;color:var(--muted)">Replies usually within 7 days.</p>
+
+  <h2>What to write about</h2>
+  <ul>
+    <li><b>An error in the calculator:</b> tell us the tab you used (7th Pay, 8th Pay or Arrears), your level and basic pay, and what you expected to see.</li>
+    <li><b>A rate that has changed:</b> for example a new DA instalment or Budget tax change. A link to the official order helps.</li>
+    <li><b>Feature ideas:</b> what would make the calculator more useful for you.</li>
+    <li><b>Commercial use:</b> using the calculator or its content for a business needs written permission (see the <a href="terms.html">Terms of Use</a>).</li>
+    <li><b>Privacy questions or requests:</b> see the <a href="privacy.html">Privacy Policy</a>.</li>
+  </ul>
+
+  <div class="note"><p><b>Please don’t send personal documents.</b> Never email pay slips, PAN, Aadhaar, bank details or passwords. We never need them, and we don’t give individual pay or tax advice. For your exact pay, contact your office or DDO.</p></div>
+
+  <div class="cta"><p><b>Try the calculator</b>Monthly pay, 8th CPC estimate and arrears.</p><a href="./">Open the calculator</a></div>
+</main>
+
+<footer class="foot">
+  <span>© 2026 NE Media · Not an official Government website</span>
+  <nav aria-label="Footer"><a href="about.html">About</a><a href="terms.html">Terms of Use</a><a href="privacy.html">Privacy Policy</a></nav>
+</footer>
+<script>
+document.getElementById("copyBtn").addEventListener("click", async e => {
+  const btn = e.currentTarget, addr = document.getElementById("mailAddr").textContent;
+  try { await navigator.clipboard.writeText(addr); btn.textContent = "Copied"; }
+  catch { const r = document.createRange(); r.selectNodeContents(document.getElementById("mailAddr")); getSelection().removeAllRanges(); getSelection().addRange(r); btn.textContent = "Press Ctrl+C to copy"; }
+  setTimeout(() => btn.textContent = "Copy address", 2500);
+});
+</script>
+</body>
+</html>

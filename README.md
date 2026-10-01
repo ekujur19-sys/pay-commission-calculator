@@ -18,6 +18,11 @@ Live at **https://8thpay.in** · Run by NE Media · Contact: nemedia909@gmail.co
 | `terms.html` | Terms of Use |
 | `about.html`, `contact.html`, `faq.html` | About, Contact and FAQ pages |
 | `guides.html` | List of guides |
+| `pension.html`, `nps-ups.html`, `gratuity.html` | Pension, NPS vs UPS, and gratuity / leave encashment calculators |
+| `pay-matrix.html`, `pension-rules.html`, `tax-regime.html` | Pay Matrix tables, pension rules guide, old vs new tax regime guide |
+| `share.js` | WhatsApp / Telegram / Facebook / copy-link buttons on every page (and "Share this result" on the calculator) |
+| `i18n.js` | English / हिंदी switch on the calculator pages (remembers the choice in the browser) |
+| `hi.js` | Hindi text for the main calculator. Edit the Hindi on the right-hand side to change a translation |
 | `news.html` | 8th Pay Commission latest news (update by hand when there's news; change "Last updated") |
 | `sources.html` | Official sources behind the calculator's rules and rates |
 | `8th-pay-commission.html`, `fitment-factor.html`, `da-hike-history.html`, `hra-city-classification.html`, `arrears-section-89.html` | Guide articles |

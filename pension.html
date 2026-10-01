@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pension Calculator · 7th and 8th Pay Commission</title>
+<meta name="description" content="Free Central Government pension calculator: basic pension, Dearness Relief, commutation lump sum, family pension and additional pension at 80+, with an 8th Pay Commission estimate.">
+<link rel="canonical" href="https://8thpay.in/pension.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230e6b5c'/%3E%3Ctext x='32' y='45' font-size='38' font-family='Arial,sans-serif' font-weight='700' text-anchor='middle' fill='white'%3E%E2%82%B9%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pay Commission Calculator">
+<meta property="og:title" content="Pension Calculator · 7th and 8th Pay Commission">
+<meta property="og:description" content="Basic pension, DR, commutation, family pension and 8th CPC estimate for Central Government pensioners.">
+<meta property="og:url" content="https://8thpay.in/pension.html">
+<meta property="og:image" content="https://8thpay.in/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pay Commission Calculator: what will you earn under the 8th Pay Commission? Check yours free at 8thpay.in">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e6b5c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="site.css">
+<!-- AdSense code goes here -->
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="./"><i>₹</i><span data-hi="वेतन आयोग कैलकुलेटर">Pay Commission Calculator</span></a>
+  <nav class="nav" aria-label="Main">
+    <details class="dd"><summary data-hi="कैलकुलेटर">Calculators</summary><div class="dd-menu"><a href="./#7th" data-hi="वेतन · 7वां वेतन आयोग&lt;small&gt;इन-हैंड वेतन, DA, HRA और आयकर&lt;/small&gt;">Salary · 7th Pay Commission<small>Take-home pay, DA, HRA and income tax</small></a><a href="./#8th" data-hi="वेतन · 8वां वेतन आयोग&lt;small&gt;फिटमेंट फैक्टर से अनुमानित नया वेतन&lt;/small&gt;">Salary · 8th Pay Commission<small>Estimated new pay by fitment factor</small></a><a href="./#arrears" data-hi="8वें वेतन आयोग का एरियर&lt;small&gt;माह-वार एरियर और कर राहत&lt;/small&gt;">8th CPC arrears<small>Month-by-month arrears and tax relief</small></a><hr><a href="pension.html" aria-current="page" data-hi="पेंशन&lt;small&gt;पेंशन, DR, कम्यूटेशन, पारिवारिक पेंशन&lt;/small&gt;">Pension<small>Pension, DR, commutation, family pension</small></a><a href="nps-ups.html" data-hi="NPS बनाम UPS&lt;small&gt;दोनों योजनाओं में पेंशन की तुलना&lt;/small&gt;">NPS vs UPS<small>Compare your pension under both schemes</small></a><a href="gratuity.html" data-hi="ग्रेच्युटी और अवकाश नकदीकरण&lt;small&gt;सेवानिवृत्ति पर एकमुश्त राशियाँ&lt;/small&gt;">Gratuity and leave encashment<small>Lump sums at retirement</small></a><a href="pay-matrix.html" data-hi="पे मैट्रिक्स तालिका&lt;small&gt;हर लेवल और सेल का मूल वेतन&lt;/small&gt;">Pay Matrix table<small>Basic pay for every level and cell</small></a></div></details><a href="guides.html" data-hi="गाइड">Guides</a><a href="news.html" data-hi="समाचार">News</a><a href="faq.html">FAQ</a><a href="about.html" data-hi="हमारे बारे में">About</a><a href="contact.html" data-hi="संपर्क">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <p class="crumb"><a href="guides.html#calculators" data-hi="कैलकुलेटर">Calculators</a> › <span data-hi="पेंशन">Pension</span></p>
+  <h1 data-hi="पेंशन कैलकुलेटर">Pension calculator</h1>
+  <p class="lede" data-hi="केंद्रीय सरकार की पुरानी पेंशन योजना (CCS पेंशन नियम) के लिए: मूल पेंशन, महंगाई राहत, कम्यूटेशन की एकमुश्त राशि, पारिवारिक पेंशन और 8वें वेतन आयोग का अनुमान।">For Central Government employees under the old pension scheme (CCS Pension Rules): basic pension, Dearness Relief, commutation lump sum, family pension and an 8th Pay Commission estimate.</p>
+  <p class="meta" data-hi="नियम सितंबर 2026 तक की जानकारी पर आधारित · NE Media">Rules as of September 2026 · by NE Media</p>
+
+  <div class="tool">
+    <form id="f" onsubmit="return false">
+      <div class="seg" role="group" aria-label="Pay commission">
+        <button type="button" data-cpc="7" aria-pressed="true" data-hi="7वां वेतन आयोग">7th CPC</button>
+        <button type="button" data-cpc="8" aria-pressed="false" data-hi="8वां (अनुमान)">8th CPC (estimate)</button>
+      </div>
+      <label><span data-hi="अंतिम मूल वेतन (₹ प्रति माह)">Last basic pay (₹ a month)</span>
+        <input id="last" type="number" min="0" step="100" value="56100" inputmode="numeric"></label>
+      <label><span data-hi="अंतिम 10 महीनों का औसत मूल वेतन">Average basic pay of last 10 months</span>
+        <small data-hi="वैकल्पिक। पेंशन इन दोनों में से जो अधिक लाभदायक हो, उसके 50% पर बनती है।">Optional. Pension is 50% of whichever of the two is more beneficial.</small>
+        <input id="avg" type="number" min="0" step="100" placeholder="Same as last basic pay" data-hi-ph="अंतिम मूल वेतन के बराबर" inputmode="numeric"></label>
+      <div class="row2">
+        <label><span data-hi="अर्हक सेवा (वर्ष)">Qualifying service (years)</span><input id="yrs" type="number" min="0" max="45" value="30"></label>
+        <label><span data-hi="और महीने">and months</span><input id="mos" type="number" min="0" max="11" value="0"></label>
+      </div>
+      <label><span data-hi="महंगाई राहत (DR) %">Dearness Relief (DR) %</span>
+        <small data-hi="DA के बराबर: जनवरी 2026 से 60%।">Same as DA: 60% from January 2026.</small>
+        <input id="dr" type="number" min="0" max="200" step="1" value="60"></label>
+      <label><span data-hi="आपकी वर्तमान आयु (वर्ष)">Your age now (years)</span>
+        <small data-hi="80 वर्ष की आयु से अतिरिक्त पेंशन मिलती है।">Additional pension starts at age 80.</small>
+        <input id="age" type="number" min="18" max="110" value="60"></label>
+      <label><span data-hi="कम्यूट की गई पेंशन %">Pension commuted %</span>
+        <small data-hi="अधिकतम 40%। एकमुश्त राशि के बदले यह हिस्सा 15 वर्ष तक कटता है।">Up to 40%. This part is deducted for 15 years in return for a lump sum.</small>
+        <input id="com" type="number" min="0" max="40" step="1" value="40"></label>
+      <label><span data-hi="कम्यूटेशन फैक्टर">Commutation factor</span>
+        <small data-hi="60 वर्ष पर सेवानिवृत्ति (अगले जन्मदिन पर आयु 61) के लिए 8.194। अन्य आयु के लिए कम्यूटेशन तालिका देखें।">8.194 if you retire at 60 (age 61 next birthday). For other ages, use the official commutation table.</small>
+        <input id="fac" type="number" min="1" max="20" step="0.001" value="8.194"></label>
+      <div id="only8" hidden>
+        <label><span data-hi="फिटमेंट फैक्टर (अनुमान)">Fitment factor (estimate)</span>
+          <small data-hi="7वें वेतन आयोग में पेंशन 2.57 से गुणा की गई थी।">The 7th CPC multiplied pensions by 2.57.</small>
+          <input id="fit" type="number" min="1" max="4" step="0.01" value="2.28"></label>
+        <label style="margin-top:14px"><span data-hi="8वें वेतन आयोग में DR %">DR under the 8th CPC %</span>
+          <small data-hi="नए वेतन आयोग के शुरू होने पर 0% से शुरू होती है।">Starts at 0% when the new pay commission begins.</small>
+          <input id="dr8" type="number" min="0" max="200" step="1" value="0"></label>
+      </div>
+    </form>
+
+    <section class="out" aria-live="polite">
+      <div class="duo">
+        <div class="big"><span id="bigLbl"></span><b id="bigAmt">₹0</b><small id="bigSub"></small></div>
+        <div class="big" id="lumpBox"><span id="lumpLbl"></span><b id="lumpAmt">₹0</b><small id="lumpSub"></small></div>
+      </div>
+      <p class="note" id="warn" hidden></p>
+      <div class="table-wrap"><table><tbody id="rows"></tbody></table></div>
+      <h2 style="margin:6px 0 0;font-size:1.1rem" data-hi="पारिवारिक पेंशन (आश्रित परिवार को)">Family pension (to the family after death)</h2>
+      <div class="table-wrap"><table><tbody id="famRows"></tbody></table></div>
+      <p class="small-note" id="note"></p>
+    </section>
+  </div>
+
+  <aside class="ad-slot" data-ad="article-top" aria-label="Advertisement" hidden></aside>
+
+  <div data-hi="&lt;h2&gt;यह कैसे गणना होती है&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;मूल पेंशन&lt;/b&gt; = अंतिम मूल वेतन या अंतिम 10 महीनों के औसत मूल वेतन (जो अधिक लाभदायक हो) का 50%। कम से कम 10 वर्ष की अर्हक सेवा ज़रूरी है।&lt;/li&gt;&lt;li&gt;न्यूनतम पेंशन ₹9,000 और अधिकतम ₹1,25,000 प्रति माह (7वां वेतन आयोग)।&lt;/li&gt;&lt;li&gt;&lt;b&gt;महंगाई राहत&lt;/b&gt; पूरी मूल पेंशन (और अतिरिक्त पेंशन) पर मिलती है, कम्यूटेशन के बाद भी।&lt;/li&gt;&lt;li&gt;&lt;b&gt;कम्यूटेशन:&lt;/b&gt; एकमुश्त राशि = कम्यूट की गई पेंशन × 12 × कम्यूटेशन फैक्टर। कम्यूट किया हिस्सा 15 वर्ष बाद बहाल हो जाता है।&lt;/li&gt;&lt;li&gt;&lt;b&gt;अतिरिक्त पेंशन:&lt;/b&gt; 80 वर्ष पर 20%, 85 पर 30%, 90 पर 40%, 95 पर 50% और 100 पर 100% (मूल पेंशन का)।&lt;/li&gt;&lt;li&gt;&lt;b&gt;पारिवारिक पेंशन:&lt;/b&gt; सामान्य दर अंतिम मूल वेतन का 30% (न्यूनतम ₹9,000)। बढ़ी हुई दर 50% है: सेवा के दौरान मृत्यु होने पर 10 वर्ष तक, और पेंशनभोगी की मृत्यु पर 7 वर्ष तक या उनकी 67 वर्ष की आयु तक, जो पहले हो।&lt;/li&gt;&lt;li&gt;&lt;b&gt;8वें वेतन आयोग का अनुमान:&lt;/b&gt; मौजूदा मूल पेंशन × आपका चुना फिटमेंट फैक्टर। कम्यूट किया गया हिस्सा पुरानी राशि पर ही रहता है, जैसा 7वें वेतन आयोग में हुआ था।&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;विस्तार से: &lt;a href=&quot;pension-rules.html&quot;&gt;पेंशन नियम सरल भाषा में&lt;/a&gt;। NPS पर हैं? &lt;a href=&quot;nps-ups.html&quot;&gt;NPS बनाम UPS कैलकुलेटर&lt;/a&gt; देखें।&lt;/p&gt;">
+  <h2>How this is worked out</h2>
+  <ul>
+    <li><b>Basic pension</b> = 50% of your last basic pay or of the average basic pay of your last 10 months, whichever is more beneficial. You need at least 10 years of qualifying service.</li>
+    <li>Minimum pension is ₹9,000 and maximum ₹1,25,000 a month (7th CPC).</li>
+    <li><b>Dearness Relief</b> is paid on the full basic pension (and additional pension), even after commutation.</li>
+    <li><b>Commutation:</b> lump sum = commuted pension × 12 × commutation factor. The commuted part is restored after 15 years.</li>
+    <li><b>Additional pension:</b> 20% of basic pension at 80, 30% at 85, 40% at 90, 50% at 95 and 100% at 100.</li>
+    <li><b>Family pension:</b> the normal rate is 30% of last basic pay (minimum ₹9,000). The enhanced rate is 50%: for 10 years if the employee dies in service, and for 7 years or until the pensioner would have turned 67 (whichever is earlier) if a pensioner dies.</li>
+    <li><b>8th CPC estimate:</b> current basic pension × the fitment factor you choose. The commuted part stays at the old amount, as it did when the 7th CPC was introduced.</li>
+  </ul>
+  <p>More detail: <a href="pension-rules.html">pension rules in plain language</a>. On NPS? Try the <a href="nps-ups.html">NPS vs UPS calculator</a>.</p>
+  </div>
+
+  <aside class="ad-slot" data-ad="article-end" aria-label="Advertisement" hidden></aside>
+
+  <div class="cta"><p data-hi="&lt;b&gt;ग्रेच्युटी और अवकाश नकदीकरण&lt;/b&gt;सेवानिवृत्ति पर मिलने वाली अन्य राशियाँ भी देखें।"><b>Gratuity and leave encashment</b>See the other amounts you receive at retirement.</p><a href="gratuity.html" data-hi="ग्रेच्युटी कैलकुलेटर">Gratuity calculator</a></div>
+</main>
+
+<footer class="foot">
+  <span data-hi="© 2026 NE Media · केवल अनुमान, यह सरकारी वेबसाइट नहीं है">© 2026 NE Media · Estimates only, not an official Government website</span>
+  <nav aria-label="Footer"><a href="news.html">News</a><a href="sources.html">Sources</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="terms.html">Terms of Use</a><a href="privacy.html">Privacy Policy</a></nav>
+</footer>
+<script src="i18n.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const inr = n => "₹" + Math.round(n).toLocaleString("en-IN");
+const L = (en, hi) => window.I18N ? I18N.L(en, hi) : en;
+const num = id => Math.max(0, +$(id).value || 0);
+let cpc = "7";
+document.querySelector(".seg").addEventListener("click", e => {
+  const b = e.target.closest("[data-cpc]"); if (!b) return;
+  cpc = b.dataset.cpc;
+  document.querySelectorAll(".seg button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  calc();
+});
+function addlPct(age) { return age >= 100 ? 1 : age >= 95 ? .5 : age >= 90 ? .4 : age >= 85 ? .3 : age >= 80 ? .2 : 0; }
+function calc() {
+  $("only8").hidden = cpc !== "8";
+  const last = num("last"), avg = num("avg") || last, yrs = num("yrs"), mos = Math.min(11, num("mos"));
+  const service = yrs + mos / 12, dr7 = num("dr"), age = num("age"), comPct = Math.min(40, num("com")) / 100, fac = num("fac");
+  const fit = Math.max(1, +$("fit").value || 1), dr8 = num("dr8");
+  const ok = service >= 10;
+  $("warn").hidden = ok;
+  $("warn").textContent = L("Pension needs at least 10 years of qualifying service. With less, you may get a one-time service gratuity instead (see the gratuity calculator).",
+    "पेंशन के लिए कम से कम 10 वर्ष की अर्हक सेवा ज़रूरी है। इससे कम सेवा पर एक बार सेवा ग्रेच्युटी मिल सकती है (ग्रेच्युटी कैलकुलेटर देखें)।");
+  // 7th CPC basic pension, within the minimum and maximum
+  const usesAvg = avg > last;
+  let base7 = ok ? Math.ceil(Math.min(125000, Math.max(9000, 0.5 * Math.max(last, avg)))) : 0;
+  const commuted = Math.round(base7 * comPct);            // commuted part stays at this amount
+  const lump = Math.round(commuted * 12 * fac);
+  const eight = cpc === "8";
+  const base = eight ? Math.ceil(base7 * fit) : base7, dr = eight ? dr8 : dr7;
+  const addl = Math.ceil(base * addlPct(age));
+  const drAmt = Math.ceil((base + addl) * dr / 100);
+  const gross = base + addl + drAmt, net = gross - commuted;
+  // Family pension: 30% of last pay (minimum ₹9,000); enhanced 50% of last pay (not more than the pension)
+  const fpN = Math.ceil(Math.max(9000, 0.3 * last) * (eight ? fit : 1)), fpE = Math.ceil(Math.min(0.5 * last, base7) * (eight ? fit : 1));
+  const fdr = x => Math.ceil(x * dr / 100);
+
+  $("bigLbl").textContent = eight ? L("Estimated monthly pension · 8th CPC", "अनुमानित मासिक पेंशन · 8वां वेतन आयोग") : L("Monthly pension in hand · 7th CPC", "हाथ में मासिक पेंशन · 7वां वेतन आयोग");
+  $("bigAmt").textContent = inr(net);
+  $("bigSub").textContent = commuted ? L(`${inr(gross)} after the commuted part is restored`, `कम्यूट हिस्सा बहाल होने के बाद ${inr(gross)}`) : L("No commutation", "कोई कम्यूटेशन नहीं");
+  $("lumpLbl").textContent = L("Commutation lump sum (one time)", "कम्यूटेशन एकमुश्त राशि (एक बार)");
+  $("lumpAmt").textContent = inr(lump);
+  $("lumpSub").textContent = eight ? L("Already received at retirement; not paid again", "सेवानिवृत्ति पर मिल चुकी; दोबारा नहीं मिलती")
+                                   : L(`${Math.round(comPct * 100)}% of pension × 12 × ${fac}`, `पेंशन का ${Math.round(comPct * 100)}% × 12 × ${fac}`);
+  const r = (a, b, cls = "") => `<tr class="${cls}"><td>${a}</td><td class="num">${b}</td></tr>`;
+  $("rows").innerHTML =
+    r(L(`Basic pension<small> 50% of ${usesAvg ? "average" : "last"} basic pay${eight ? ` × ${fit.toFixed(2)}` : ""}</small>`,
+        `मूल पेंशन<small> ${usesAvg ? "औसत" : "अंतिम"} मूल वेतन का 50%${eight ? ` × ${fit.toFixed(2)}` : ""}</small>`), inr(base)) +
+    (addl ? r(L(`Additional pension (age ${age}) · ${addlPct(age) * 100}%`, `अतिरिक्त पेंशन (आयु ${age}) · ${addlPct(age) * 100}%`), inr(addl)) : "") +
+    r(L(`Dearness Relief · ${dr}%`, `महंगाई राहत · ${dr}%`), inr(drAmt)) +
+    r(L("Gross pension", "सकल पेंशन"), inr(gross), "total") +
+    (commuted ? r(L(`Less: commuted part (restored after 15 years)`, `घटाएँ: कम्यूट हिस्सा (15 वर्ष बाद बहाल)`), "−" + inr(commuted)) : "") +
+    r(L("Pension in hand", "हाथ में पेंशन"), inr(net), "total");
+  $("rows").querySelectorAll("small").forEach(s => s.style.cssText = "display:block;color:var(--muted);font-size:12.5px");
+  $("famRows").innerHTML =
+    r(L("Enhanced family pension · 50% of last pay", "बढ़ी हुई पारिवारिक पेंशन · अंतिम वेतन का 50%"), `${inr(fpE + fdr(fpE))}<small style="display:block;color:var(--muted);font-size:12.5px">${inr(fpE)} + DR ${inr(fdr(fpE))}</small>`) +
+    r(L("Normal family pension · 30% of last pay", "सामान्य पारिवारिक पेंशन · अंतिम वेतन का 30%"), `${inr(fpN + fdr(fpN))}<small style="display:block;color:var(--muted);font-size:12.5px">${inr(fpN)} + DR ${inr(fdr(fpN))}</small>`);
+  $("note").textContent = eight
+    ? L("8th CPC figures are estimates: the fitment factor, DR and minimum and maximum pension under the 8th CPC have not been announced. Figures are rounded up to the next rupee, as in pension orders.",
+        "8वें वेतन आयोग के आंकड़े अनुमान हैं: फिटमेंट फैक्टर, DR और न्यूनतम-अधिकतम पेंशन अभी घोषित नहीं हुए हैं। राशियाँ पेंशन आदेशों की तरह अगले रुपये तक पूर्णांकित हैं।")
+    : L("Estimates only. Your Pension Payment Order (PPO) is the final word. Figures are rounded up to the next rupee, as in pension orders.",
+        "केवल अनुमान। अंतिम राशि आपके पेंशन भुगतान आदेश (PPO) के अनुसार होगी। राशियाँ पेंशन आदेशों की तरह अगले रुपये तक पूर्णांकित हैं।");
+}
+$("f").addEventListener("input", calc);
+document.addEventListener("langchange", calc);
+calc();
+</script>
+<script src="share.js" defer></script>
+<script src="ads.js" defer></script>
+</body>
+</html>

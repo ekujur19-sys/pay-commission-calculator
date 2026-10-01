@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NPS vs UPS Calculator · compare your pension</title>
+<meta name="description" content="Compare NPS and the Unified Pension Scheme (UPS) for Central Government employees: projected NPS corpus and annuity versus the UPS assured payout, lump sums and pension over time.">
+<link rel="canonical" href="https://8thpay.in/nps-ups.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230e6b5c'/%3E%3Ctext x='32' y='45' font-size='38' font-family='Arial,sans-serif' font-weight='700' text-anchor='middle' fill='white'%3E%E2%82%B9%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pay Commission Calculator">
+<meta property="og:title" content="NPS vs UPS Calculator">
+<meta property="og:description" content="Projected NPS pension versus the UPS assured payout for Central Government employees.">
+<meta property="og:url" content="https://8thpay.in/nps-ups.html">
+<meta property="og:image" content="https://8thpay.in/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pay Commission Calculator: what will you earn under the 8th Pay Commission? Check yours free at 8thpay.in">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e6b5c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="site.css">
+<!-- AdSense code goes here -->
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="./"><i>₹</i><span data-hi="वेतन आयोग कैलकुलेटर">Pay Commission Calculator</span></a>
+  <nav class="nav" aria-label="Main">
+    <details class="dd"><summary data-hi="कैलकुलेटर">Calculators</summary><div class="dd-menu"><a href="./#7th" data-hi="वेतन · 7वां वेतन आयोग&lt;small&gt;इन-हैंड वेतन, DA, HRA और आयकर&lt;/small&gt;">Salary · 7th Pay Commission<small>Take-home pay, DA, HRA and income tax</small></a><a href="./#8th" data-hi="वेतन · 8वां वेतन आयोग&lt;small&gt;फिटमेंट फैक्टर से अनुमानित नया वेतन&lt;/small&gt;">Salary · 8th Pay Commission<small>Estimated new pay by fitment factor</small></a><a href="./#arrears" data-hi="8वें वेतन आयोग का एरियर&lt;small&gt;माह-वार एरियर और कर राहत&lt;/small&gt;">8th CPC arrears<small>Month-by-month arrears and tax relief</small></a><hr><a href="pension.html" data-hi="पेंशन&lt;small&gt;पेंशन, DR, कम्यूटेशन, पारिवारिक पेंशन&lt;/small&gt;">Pension<small>Pension, DR, commutation, family pension</small></a><a href="nps-ups.html" aria-current="page" data-hi="NPS बनाम UPS&lt;small&gt;दोनों योजनाओं में पेंशन की तुलना&lt;/small&gt;">NPS vs UPS<small>Compare your pension under both schemes</small></a><a href="gratuity.html" data-hi="ग्रेच्युटी और अवकाश नकदीकरण&lt;small&gt;सेवानिवृत्ति पर एकमुश्त राशियाँ&lt;/small&gt;">Gratuity and leave encashment<small>Lump sums at retirement</small></a><a href="pay-matrix.html" data-hi="पे मैट्रिक्स तालिका&lt;small&gt;हर लेवल और सेल का मूल वेतन&lt;/small&gt;">Pay Matrix table<small>Basic pay for every level and cell</small></a></div></details><a href="guides.html" data-hi="गाइड">Guides</a><a href="news.html" data-hi="समाचार">News</a><a href="faq.html">FAQ</a><a href="about.html" data-hi="हमारे बारे में">About</a><a href="contact.html" data-hi="संपर्क">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <p class="crumb"><a href="guides.html#calculators" data-hi="कैलकुलेटर">Calculators</a> › NPS vs UPS</p>
+  <h1 data-hi="NPS बनाम UPS कैलकुलेटर">NPS vs UPS calculator</h1>
+  <p class="lede" data-hi="राष्ट्रीय पेंशन प्रणाली (NPS) से अनुमानित कॉर्पस और पेंशन की तुलना एकीकृत पेंशन योजना (UPS) के सुनिश्चित भुगतान से करें।">Compare the projected corpus and pension from the National Pension System (NPS) with the assured payout of the Unified Pension Scheme (UPS).</p>
+  <p class="meta" data-hi="नियम सितंबर 2026 तक की जानकारी पर आधारित · NE Media">Rules as of September 2026 · by NE Media</p>
+
+  <div class="tool">
+    <form id="f" onsubmit="return false">
+      <div class="row2">
+        <label><span data-hi="मूल वेतन अभी (₹)">Basic pay now (₹)</span><input id="basic" type="number" min="0" step="100" value="35400" inputmode="numeric"></label>
+        <label><span data-hi="आपकी आयु">Your age</span><input id="age" type="number" min="18" max="59" value="30"></label>
+      </div>
+      <div class="row2">
+        <label><span data-hi="सेवानिवृत्ति आयु">Retirement age</span><input id="ret" type="number" min="40" max="65" value="60"></label>
+        <label><span data-hi="अब तक की सेवा (वर्ष)">Service so far (years)</span><input id="done" type="number" min="0" max="40" value="5"></label>
+      </div>
+      <label><span data-hi="अभी का NPS कॉर्पस (₹)">NPS corpus today (₹)</span>
+        <small data-hi="वैकल्पिक। आपके PRAN खाते की वर्तमान राशि।">Optional. The current balance in your PRAN account.</small>
+        <input id="corpus" type="number" min="0" step="1000" value="0" inputmode="numeric"></label>
+      <p class="hint" style="margin:4px 0 -6px;font-weight:600;color:var(--ink)" data-hi="अनुमान (बदल सकते हैं)">Assumptions (you can change them)</p>
+      <label><span data-hi="मूल वेतन में वार्षिक वृद्धि %">Yearly growth in basic pay %</span>
+        <small data-hi="3% वार्षिक वेतनवृद्धि के साथ पदोन्नति और वेतन आयोग का औसत असर।">3% yearly increment plus an average for promotions and pay commissions.</small>
+        <input id="g" type="number" min="0" max="15" step="0.5" value="5"></label>
+      <label><span data-hi="सेवा के दौरान औसत DA %">Average DA during your career %</span>
+        <small data-hi="हर वेतन आयोग पर DA 0% से शुरू होकर बढ़ता है।">DA restarts at 0% with each pay commission and then rises.</small>
+        <input id="da" type="number" min="0" max="100" step="1" value="30"></label>
+      <div class="row2">
+        <label><span data-hi="NPS रिटर्न % प्रति वर्ष">NPS return % a year</span><input id="ret_r" type="number" min="0" max="15" step="0.5" value="9"></label>
+        <label><span data-hi="एन्युटी दर %">Annuity rate %</span><input id="ann" type="number" min="0" max="12" step="0.25" value="6.5"></label>
+      </div>
+      <label><span data-hi="एन्युटी में लगाया कॉर्पस %">Corpus used for annuity %</span>
+        <small data-hi="NPS में कम से कम 40%; बाकी एकमुश्त मिल सकता है।">At least 40% under NPS; the rest can be taken as a lump sum.</small>
+        <input id="annPct" type="number" min="40" max="100" step="5" value="40"></label>
+      <label><span data-hi="सेवानिवृत्ति के बाद DR में वार्षिक वृद्धि %">Yearly rise in DR after retirement %</span>
+        <small data-hi="UPS भुगतान पर महंगाई राहत मिलती है; NPS एन्युटी पर नहीं।">UPS payouts get Dearness Relief; NPS annuities do not.</small>
+        <input id="drg" type="number" min="0" max="10" step="0.5" value="4"></label>
+    </form>
+
+    <section class="out" aria-live="polite">
+      <div class="duo">
+        <div class="big"><span>UPS · <span id="l1"></span></span><b id="upsAmt">₹0</b><small id="upsSub"></small></div>
+        <div class="big"><span>NPS · <span id="l2"></span></span><b id="npsAmt">₹0</b><small id="npsSub"></small></div>
+      </div>
+      <p class="note" id="verdict"></p>
+      <div class="table-wrap"><table>
+        <thead><tr><th></th><th class="num">UPS</th><th class="num">NPS</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table></div>
+      <p class="small-note" id="note"></p>
+    </section>
+  </div>
+
+  <aside class="ad-slot" data-ad="article-top" aria-label="Advertisement" hidden></aside>
+
+  <div data-hi="&lt;h2&gt;दोनों योजनाएँ कैसे काम करती हैं&lt;/h2&gt;&lt;h3&gt;NPS&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;आप (मूल वेतन + DA) का 10% और सरकार 14% जमा करती है।&lt;/li&gt;&lt;li&gt;सेवानिवृत्ति पर कॉर्पस का कम से कम 40% एन्युटी (मासिक पेंशन) खरीदने में लगता है; 60% तक कर-मुक्त एकमुश्त मिल सकता है।&lt;/li&gt;&lt;li&gt;पेंशन बाज़ार रिटर्न और एन्युटी दर पर निर्भर है और आमतौर पर महंगाई के साथ नहीं बढ़ती।&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;UPS (1 अप्रैल 2025 से)&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;आप 10% और सरकार 10% आपके खाते में, तथा लगभग 8.5% एक पूल फंड में जमा करती है।&lt;/li&gt;&lt;li&gt;25 वर्ष की सेवा पर सुनिश्चित भुगतान = अंतिम 12 महीनों के औसत मूल वेतन का 50%; 10 से 25 वर्ष के बीच आनुपातिक; कम से कम ₹10,000 प्रति माह (10 वर्ष सेवा पर)।&lt;/li&gt;&lt;li&gt;भुगतान पर महंगाई राहत मिलती है। पति/पत्नी को 60% पारिवारिक भुगतान।&lt;/li&gt;&lt;li&gt;साथ में एकमुश्त राशि: हर पूरी छमाही सेवा के लिए (मूल वेतन + DA) का 1/10।&lt;/li&gt;&lt;li&gt;आपका खाता सेवानिवृत्ति पर पूल में चला जाता है (60% तक निकाल सकते हैं, पर तब भुगतान उसी अनुपात में घटता है)।&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;यह कैलकुलेटर मानता है कि UPS में आप कुछ नहीं निकालते, आपका कॉर्पस बेंचमार्क के बराबर है, और अंतिम 12 महीनों का औसत मूल वेतन अंतिम मूल वेतन के बराबर है। UPS चुनना अंतिम और अपरिवर्तनीय होता है; निर्णय से पहले अपने कार्यालय से पुष्टि करें।&lt;/p&gt;">
+  <h2>How the two schemes work</h2>
+  <h3>NPS</h3>
+  <ul>
+    <li>You contribute 10% of (basic pay + DA) and the Government adds 14%.</li>
+    <li>At retirement at least 40% of the corpus buys an annuity (monthly pension); up to 60% can be taken as a tax-free lump sum.</li>
+    <li>The pension depends on market returns and the annuity rate, and usually does not rise with inflation.</li>
+  </ul>
+  <h3>UPS (from 1 April 2025)</h3>
+  <ul>
+    <li>You contribute 10% and the Government 10% to your own account, plus about 8.5% to a pooled fund.</li>
+    <li>Assured payout after 25 years of service = 50% of the average basic pay of the last 12 months; proportionate between 10 and 25 years; at least ₹10,000 a month with 10 years of service.</li>
+    <li>The payout gets Dearness Relief. The spouse receives 60% as a family payout.</li>
+    <li>Plus a lump sum: 1/10 of (basic pay + DA) for every completed six months of service.</li>
+    <li>Your account moves to the pool at retirement (you can withdraw up to 60%, but the payout then falls in proportion).</li>
+  </ul>
+  <p>This calculator assumes you withdraw nothing under UPS, your corpus matches the benchmark, and your average basic pay over the last 12 months equals your final basic pay. Choosing UPS is final and cannot be reversed; confirm with your office before deciding.</p>
+  </div>
+
+  <aside class="ad-slot" data-ad="article-end" aria-label="Advertisement" hidden></aside>
+
+  <div class="cta"><p data-hi="&lt;b&gt;पुरानी पेंशन योजना में हैं?&lt;/b&gt;अपनी पेंशन, DR और कम्यूटेशन देखें।"><b>On the old pension scheme?</b>See your pension, DR and commutation.</p><a href="pension.html" data-hi="पेंशन कैलकुलेटर">Pension calculator</a></div>
+</main>
+
+<footer class="foot">
+  <span data-hi="© 2026 NE Media · केवल अनुमान, यह सरकारी वेबसाइट नहीं है">© 2026 NE Media · Estimates only, not an official Government website</span>
+  <nav aria-label="Footer"><a href="news.html">News</a><a href="sources.html">Sources</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="terms.html">Terms of Use</a><a href="privacy.html">Privacy Policy</a></nav>
+</footer>
+<script src="i18n.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const inr = n => "₹" + Math.round(n).toLocaleString("en-IN");
+const L = (en, hi) => window.I18N ? I18N.L(en, hi) : en;
+const v = id => Math.max(0, +$(id).value || 0);
+function calc() {
+  const basic0 = v("basic"), age = v("age"), ret = Math.max(age + 1, v("ret")), done = v("done");
+  const g = v("g") / 100, da = v("da") / 100, r = v("ret_r") / 100 / 12, ann = v("ann") / 100;
+  const annPct = Math.min(100, Math.max(40, v("annPct"))) / 100, drg = v("drg") / 100;
+  const months = Math.round((ret - age) * 12);
+  // Month by month: pay rises once a year; NPS gets 24% of (basic + DA) a month and earns the chosen return
+  let basic = basic0, nps = v("corpus"), mine = 0;
+  for (let m = 0; m < months; m++) {
+    if (m > 0 && m % 12 === 0) basic *= 1 + g;
+    const pay = basic * (1 + da);
+    nps = nps * (1 + r) + pay * 0.24;
+    mine += pay * 0.10;
+  }
+  const finalBasic = Math.round(basic / 100) * 100, E = finalBasic * (1 + da);
+  const serviceM = Math.round(done * 12) + months, Q = Math.min(300, serviceM);
+  // UPS assured payout (before DR), with the ₹10,000 minimum at 10+ years; lump sum = E/10 per completed six months
+  let ups = 0;
+  if (serviceM >= 120) ups = Math.max(10000, 0.5 * finalBasic * Q / 300);
+  const upsLump = Math.floor(serviceM / 6) * E / 10;
+  const upsStart = ups * (1 + da);                       // payout plus DR at the DA rate when you retire
+  const npsMonthly = nps * annPct * ann / 12, npsLump = nps * (1 - annPct);
+  const after = y => upsStart * Math.pow(1 + drg, y);
+
+  $("l1").textContent = L("monthly at retirement", "सेवानिवृत्ति पर मासिक");
+  $("l2").textContent = L("monthly at retirement", "सेवानिवृत्ति पर मासिक");
+  $("upsAmt").textContent = inr(upsStart);
+  $("upsSub").textContent = serviceM >= 120 ? L(`${inr(ups)} payout + DR, rises with DR`, `${inr(ups)} भुगतान + DR, DR के साथ बढ़ता है`)
+                                            : L("Needs at least 10 years of service", "कम से कम 10 वर्ष सेवा ज़रूरी");
+  $("npsAmt").textContent = inr(npsMonthly);
+  $("npsSub").textContent = L(`Annuity on ${Math.round(annPct * 100)}% of ${inr(nps)} · fixed`, `${inr(nps)} के ${Math.round(annPct * 100)}% की एन्युटी · स्थिर`);
+  const row = (a, u, n, cls = "") => `<tr class="${cls}"><td>${a}</td><td class="num">${u}</td><td class="num">${n}</td></tr>`;
+  $("rows").innerHTML =
+    row(L("Monthly pension at retirement", "सेवानिवृत्ति पर मासिक पेंशन"), inr(upsStart), inr(npsMonthly), "total") +
+    row(L("After 10 years", "10 वर्ष बाद"), inr(after(10)), inr(npsMonthly)) +
+    row(L("After 20 years", "20 वर्ष बाद"), inr(after(20)), inr(npsMonthly)) +
+    row(L("Lump sum at retirement", "सेवानिवृत्ति पर एकमुश्त"), inr(upsLump), inr(npsLump)) +
+    row(L("Family pension to spouse", "पति/पत्नी को पारिवारिक पेंशन"), L(`60% · ${inr(upsStart * 0.6)}`, `60% · ${inr(upsStart * 0.6)}`), L("Depends on annuity type", "एन्युटी के प्रकार पर निर्भर")) +
+    row(L("NPS corpus at retirement", "सेवानिवृत्ति पर NPS कॉर्पस"), L("Moves to pool", "पूल में जाता है"), inr(nps)) +
+    row(L("Your own contributions (10%)", "आपका अपना योगदान (10%)"), inr(mine), inr(mine)) +
+    row(L("Qualifying service", "अर्हक सेवा"), L(`${Math.floor(serviceM / 12)} years`, `${Math.floor(serviceM / 12)} वर्ष`), L(`${Math.floor(serviceM / 12)} years`, `${Math.floor(serviceM / 12)} वर्ष`));
+  // Verdict: monthly income now, and the year UPS overtakes NPS if NPS starts higher
+  let msg;
+  if (!ups) msg = L("With less than 10 years of service there is no UPS payout, so NPS is the only pension here.", "10 वर्ष से कम सेवा पर UPS भुगतान नहीं मिलता, इसलिए यहाँ केवल NPS पेंशन है।");
+  else if (upsStart >= npsMonthly) msg = L(`UPS pays <b>${inr(upsStart - npsMonthly)}</b> a month more at retirement, and the gap grows as DR rises. NPS gives a larger lump sum: <b>${inr(npsLump)}</b> vs <b>${inr(upsLump)}</b>.`,
+                                          `सेवानिवृत्ति पर UPS हर महीने <b>${inr(upsStart - npsMonthly)}</b> अधिक देता है, और DR बढ़ने के साथ यह अंतर बढ़ता है। NPS में एकमुश्त राशि अधिक है: <b>${inr(npsLump)}</b> बनाम <b>${inr(upsLump)}</b>।`);
+  else {
+    const yrs = Math.ceil(Math.log(npsMonthly / upsStart) / Math.log(1 + drg || 1.0001));
+    msg = L(`NPS pays <b>${inr(npsMonthly - upsStart)}</b> a month more at retirement with these assumptions${drg ? `, but UPS overtakes it after about <b>${yrs} years</b> as DR rises` : ""}.`,
+            `इन अनुमानों के साथ सेवानिवृत्ति पर NPS हर महीने <b>${inr(npsMonthly - upsStart)}</b> अधिक देता है${drg ? `, पर DR बढ़ने से लगभग <b>${yrs} वर्ष</b> बाद UPS आगे निकल जाता है` : ""}।`);
+  }
+  $("verdict").innerHTML = msg;
+  $("note").textContent = L("All figures are projections in future rupees, based on the assumptions on the left. Market returns, annuity rates, DA and pay growth will differ. This is not financial advice.",
+    "सभी आंकड़े बाईं ओर के अनुमानों पर आधारित भविष्य के रुपयों में अनुमान हैं। बाज़ार रिटर्न, एन्युटी दर, DA और वेतन वृद्धि अलग हो सकती है। यह वित्तीय सलाह नहीं है।");
+}
+$("f").addEventListener("input", calc);
+document.addEventListener("langchange", calc);
+calc();
+</script>
+<script src="share.js" defer></script>
+<script src="ads.js" defer></script>
+</body>
+</html>

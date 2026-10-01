@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gratuity and Leave Encashment Calculator · Central Government</title>
+<meta name="description" content="Work out retirement or death gratuity (up to ₹25 lakh) and earned leave encashment (up to 300 days) for Central Government employees, under NPS, UPS or the old pension scheme.">
+<link rel="canonical" href="https://8thpay.in/gratuity.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230e6b5c'/%3E%3Ctext x='32' y='45' font-size='38' font-family='Arial,sans-serif' font-weight='700' text-anchor='middle' fill='white'%3E%E2%82%B9%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pay Commission Calculator">
+<meta property="og:title" content="Gratuity and Leave Encashment Calculator">
+<meta property="og:description" content="Retirement or death gratuity and leave encashment for Central Government employees.">
+<meta property="og:url" content="https://8thpay.in/gratuity.html">
+<meta property="og:image" content="https://8thpay.in/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pay Commission Calculator: what will you earn under the 8th Pay Commission? Check yours free at 8thpay.in">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0e6b5c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="site.css">
+<!-- AdSense code goes here -->
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="./"><i>₹</i><span data-hi="वेतन आयोग कैलकुलेटर">Pay Commission Calculator</span></a>
+  <nav class="nav" aria-label="Main">
+    <details class="dd"><summary data-hi="कैलकुलेटर">Calculators</summary><div class="dd-menu"><a href="./#7th" data-hi="वेतन · 7वां वेतन आयोग&lt;small&gt;इन-हैंड वेतन, DA, HRA और आयकर&lt;/small&gt;">Salary · 7th Pay Commission<small>Take-home pay, DA, HRA and income tax</small></a><a href="./#8th" data-hi="वेतन · 8वां वेतन आयोग&lt;small&gt;फिटमेंट फैक्टर से अनुमानित नया वेतन&lt;/small&gt;">Salary · 8th Pay Commission<small>Estimated new pay by fitment factor</small></a><a href="./#arrears" data-hi="8वें वेतन आयोग का एरियर&lt;small&gt;माह-वार एरियर और कर राहत&lt;/small&gt;">8th CPC arrears<small>Month-by-month arrears and tax relief</small></a><hr><a href="pension.html" data-hi="पेंशन&lt;small&gt;पेंशन, DR, कम्यूटेशन, पारिवारिक पेंशन&lt;/small&gt;">Pension<small>Pension, DR, commutation, family pension</small></a><a href="nps-ups.html" data-hi="NPS बनाम UPS&lt;small&gt;दोनों योजनाओं में पेंशन की तुलना&lt;/small&gt;">NPS vs UPS<small>Compare your pension under both schemes</small></a><a href="gratuity.html" aria-current="page" data-hi="ग्रेच्युटी और अवकाश नकदीकरण&lt;small&gt;सेवानिवृत्ति पर एकमुश्त राशियाँ&lt;/small&gt;">Gratuity and leave encashment<small>Lump sums at retirement</small></a><a href="pay-matrix.html" data-hi="पे मैट्रिक्स तालिका&lt;small&gt;हर लेवल और सेल का मूल वेतन&lt;/small&gt;">Pay Matrix table<small>Basic pay for every level and cell</small></a></div></details><a href="guides.html" data-hi="गाइड">Guides</a><a href="news.html" data-hi="समाचार">News</a><a href="faq.html">FAQ</a><a href="about.html" data-hi="हमारे बारे में">About</a><a href="contact.html" data-hi="संपर्क">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <p class="crumb"><a href="guides.html#calculators" data-hi="कैलकुलेटर">Calculators</a> › <span data-hi="ग्रेच्युटी">Gratuity</span></p>
+  <h1 data-hi="ग्रेच्युटी और अवकाश नकदीकरण कैलकुलेटर">Gratuity and leave encashment calculator</h1>
+  <p class="lede" data-hi="केंद्रीय सरकार के कर्मचारियों के लिए सेवानिवृत्ति या मृत्यु ग्रेच्युटी और अर्जित अवकाश का नकदीकरण। NPS, UPS और पुरानी पेंशन, सभी पर लागू।">Retirement or death gratuity and earned leave encashment for Central Government employees. Applies under NPS, UPS and the old pension scheme.</p>
+  <p class="meta" data-hi="नियम सितंबर 2026 तक की जानकारी पर आधारित · NE Media">Rules as of September 2026 · by NE Media</p>
+
+  <div class="tool">
+    <form id="f" onsubmit="return false">
+      <div class="seg" role="group" aria-label="Case">
+        <button type="button" data-case="ret" aria-pressed="true" data-hi="सेवानिवृत्ति">Retirement</button>
+        <button type="button" data-case="death" aria-pressed="false" data-hi="सेवा में मृत्यु">Death in service</button>
+      </div>
+      <label><span data-hi="अंतिम मूल वेतन (₹ प्रति माह)">Last basic pay (₹ a month)</span><input id="basic" type="number" min="0" step="100" value="56100" inputmode="numeric"></label>
+      <label><span data-hi="DA %">DA %</span><small data-hi="जनवरी 2026 से 60%।">60% from January 2026.</small><input id="da" type="number" min="0" max="200" step="1" value="60"></label>
+      <div class="row2">
+        <label><span data-hi="अर्हक सेवा (वर्ष)">Qualifying service (years)</span><input id="yrs" type="number" min="0" max="45" value="33"></label>
+        <label><span data-hi="और महीने">and months</span><input id="mos" type="number" min="0" max="11" value="0"></label>
+      </div>
+      <label><span data-hi="अर्जित अवकाश शेष (दिन)">Earned leave balance (days)</span>
+        <small data-hi="अधिकतम 300 दिन का नकदीकरण।">Up to 300 days can be encashed.</small>
+        <input id="el" type="number" min="0" max="600" value="300"></label>
+    </form>
+
+    <section class="out" aria-live="polite">
+      <div class="duo">
+        <div class="big"><span id="gLbl"></span><b id="gAmt">₹0</b><small id="gSub"></small></div>
+        <div class="big"><span id="lLbl"></span><b id="lAmt">₹0</b><small id="lSub"></small></div>
+      </div>
+      <div class="table-wrap"><table><tbody id="rows"></tbody></table></div>
+      <p class="small-note" id="note"></p>
+    </section>
+  </div>
+
+  <aside class="ad-slot" data-ad="article-top" aria-label="Advertisement" hidden></aside>
+
+  <div data-hi="&lt;h2&gt;यह कैसे गणना होती है&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;परिलब्धियाँ (E)&lt;/b&gt; = अंतिम मूल वेतन + DA।&lt;/li&gt;&lt;li&gt;&lt;b&gt;सेवानिवृत्ति ग्रेच्युटी&lt;/b&gt; = हर पूरी छमाही सेवा के लिए E का 1/4, अधिकतम 16.5 × E। कम से कम 5 वर्ष की अर्हक सेवा ज़रूरी है। 3 महीने या अधिक का अंश एक छमाही गिना जाता है।&lt;/li&gt;&lt;li&gt;&lt;b&gt;मृत्यु ग्रेच्युटी:&lt;/b&gt; 1 वर्ष से कम सेवा पर 2 × E; 1 से 5 वर्ष पर 6 × E; 5 से 11 वर्ष पर 12 × E; 11 से 20 वर्ष पर 20 × E; 20 वर्ष या अधिक पर हर छमाही के लिए E का आधा, अधिकतम 33 × E।&lt;/li&gt;&lt;li&gt;ग्रेच्युटी की अधिकतम सीमा 1 जनवरी 2024 से ₹25 लाख है (DA 50% होने पर ₹20 लाख से बढ़ाई गई)।&lt;/li&gt;&lt;li&gt;&lt;b&gt;अवकाश नकदीकरण&lt;/b&gt; = (मूल वेतन + DA) ÷ 30 × अर्जित अवकाश के दिन, अधिकतम 300 दिन।&lt;/li&gt;&lt;li&gt;केंद्रीय सरकार के कर्मचारियों के लिए दोनों राशियाँ आयकर से पूरी तरह मुक्त हैं (धारा 10(10) और 10(10AA))।&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;विस्तार से: &lt;a href=&quot;pension-rules.html&quot;&gt;पेंशन, ग्रेच्युटी और कम्यूटेशन के नियम&lt;/a&gt;।&lt;/p&gt;">
+  <h2>How this is worked out</h2>
+  <ul>
+    <li><b>Emoluments (E)</b> = last basic pay + DA.</li>
+    <li><b>Retirement gratuity</b> = 1/4 of E for every completed six months of service, up to 16.5 × E. It needs at least 5 years of qualifying service. A part of 3 months or more counts as a full six months.</li>
+    <li><b>Death gratuity:</b> 2 × E with under 1 year of service; 6 × E for 1 to 5 years; 12 × E for 5 to 11 years; 20 × E for 11 to 20 years; and half of E for every six months with 20 years or more, up to 33 × E.</li>
+    <li>The gratuity ceiling is ₹25 lakh from 1 January 2024 (raised from ₹20 lakh when DA reached 50%).</li>
+    <li><b>Leave encashment</b> = (basic pay + DA) ÷ 30 × days of earned leave, up to 300 days.</li>
+    <li>For Central Government employees both amounts are fully exempt from income tax (sections 10(10) and 10(10AA)).</li>
+  </ul>
+  <p>More detail: <a href="pension-rules.html">pension, gratuity and commutation rules</a>.</p>
+  </div>
+
+  <aside class="ad-slot" data-ad="article-end" aria-label="Advertisement" hidden></aside>
+
+  <div class="cta"><p data-hi="&lt;b&gt;आपकी पेंशन कितनी होगी?&lt;/b&gt;मूल पेंशन, DR और कम्यूटेशन की एकमुश्त राशि।"><b>How much pension will you get?</b>Basic pension, DR and the commutation lump sum.</p><a href="pension.html" data-hi="पेंशन कैलकुलेटर">Pension calculator</a></div>
+</main>
+
+<footer class="foot">
+  <span data-hi="© 2026 NE Media · केवल अनुमान, यह सरकारी वेबसाइट नहीं है">© 2026 NE Media · Estimates only, not an official Government website</span>
+  <nav aria-label="Footer"><a href="news.html">News</a><a href="sources.html">Sources</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="terms.html">Terms of Use</a><a href="privacy.html">Privacy Policy</a></nav>
+</footer>
+<script src="i18n.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const inr = n => "₹" + Math.round(n).toLocaleString("en-IN");
+const L = (en, hi) => window.I18N ? I18N.L(en, hi) : en;
+const v = id => Math.max(0, +$(id).value || 0);
+const CEILING = 2500000;
+let kase = "ret";
+document.querySelector(".seg").addEventListener("click", e => {
+  const b = e.target.closest("[data-case]"); if (!b) return;
+  kase = b.dataset.case;
+  document.querySelectorAll(".seg button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  calc();
+});
+function calc() {
+  const basic = v("basic"), da = v("da"), M = Math.round(v("yrs") * 12 + Math.min(11, v("mos")));
+  const E = basic * (1 + da / 100);
+  const half = Math.floor(M / 6) + (M % 6 >= 3 ? 1 : 0);   // completed six-monthly periods; 3 months or more counts
+  const yrs = M / 12;
+  let raw, rule;
+  if (kase === "ret") {
+    if (M < 60) { raw = 0; rule = L("Needs at least 5 years of qualifying service", "कम से कम 5 वर्ष की अर्हक सेवा ज़रूरी"); }
+    else { raw = Math.min(16.5, half / 4) * E; rule = L(`${half} six-month periods × ¼ of E${half / 4 > 16.5 ? " (limit 16.5 × E)" : ""}`, `${half} छमाही × E का ¼${half / 4 > 16.5 ? " (सीमा 16.5 × E)" : ""}`); }
+  } else {
+    const k = yrs < 1 ? 2 : yrs < 5 ? 6 : yrs < 11 ? 12 : yrs < 20 ? 20 : Math.min(33, half / 2);
+    raw = k * E;
+    rule = yrs >= 20 ? L(`${half} six-month periods × ½ of E${half / 2 > 33 ? " (limit 33 × E)" : ""}`, `${half} छमाही × E का ½${half / 2 > 33 ? " (सीमा 33 × E)" : ""}`)
+                     : L(`${k} × E for this length of service`, `इस सेवा अवधि के लिए ${k} × E`);
+  }
+  const grat = Math.min(CEILING, Math.round(raw)), capped = raw > CEILING;
+  const days = Math.min(300, v("el")), enc = Math.round(E / 30 * days);
+  $("gLbl").textContent = kase === "ret" ? L("Retirement gratuity", "सेवानिवृत्ति ग्रेच्युटी") : L("Death gratuity", "मृत्यु ग्रेच्युटी");
+  $("gAmt").textContent = inr(grat);
+  $("gSub").textContent = capped ? L("Limited to the ₹25 lakh ceiling", "₹25 लाख की सीमा तक सीमित") : L("Tax-free", "कर-मुक्त");
+  $("lLbl").textContent = L("Leave encashment", "अवकाश नकदीकरण");
+  $("lAmt").textContent = inr(enc);
+  $("lSub").textContent = L(`${days} days × ${inr(E / 30)} a day · tax-free`, `${days} दिन × ${inr(E / 30)} प्रति दिन · कर-मुक्त`);
+  const r = (a, b, cls = "") => `<tr class="${cls}"><td>${a}</td><td class="num">${b}</td></tr>`;
+  $("rows").innerHTML =
+    r(L("Emoluments (basic pay + DA)", "परिलब्धियाँ (मूल वेतन + DA)"), inr(E)) +
+    r(L("Qualifying service", "अर्हक सेवा"), L(`${Math.floor(M / 12)} years ${M % 12} months`, `${Math.floor(M / 12)} वर्ष ${M % 12} महीने`)) +
+    r(L("Gratuity rule used", "लागू ग्रेच्युटी नियम"), rule) +
+    r(kase === "ret" ? L("Retirement gratuity", "सेवानिवृत्ति ग्रेच्युटी") : L("Death gratuity", "मृत्यु ग्रेच्युटी"), inr(grat)) +
+    r(L("Leave encashment", "अवकाश नकदीकरण"), inr(enc)) +
+    r(L("Total", "कुल"), inr(grat + enc), "total");
+  $("note").textContent = L("Estimates only. Your final amounts are set in your retirement or settlement orders. Half pay leave encashment and CGEGIS savings are not included.",
+    "केवल अनुमान। अंतिम राशि आपके सेवानिवृत्ति या निपटान आदेशों में तय होती है। अर्ध वेतन अवकाश का नकदीकरण और CGEGIS बचत शामिल नहीं हैं।");
+}
+$("f").addEventListener("input", calc);
+document.addEventListener("langchange", calc);
+calc();
+</script>
+<script src="share.js" defer></script>
+<script src="ads.js" defer></script>
+</body>
+</html>

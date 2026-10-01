@@ -57,6 +57,7 @@ td.num, th.num { text-align: right }
 .ad-slot { display: grid; gap: 4px; justify-items: center; margin: 26px 0 }
 .ad-slot::before { content: "Advertisement"; font: 600 10px var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted) }
 .ad-slot ins { display: block; width: 100%; min-height: 90px }
+html[lang="hi"] .ad-slot::before { content: "विज्ञापन" }
 
 /* Call to action */
 .cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; margin: 34px 0 6px; padding: 20px 22px; border-radius: 16px; color: #fff;
@@ -86,6 +87,48 @@ details.q > div { padding: 0 0 14px }
 .foot a { color: var(--muted); display: inline-block; padding: 9px 2px }   /* comfortable tap height on phones */
 .nav a { padding-block: 9px }
 
+/* Share bar (share.js): WhatsApp, Telegram, Facebook, copy link */
+.sharebar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 30px 0 0; padding-top: 18px; border-top: 1px solid var(--line) }
+.sharebar > span { font-weight: 600; font-size: 14px; margin-right: 4px }
+.sharebar a, .sharebar button { display: inline-flex; align-items: center; gap: 7px; font: 600 13.5px var(--f-body); text-decoration: none; color: var(--ink); background: var(--field);
+  border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px; cursor: pointer; line-height: 1 }
+.sharebar a:hover, .sharebar button:hover { border-color: var(--accent); color: var(--accent) }
+.sharebar svg { width: 16px; height: 16px; flex: none }
+.sharebar .wa svg { color: #25d366 } .sharebar .tg svg { color: #229ed9 } .sharebar .fb svg { color: #1877f2 }
+
+/* Language switch (i18n.js, calculator pages) */
+.langbtn { font: 600 13.5px var(--f-body); color: var(--accent); background: var(--accent-soft); border: 0; border-radius: 999px; padding: 8px 14px; cursor: pointer }
+html[lang="hi"] body { font-family: var(--f-body), "Noto Sans Devanagari", sans-serif }
+
+/* Tool pages (pension, NPS vs UPS, gratuity): form on the left, results on the right */
+.tool { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 22px; align-items: start; margin: 8px 0 10px }
+.tool form { display: grid; gap: 14px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--field) }
+.tool label { display: grid; gap: 5px; font-weight: 600; font-size: 14px; line-height: 1.4 }
+.tool label small, .tool .hint { font-weight: 400; font-size: 12.5px; color: var(--muted) }
+.tool input[type="number"], .tool select { font: 500 15px var(--f-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 11px; width: 100%; min-width: 0 }
+.tool input:focus-visible, .tool select:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft) }
+.tool .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px }
+.tool .check { display: flex; align-items: center; gap: 9px; font-weight: 500 }
+.tool .check input { width: 18px; height: 18px; accent-color: var(--accent); margin: 0 }
+.tool .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px }
+.tool .seg button { font: 600 13.5px var(--f-body); border: 0; border-radius: 999px; padding: 9px 8px; background: none; color: var(--muted); cursor: pointer }
+.tool .seg button[aria-pressed="true"] { background: var(--accent); color: #fff }
+.out { display: grid; gap: 16px; min-width: 0 }
+.big { display: grid; gap: 4px; padding: 20px 22px; border-radius: 16px; color: #fff; background: linear-gradient(135deg, var(--hero-b), var(--hero-a)) }
+.big span { font-size: 13.5px; opacity: .85 }
+.big b { font: 700 clamp(2rem, 6vw, 2.8rem)/1.05 var(--f-display); letter-spacing: -.02em }
+.big small { font-size: 13px; opacity: .85 }
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px }
+.duo .big:nth-child(2) { background: linear-gradient(135deg, #8a6a22, #6f5219) }
+.out table td.num, .out table th.num { text-align: right; white-space: nowrap }
+.out tr.total td { font-weight: 700; border-top: 1.5px solid var(--ink) }
+.small-note { font-size: 13px; color: var(--muted); margin: 0 }
+.tools-strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; margin: 14px 0 }
+@media (max-width: 760px) { .tool { grid-template-columns: 1fr } }
+@media (max-width: 420px) { .duo { grid-template-columns: 1fr } .tool .row2 { grid-template-columns: 1fr }
+  .out table { font-size: 13px } .out th, .out td { padding: 8px 5px } .out td:first-child { min-width: 0 }
+  .out table td.num { white-space: normal; overflow-wrap: normal } }   /* text like "Moves to pool" may wrap; amounts have no spaces so they stay whole */
+
 @media (max-width: 560px) {
   body { font-size: 16px }
   .topbar { padding-block: 14px }
@@ -95,3 +138,17 @@ details.q > div { padding: 0 0 14px }
   .cta a { width: 100% ; text-align: center }
   .foot { flex-direction: column }
 }
+
+/* "Calculators" dropdown in the top menu (behaviour in share.js) */
+.dd { position: relative }
+.dd > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; padding: 9px 2px; font-weight: 600; color: var(--accent) }
+.dd > summary::-webkit-details-marker { display: none }
+.dd > summary::after { content: ""; width: 7px; height: 7px; border-right: 1.8px solid currentColor; border-bottom: 1.8px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform .2s }
+.dd[open] > summary::after { transform: rotate(-135deg) translate(-1px, -1px) }
+.dd > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px }
+.dd-menu { position: absolute; top: calc(100% + 4px); left: 0; z-index: 60; width: max-content; min-width: 240px; max-width: calc(100vw - 24px); display: grid; gap: 2px; padding: 6px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 16px 36px -10px rgba(0,0,0,.28); text-align: left }
+.nav .dd-menu a, .topnav .dd-menu a, .dd-menu a { display: block; padding: 10px 12px; border-radius: 9px; color: var(--ink); text-decoration: none; font-weight: 600; font-size: 14.5px; line-height: 1.3 }
+.dd-menu a small { display: block; font-weight: 400; font-size: 12.5px; color: var(--muted); margin-top: 2px }
+.nav .dd-menu a:hover, .topnav .dd-menu a:hover, .dd-menu a[aria-current="page"] { background: var(--accent-soft); color: var(--accent) }
+.dd-menu hr { border: 0; border-top: 1px solid var(--line); margin: 4px 6px }

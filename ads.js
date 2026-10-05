@@ -14,7 +14,7 @@
       Spaces left empty ("") stay hidden; Auto ads may still place ads elsewhere.
    Until the publisher ID is filled in, every ad space stays hidden and nothing loads.
    ===================================================================================== */
-const ADSENSE_CLIENT = "";          // "ca-pub-XXXXXXXXXXXXXXXX"
+const ADSENSE_CLIENT = "ca-pub-9814853980886735";
 const AD_UNITS = {
   "calc-mid":    "",   // calculator: between the form and the results (phones only)
   "calc-after":  "",   // calculator: below the calculator

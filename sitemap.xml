@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://8thpay.in/</loc><lastmod>2026-09-30</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://8thpay.in/pension.html</loc><lastmod>2026-10-01</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://8thpay.in/nps-ups.html</loc><lastmod>2026-10-01</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://8thpay.in/gratuity.html</loc><lastmod>2026-10-01</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://8thpay.in/</loc><lastmod>2026-10-26</lastmod><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://8thpay.in/pension.html</loc><lastmod>2026-10-26</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://8thpay.in/nps-ups.html</loc><lastmod>2026-10-26</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://8thpay.in/gratuity.html</loc><lastmod>2026-10-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://8thpay.in/pay-matrix.html</loc><lastmod>2026-10-01</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://8thpay.in/pension-rules.html</loc><lastmod>2026-10-01</lastmod><priority>0.8</priority></url>
-  <url><loc>https://8thpay.in/tax-regime.html</loc><lastmod>2026-10-01</lastmod><priority>0.8</priority></url>
-  <url><loc>https://8thpay.in/8th-pay-commission.html</loc><lastmod>2026-09-30</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://8thpay.in/fitment-factor.html</loc><lastmod>2026-09-30</lastmod><priority>0.8</priority></url>
-  <url><loc>https://8thpay.in/da-hike-history.html</loc><lastmod>2026-09-30</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://8thpay.in/hra-city-classification.html</loc><lastmod>2026-09-30</lastmod><priority>0.8</priority></url>
-  <url><loc>https://8thpay.in/arrears-section-89.html</loc><lastmod>2026-09-30</lastmod><priority>0.8</priority></url>
+  <url><loc>https://8thpay.in/8th-pay-commission.html</loc><lastmod>2026-10-26</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://8thpay.in/news.html</loc><lastmod>2026-10-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://8thpay.in/sources.html</loc><lastmod>2026-09-30</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://8thpay.in/guides.html</loc><lastmod>2026-09-30</lastmod><priority>0.7</priority></url>
+  <url><loc>https://8thpay.in/salary-slip.html</loc><lastmod>2026-10-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://8thpay.in/annual-increment.html</loc><lastmod>2026-10-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://8thpay.in/pay-fixation-promotion.html</loc><lastmod>2026-10-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://8thpay.in/macp.html</loc><lastmod>2026-10-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://8thpay.in/transport-allowance.html</loc><lastmod>2026-10-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://8thpay.in/children-education-allowance.html</loc><lastmod>2026-10-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://8thpay.in/leave-rules.html</loc><lastmod>2026-10-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://8thpay.in/ltc.html</loc><lastmod>2026-10-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://8thpay.in/nps-tax-benefits.html</loc><lastmod>2026-10-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://8thpay.in/pension-rules.html</loc><lastmod>2026-10-01</lastmod><priority>0.8</priority></url>
+  <url><loc>https://8thpay.in/tax-regime.html</loc><lastmod>2026-10-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://8thpay.in/fitment-factor.html</loc><lastmod>2026-10-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://8thpay.in/da-hike-history.html</loc><lastmod>2026-10-26</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://8thpay.in/hra-city-classification.html</loc><lastmod>2026-10-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://8thpay.in/arrears-section-89.html</loc><lastmod>2026-10-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://8thpay.in/sources.html</loc><lastmod>2026-10-26</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://8thpay.in/guides.html</loc><lastmod>2026-10-26</lastmod><priority>0.7</priority></url>
   <url><loc>https://8thpay.in/faq.html</loc><lastmod>2026-09-30</lastmod><priority>0.7</priority></url>
   <url><loc>https://8thpay.in/about.html</loc><lastmod>2026-09-30</lastmod><priority>0.5</priority></url>
   <url><loc>https://8thpay.in/contact.html</loc><lastmod>2026-09-30</lastmod><priority>0.5</priority></url>

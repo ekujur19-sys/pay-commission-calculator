@@ -382,6 +382,7 @@ footer a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; 
 
 /* AdSense display units (filled by ads.js): in the page flow, labelled, and kept clear of buttons */
 .ad-slot { display: grid; gap: 4px; justify-items: center; margin-block: 4px; min-width: 0 }
+.ad-slot[hidden] { display: none }
 .ad-slot::before { content: "Advertisement"; font: 600 10px var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted) }
 .ad-slot ins { display: block; width: 100%; min-height: 90px }
 @media (min-width: 861px) { .phone-only { display: none !important } }
@@ -551,10 +552,10 @@ html[lang="hi"] .ad-slot::before { content: "विज्ञापन" }
           <label class="check" for="arrTa"><input id="arrTa" type="checkbox"> Transport Allowance</label>
           <div class="arr-slot" id="slotTa" hidden>
             <label for="taCity">Your city for transport allowance
-              <small>Big cities (Class X) get a higher transport allowance.</small>
+              <small>19 big cities get a higher transport allowance. <a href="transport-allowance.html">See the list</a></small>
               <select id="taCity">
-                <option value="high">Higher-rate city · Class X (Delhi, Mumbai, Kolkata…)</option>
-                <option value="other">Other city · Class Y or Z</option>
+                <option value="high">Higher-rate city (Delhi, Mumbai, Lucknow, Jaipur…)</option>
+                <option value="other">Other city or town</option>
               </select></label>
           </div>
           <label class="check" for="arrNps"><input id="arrNps" type="checkbox"> Deduct NPS / UPS from arrears</label>
@@ -907,7 +908,19 @@ const findCity = q => {
   return key ? { name: [...CITIES.X, ...CITIES.Y].find(c => c.toLowerCase() === key), cls: cityClass[key] } : null;
 };
 const clsText = c => ({ X: "Class X", Y: "Class Y", Z: "Class Z" })[c];
+/* Transport allowance: the 19 higher-rate cities (DoE OM No. 21/5/2017-E.II(B), 7 July 2017), plus parts of those
+   urban areas that the list above names separately. Not the same as the HRA classes: with no city searched,
+   Class X is used as the guess. taPick holds a choice made in the arrears panel until the city changes. */
+const TA_HIGH = new Set(["ahmedabad","bengaluru (bangalore)","chennai","coimbatore","delhi","new delhi","ghaziabad","mumbai","navi mumbai",
+  "thane","hyderabad","secunderabad","indore","jaipur","kanpur","kochi (ernakulam)","kolkata","howrah","kozhikode","lucknow","nagpur","patna","pune","surat"]);
+let taPick = "";
+const taHigh = cls => {
+  if (taPick) return taPick === "high";
+  const hit = findCity($("citySearch").value);
+  return hit ? TA_HIGH.has(hit.name.toLowerCase()) : cls === "X";
+};
 $("citySearch").addEventListener("input", () => {
+  taPick = "";
   const q = $("citySearch").value.trim();
   if (!q) { $("cityMsg").textContent = "Pick a city to set the HRA class, or choose the class yourself below."; return; }
   const hit = findCity(q);
@@ -917,6 +930,7 @@ $("citySearch").addEventListener("input", () => {
   } else $("cityMsg").textContent = "Keep typing and pick your city from the list.";
 });
 $("city").addEventListener("change", () => {
+  taPick = "";
   if ($("citySearch").value.trim()) $("cityMsg").textContent = `HRA class chosen manually: ${clsText($("city").value)}.`;
 });
 
@@ -960,7 +974,7 @@ function hraRate(city, da) {
   return t["XYZ".indexOf(city)] / 100;
 }
 function transport(level, basic, city) {
-  const n = levelNum(level), high = city === "X";
+  const n = levelNum(level), high = taHigh(city);
   if (n >= 9) return high ? 7200 : 3600;
   if (n >= 3 || basic >= 24200) return high ? 3600 : 1800;
   return high ? 1350 : 900;
@@ -1039,7 +1053,8 @@ function surcharge(taxable, base, R) {
   const atTh = slabOnly(th, R) * (1 + lower);
   return Math.max(0, Math.min(base * rate, atTh + (taxable - th) - base));
 }
-const HRA_50_CITIES =["delhi", "new delhi", "mumbai", "kolkata", "chennai"]; // 50% HRA exemption; other cities 40%
+// 50% HRA exemption (Income-tax Rules, 2026, from 1 April 2026: four cities added to the old four); other cities 40%
+const HRA_50_CITIES = ["delhi", "new delhi", "mumbai", "kolkata", "chennai", "bengaluru (bangalore)", "hyderabad", "pune", "ahmedabad"];
 const num = id => Math.max(0, +$(id).value || 0);
 function taxCalc(p, regime) {
   const R = TAX[regime], annual = p.gross * 12, bd = (p.basic + p.da) * 12, deds = readItems("dedList");
@@ -1214,7 +1229,7 @@ function placeArrearsControls() {
   const wantHra = inArr && $("arrHra").checked, wantNps = inArr && $("arrNps").checked;
   // Transport allowance alone: a simple city-type choice (with HRA ticked, the full city settings above cover it)
   $("slotTa").hidden = !(inArr && $("arrTa").checked && !$("arrHra").checked);
-  $("taCity").value = $("city").value === "X" ? "high" : "other";
+  $("taCity").value = taHigh($("city").value) ? "high" : "other";
   if (wantHra && hraBody.parentElement !== $("slotHra")) $("slotHra").appendChild(hraBody);
   if (!wantHra && hraBody.parentElement === $("slotHra")) document.querySelector(".fold-hra").appendChild(hraBody);
   if (wantNps && npsBox.parentElement !== $("slotNps")) { $("slotNps").appendChild(npsBox); $("npsPct").disabled = $("npsType").disabled = false; }
@@ -1383,11 +1398,8 @@ function setView(v) {
   setMode("8");
 }
 document.querySelector(".subtabs").addEventListener("click", e => { const b = e.target.closest("[data-view]"); if (b) setView(b.dataset.view); });
-// City type for transport allowance sets the HRA class (runs before the form recalculates)
-$("taCity").addEventListener("input", () => {
-  const c = $("city").value;
-  $("city").value = $("taCity").value === "high" ? "X" : (c === "X" ? "Y" : c);
-});
+// Transport allowance city type chosen in the arrears panel (runs before the form recalculates)
+$("taCity").addEventListener("input", () => { taPick = $("taCity").value; });
 $("implSel").addEventListener("change", () => { $("implCustom").hidden = $("implSel").value !== "custom"; });
 if (location.hash === "#arrears") $("wrap").dataset.view = "arrears", $("viewPay").setAttribute("aria-selected", false), $("viewArr").setAttribute("aria-selected", true);
 document.querySelector(".tabs").addEventListener("click", e => { const b = e.target.closest("[data-mode]"); if (b) setMode(b.dataset.mode); });

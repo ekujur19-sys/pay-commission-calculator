@@ -106,7 +106,7 @@ html[lang="hi"] body { font-family: var(--f-body), "Noto Sans Devanagari", sans-
 .tool form { display: grid; gap: 14px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--field) }
 .tool label { display: grid; gap: 5px; font-weight: 600; font-size: 14px; line-height: 1.4 }
 .tool label small, .tool .hint { font-weight: 400; font-size: 12.5px; color: var(--muted) }
-.tool input[type="number"], .tool select { font: 500 15px var(--f-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 11px; width: 100%; min-width: 0 }
+.tool input[type="number"], .tool input[type="search"], .tool select { font: 500 15px var(--f-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 11px; width: 100%; min-width: 0 }
 .tool input:focus-visible, .tool select:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft) }
 .tool .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px }
 .tool .check { display: flex; align-items: center; gap: 9px; font-weight: 500 }
@@ -125,6 +125,26 @@ html[lang="hi"] body { font-family: var(--f-body), "Noto Sans Devanagari", sans-
 .out tr.total td { font-weight: 700; border-top: 1.5px solid var(--ink) }
 .small-note { font-size: 13px; color: var(--muted); margin: 0 }
 .tools-strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; margin: 14px 0 }
+
+/* HRA and TA city finder (hra-ta-city-finder.html, city-finder.js) */
+.finder-search { display: grid; gap: 7px; margin: 18px 0 }
+.finder-search label { font-weight: 700 }
+.finder-search input { font: 500 17px var(--f-body); color: var(--ink); background: var(--surface); border: 2px solid var(--accent); border-radius: 14px; padding: 14px 16px; width: 100%; min-width: 0 }
+.finder-search input:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--accent-soft) }
+.finder-card { border: 1px solid var(--line); border-radius: 16px; padding: 18px; margin: 16px 0; background: var(--field) }
+.finder-top { display: flex; justify-content: space-between; align-items: center; gap: 14px }
+.finder-city { display: block; font: 700 1.5rem/1.2 var(--f-display) }
+.finder-sub { font-size: 13.5px; color: var(--muted) }
+.cls { display: grid; place-items: center; flex: none; width: 58px; height: 58px; border-radius: 14px; font: 700 1.9rem var(--f-display); color: #fff }
+.cls-X { background: var(--accent) } .cls-Y { background: var(--gold) } .cls-Z { background: #6b7a76 }
+.finder-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px }
+.tag-pill { font-size: 13px; font-weight: 600; padding: 5px 11px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line) }
+.tag-pill.on { background: var(--accent-soft); color: var(--accent); border-color: transparent }
+.finder-pay { margin-top: 20px } .finder-pay[hidden] { display: none }
+.finder-h { font: 700 1.05rem var(--f-display) }
+#cityTable tr[hidden] { display: none }
+#cityTable td:first-child a { font-weight: 600 }
+@media (max-width: 560px) { #cfOut td.num { white-space: normal } #cfOut table, #cityTable { font-size: 14px } #cfOut th, #cfOut td, #cityTable td, #cityTable th { padding: 9px 8px } }
 @media (max-width: 760px) { .tool { grid-template-columns: 1fr } }
 @media (max-width: 420px) { .duo { grid-template-columns: 1fr } .tool .row2 { grid-template-columns: 1fr }
   .out table { font-size: 13px } .out th, .out td { padding: 8px 5px } .out td:first-child { min-width: 0 }

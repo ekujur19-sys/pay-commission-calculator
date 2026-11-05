@@ -6,7 +6,7 @@
   const box = document.getElementById("cityFinder");
   if (!box || typeof findCity !== "function") return;
 
-  const FINDER_DA = 60;
+  const FINDER_DA = 63;
   const LEVELS = [["1",18000],["2",19900],["3",21700],["4",25500],["5",29200],["6",35400],["7",44900],["8",47600],["9",53100],["10",56100],
     ["11",67700],["12",78800],["13",123100],["13A",131100],["14",144200],["15",182200],["16",205400],["17",225000],["18",250000]];
   const HRA = { X: [30, 5400], Y: [20, 3600], Z: [10, 1800] };
@@ -30,7 +30,7 @@
         <label for="cfBasic">Basic pay
           <input id="cfBasic" type="number" min="18000" max="250000" step="100" value="35400" inputmode="numeric"></label>
       </div>
-      <small class="hint">DA is taken as ${FINDER_DA}%, the rate from 1 January 2026.</small>
+      <small class="hint">DA is taken as ${FINDER_DA}%, the rate from 1 July 2026.</small>
     </form>
     <div class="out" id="cfMine"></div>
   </div>`;

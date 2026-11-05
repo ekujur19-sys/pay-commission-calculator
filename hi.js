@@ -39,7 +39,7 @@ window.I18N_DICT = {
   "Choose another month…": "दूसरा महीना चुनें…",
   "Month the new pay starts": "नया वेतन शुरू होने का महीना",
   "Expected DA rise every 6 months": "हर 6 महीने में DA में अपेक्षित वृद्धि",
-  "Used for both 7th and 8th CPC DA during the arrears period. 7th CPC DA is 60% from January 2026.": "एरियर अवधि में 7वें और 8वें दोनों वेतन आयोगों के DA के लिए। 7वें वेतन आयोग का DA जनवरी 2026 से 60% है।",
+  "Used for both 7th and 8th CPC DA during the arrears period. 7th CPC DA is 60% from January 2026 and 63% from July 2026.": "एरियर अवधि में 7वें और 8वें दोनों वेतन आयोगों के DA के लिए। 7वें वेतन आयोग का DA जनवरी 2026 से 60% और जुलाई 2026 से 63% है।",
   "Include yearly increment every July (3%)": "हर जुलाई की वार्षिक वेतनवृद्धि (3%) शामिल करें",
   "Include in arrears": "एरियर में शामिल करें",
   "(basic pay and DA are always included)": "(मूल वेतन और DA हमेशा शामिल हैं)",
@@ -77,8 +77,8 @@ window.I18N_DICT = {
   "Used to compare with your current pay.": "आपके वर्तमान वेतन से तुलना के लिए।",
   "Resets to 0% when a new pay commission starts, then rises every six months.": "नया वेतन आयोग शुरू होने पर 0% हो जाता है, फिर हर छह महीने बढ़ता है।",
   "Enter DA % manually…": "DA % स्वयं लिखें…", "Enter DA % (7th CPC)": "DA % लिखें (7वां वेतन आयोग)", "Enter DA % (8th CPC)": "DA % लिखें (8वां वेतन आयोग)",
-  "60% · from Jan 2026 (current)": "60% · जनवरी 2026 से (वर्तमान)",
-  "63% · Jul 2026 (expected)": "63% · जुलाई 2026 (अपेक्षित)", "66% · Jan 2027 (expected)": "66% · जनवरी 2027 (अपेक्षित)", "69% · Jul 2027 (expected)": "69% · जुलाई 2027 (अपेक्षित)",
+  "63% · from Jul 2026 (current)": "63% · जुलाई 2026 से (वर्तमान)", "60% · Jan 2026": "60% · जनवरी 2026",
+  "66% · Jan 2027 (expected)": "66% · जनवरी 2027 (अपेक्षित)", "69% · Jul 2027 (expected)": "69% · जुलाई 2027 (अपेक्षित)", "72% · Jan 2028 (expected)": "72% · जनवरी 2028 (अपेक्षित)",
   "58% · Jul 2025": "58% · जुलाई 2025", "55% · Jan 2025": "55% · जनवरी 2025", "53% · Jul 2024": "53% · जुलाई 2024", "50% · Jan 2024": "50% · जनवरी 2024",
   "0% · when 8th CPC starts": "0% · 8वां वेतन आयोग शुरू होने पर", "3% · after 6 months (expected)": "3% · 6 महीने बाद (अपेक्षित)", "6% · after 1 year (expected)": "6% · 1 वर्ष बाद (अपेक्षित)",
   "9% · after 18 months (expected)": "9% · 18 महीने बाद (अपेक्षित)", "12% · after 2 years (expected)": "12% · 2 वर्ष बाद (अपेक्षित)",
@@ -167,7 +167,7 @@ window.I18N_DICT = {
   "How this is worked out": "यह कैसे गणना होती है",
   "Pay and DA": "वेतन और DA",
   "Basic pay comes from the 7th CPC Pay Matrix, or the UGC Academic Pay Matrix for teachers. Each step in a level is 3% higher, rounded to the nearest ₹100.": "मूल वेतन 7वें वेतन आयोग के पे मैट्रिक्स से, और शिक्षकों के लिए UGC एकेडमिक पे मैट्रिक्स से लिया गया है। लेवल का हर अगला चरण 3% अधिक होता है, निकटतम ₹100 तक पूर्णांकित।",
-  "Dearness Allowance is a percentage of basic pay. It is 60% from January 2026, or the rate you choose.": "महंगाई भत्ता मूल वेतन का प्रतिशत है। जनवरी 2026 से यह 60% है, या आपकी चुनी दर।",
+  "Dearness Allowance is a percentage of basic pay. It is 63% from July 2026, or the rate you choose.": "महंगाई भत्ता मूल वेतन का प्रतिशत है। जुलाई 2026 से यह 63% है, या आपकी चुनी दर।",
   "HRA is a percentage of basic pay by city class: 30/20/10% when DA is 50% or more, 27/18/9% between 25% and 50%, and 24/16/8% below 25%.": "HRA शहर की श्रेणी के अनुसार मूल वेतन का प्रतिशत है: DA 50% या अधिक होने पर 30/20/10%, 25% से 50% के बीच 27/18/9%, और 25% से कम पर 24/16/8%।",
   "Minimum HRA is ₹5,400 (X), ₹3,600 (Y) and ₹1,800 (Z) a month.": "न्यूनतम HRA ₹5,400 (X), ₹3,600 (Y) और ₹1,800 (Z) प्रति माह है।",
   "The city search uses the X and Y city lists. Noida, Ghaziabad, Gurugram and Faridabad are treated as Delhi. Any city not listed is Class Z. Look up any city on the": "शहर खोज X और Y शहरों की सूची पर आधारित है। नोएडा, गाज़ियाबाद, गुरुग्राम और फ़रीदाबाद को दिल्ली माना गया है। सूची में न होने वाला हर शहर श्रेणी Z है। किसी भी शहर की जानकारी के लिए देखें:",
@@ -250,7 +250,7 @@ window.I18N_RULES = [
   [/^Estimated arrears receivable after (tax and )?(NPS|UPS)$/, m => `${m[1] ? "कर और " : ""}${m[2]} के बाद अनुमानित प्राप्य एरियर`],
   [/^Arrears are the difference between 8th CPC pay due and 7th CPC pay actually paid, on (.+)\.$/, m =>
     `एरियर, 8वें वेतन आयोग के देय वेतन और 7वें वेतन आयोग के वास्तव में मिले वेतन का अंतर है: ${m[1].replace("basic pay and DA", "मूल वेतन और DA").replace("transport allowance", "परिवहन भत्ता").replace(/ and /g, " और ")} पर।`],
-  [/^7th CPC DA is taken as (\d+)% from January 2026 and 8th CPC DA as 0% from (\w{3} \d{4}), both rising ([\d.]+)% every January and July\.$/, m =>
-    `7वें वेतन आयोग का DA जनवरी 2026 से ${m[1]}% और 8वें वेतन आयोग का DA ${mon(m[2])} से 0% माना गया है; दोनों हर जनवरी और जुलाई में ${m[3]}% बढ़ते हैं।`]
+  [/^7th CPC DA is taken as (\d+)% from January 2026 and (\d+)% from July 2026 \(announced\), and 8th CPC DA as 0% from (\w{3} \d{4}), both rising ([\d.]+)% every January and July after that\.$/, m =>
+    `7वें वेतन आयोग का DA जनवरी 2026 से ${m[1]}% और जुलाई 2026 से ${m[2]}% (घोषित), और 8वें वेतन आयोग का DA ${mon(m[3])} से 0% माना गया है; इसके बाद दोनों हर जनवरी और जुलाई में ${m[4]}% बढ़ते हैं।`]
 ];
 })();

@@ -543,7 +543,7 @@ html[lang="hi"] .ad-slot::before { content: "विज्ञापन" }
           <label for="implMonth" id="implCustom" hidden>Month the new pay starts
             <input id="implMonth" type="month" value="2028-01" min="2026-02" max="2031-12"></label>
           <label for="daStep">Expected DA rise every 6 months
-            <small>Used for both 7th and 8th CPC DA during the arrears period. 7th CPC DA is 60% from January 2026.</small>
+            <small>Used for both 7th and 8th CPC DA during the arrears period. 7th CPC DA is 60% from January 2026 and 63% from July 2026.</small>
             <div class="pct"><input id="daStep" type="number" min="0" max="10" step="0.5" value="3"><span>%</span></div></label>
           <label class="check" for="arrInc"><input id="arrInc" type="checkbox" checked> Include yearly increment every July (3%)</label>
           <p class="sub-title">Include in arrears <small>(basic pay and DA are always included)</small></p>
@@ -601,7 +601,7 @@ html[lang="hi"] .ad-slot::before { content: "विज्ञापन" }
             <small class="only8">Used to compare with your current pay.</small>
             <select id="da7Sel"></select></label>
           <label for="da7" id="da7Manual" hidden>Enter DA % (7th CPC)
-            <input id="da7" type="number" min="0" max="200" step="1" value="60"></label>
+            <input id="da7" type="number" min="0" max="200" step="1" value="63"></label>
           <label for="da8Sel" class="only8">DA under 8th CPC
             <small>Resets to 0% when a new pay commission starts, then rises every six months.</small>
             <select id="da8Sel"></select></label>
@@ -732,7 +732,7 @@ html[lang="hi"] .ad-slot::before { content: "विज्ञापन" }
         <h3>Pay and DA</h3>
         <ul>
           <li>Basic pay comes from the 7th CPC Pay Matrix, or the UGC Academic Pay Matrix for teachers. Each step in a level is 3% higher, rounded to the nearest ₹100.</li>
-          <li>Dearness Allowance is a percentage of basic pay. It is 60% from January 2026, or the rate you choose.</li>
+          <li>Dearness Allowance is a percentage of basic pay. It is 63% from July 2026, or the rate you choose.</li>
         </ul>
       </div>
       <div>
@@ -916,10 +916,11 @@ $("city").addEventListener("change", () => {
 
 /* ===== DA rates. Edit these lists when the government announces a new rate. ===== */
 const DA7 = [
-  { v: 60, t: "60% · from Jan 2026 (current)", sel: true },
-  { v: 63, t: "63% · Jul 2026 (expected)" },
+  { v: 63, t: "63% · from Jul 2026 (current)", sel: true },
   { v: 66, t: "66% · Jan 2027 (expected)" },
   { v: 69, t: "69% · Jul 2027 (expected)" },
+  { v: 72, t: "72% · Jan 2028 (expected)" },
+  { v: 60, t: "60% · Jan 2026" },
   { v: 58, t: "58% · Jul 2025" },
   { v: 55, t: "55% · Jan 2025" },
   { v: 53, t: "53% · Jul 2024" },
@@ -1180,7 +1181,12 @@ const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","
 const toIdx = s => { const [y, m] = String(s).split("-").map(Number); return y * 12 + (m - 1); };   // "2026-01" -> month number
 const idxText = i => `${MON[i % 12]} ${Math.floor(i / 12)}`;
 const r100 = x => Math.round(x / 100) * 100;
-const DA7_JAN2026 = 60, JAN2026 = toIdx("2026-01");
+/* 7th CPC DA in the arrears period: rates announced so far (Jan 2026, Jul 2026), then the expected rise every six months */
+const DA7_KNOWN = [60, 63], DA7_JAN2026 = DA7_KNOWN[0], JAN2026 = toIdx("2026-01");
+const da7At = (i, step) => {
+  const k = Math.max(0, Math.floor((i - JAN2026) / 6)), last = DA7_KNOWN.length - 1;
+  return k <= last ? DA7_KNOWN[k] : DA7_KNOWN[last] + step * (k - last);
+};
 function nextBasic7(b) {                       // next Pay Matrix cell, or +3% for a custom amount
   const cells = matrix[$("level").value], i = cells.indexOf(b);
   if (i >= 0) return cells[Math.min(i + 1, cells.length - 1)];
@@ -1235,7 +1241,7 @@ function calcArrears(pa, pb) {
   const segs = [], byFY = {};
   for (let i = start; i < Math.min(end, start + 120); i++) {
     if (inc && i > start && i % 12 === 6) { b7 = nextBasic7(b7); b8 = r100(b8 * 1.03); }   // July increment
-    const da7 = DA7_JAN2026 + step * Math.max(0, Math.floor((i - JAN2026) / 6));
+    const da7 = da7At(i, step);
     const da8 = step * (Math.floor(i / 6) - Math.floor(start / 6));                        // 0% from the effective date, rises each Jan/Jul
     const pay7 = b7 * (1 + da7 / 100), pay8 = b8 * (1 + da8 / 100);
     let old = pay7, neu = pay8;
@@ -1325,7 +1331,7 @@ function calcArrears(pa, pb) {
   // One sentence per span, so each can be translated on its own
   $("arrNote").innerHTML = [
     `Arrears are the difference between 8th CPC pay due and 7th CPC pay actually paid, on ${["basic pay and DA", withHra && "HRA", withTa && "transport allowance"].filter(Boolean).join(", ").replace(/, ([^,]*)$/, " and $1")}.`,
-    `7th CPC DA is taken as ${DA7_JAN2026}% from January 2026 and 8th CPC DA as 0% from ${idxText(start)}, both rising ${step}% every January and July.`,
+    `7th CPC DA is taken as ${DA7_KNOWN[0]}% from January 2026 and ${DA7_KNOWN[1]}% from July 2026 (announced), and 8th CPC DA as 0% from ${idxText(start)}, both rising ${step}% every January and July after that.`,
     inc ? "Yearly increments are added every July." : "",
     "Arrears are taxable in the year you receive them; you can reduce the extra tax by claiming relief under Section 89 (Form 10E).",
     "All figures are estimates until the 8th CPC is notified."

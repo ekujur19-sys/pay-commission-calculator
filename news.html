@@ -38,6 +38,12 @@
 .tag.da { background: color-mix(in srgb, var(--gold) 20%, transparent); color: var(--gold) }
 .tag.exp { background: var(--field); color: var(--muted); border: 1px solid var(--line) }
 .live { display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; font-weight: 700; text-decoration: none; padding: 10px 16px; border: 1.5px solid var(--accent); border-radius: 999px }
+.feature { display: grid; gap: 8px; margin: 4px 0 22px; padding: 22px 24px; border-radius: 18px; color: #fff; text-decoration: none; background: linear-gradient(135deg, var(--hero-b), var(--hero-a)); box-shadow: 0 10px 28px -14px rgba(11,92,79,.6) }
+.feature b { font: 700 clamp(1.25rem, 3.6vw, 1.6rem)/1.2 var(--f-display); letter-spacing: -.01em }
+.feature span { font-size: 15px; opacity: .92 }
+.feature .feature-kicker { font: 700 11px var(--f-body); letter-spacing: .12em; text-transform: uppercase; opacity: .8 }
+.feature .feature-go { font-weight: 700; opacity: 1; margin-top: 2px }
+.feature:hover .feature-go { text-decoration: underline }
 @media (max-width: 560px) { .upcoming li { grid-template-columns: 1fr; gap: 4px } .timeline { padding-left: 18px } .timeline > li::before { left: -25px } }
 </style>
 </head>
@@ -52,15 +58,22 @@
 <main>
   <h1>8th Pay Commission: latest news</h1>
   <p class="lede">Key developments on the 8th Central Pay Commission and related pay decisions, newest first, with a link to the official source for each.</p>
-  <p class="meta">Last updated 5 November 2026 · by NE Media</p>
+  <p class="meta">Last updated 23 November 2026 · by NE Media</p>
 
-  <div class="note"><p><b>Latest:</b> DA and Dearness Relief rise to <b>63%</b> from 1 July 2026, approved by the Cabinet on 28 October. Arrears for July to October are due with the revised pay. See what 3% is worth at your level on the <a href="da-hike-history.html">DA history page</a>, or check your new take-home pay in the <a href="./#7th">calculator</a>.</p></div>
+  <a class="feature" href="8th-pay-commission-arrears-by-level.html">
+    <span class="feature-kicker">Featured analysis</span>
+    <b>8th Pay Commission arrears: how much could land in your account?</b>
+    <span>Over ₹6 lakh at Level 6, over ₹10 lakh at Level 10. We worked out the arrears for every level at fitment factors of 1.92, 2.28 and 2.86.</span>
+    <span class="feature-go">Read the level-by-level estimates →</span>
+  </a>
+
+  <div class="note"><p><b>Latest:</b> the Finance Ministry has issued the order for <b>63% DA</b> from 1 July 2026, so offices can now pay the higher DA with arrears from July. Next: the price index points to DA of about <b>66–67%</b> from January 2027. Check your new take-home pay in the <a href="./#7th">calculator</a>.</p></div>
 
   <h2>Coming up</h2>
   <ul class="upcoming">
-    <li><time>Nov 2026</time><span>The Department of Expenditure’s <b>order for the 63% DA</b>, which offices need before paying the increase and the July–October arrears. It usually follows the Cabinet decision within a few days to weeks.</span></li>
-    <li><time>To be announced</time><span>The Commission’s <b>next city visit</b>. No visit after Mumbai has been notified as of 5 November.</span></li>
-    <li><time>Jan 2027</time><span><span class="tag exp">Expected</span><b>DA from 1 January 2027</b>, usually announced around March. Early estimates suggest a rise of about 3%, to around 66%.</span></li>
+    <li><time>Nov – Dec 2026</time><span>Payment of the <b>63% DA and the July–October arrears</b>, with November or December salary in most offices (not before October salary is paid, as the order requires).</span></li>
+    <li><time>To be announced</time><span>The Commission’s <b>next city visit</b>. No visit after Mumbai has been notified as of 23 November.</span></li>
+    <li><time>Jan 2027</time><span><span class="tag exp">Expected</span><b>DA from 1 January 2027</b>, usually announced around March. Price index data up to September points to about <b>66–67%</b>; the October to December figures will settle it.</span></li>
     <li><time>By about May 2027</time><span><span class="tag exp">Expected</span>The Commission’s <b>report</b> is due within 18 months of its constitution on 3 November 2025.</span></li>
   </ul>
 
@@ -68,6 +81,24 @@
 
   <h2>Timeline</h2>
   <ol class="timeline" reversed>
+    <li>
+      <time datetime="2026-11-23">23 November 2026</time>
+      <h3><span class="tag exp">Analysis</span>How big could 8th CPC arrears be?</h3>
+      <p>If 8th CPC pay counts from January 2026 and is paid from January 2028, arrears on basic pay and DA at a fitment factor of 2.28 would be about ₹3.3 lakh at Level 1, ₹6.4 lakh at Level 6 and ₹10.2 lakh at Level 10. At 1.92 they would be roughly half that.</p>
+      <p class="src"><a href="8th-pay-commission-arrears-by-level.html">Read the full estimates for every level</a></p>
+    </li>
+    <li>
+      <time datetime="2026-10-30">30 October 2026</time>
+      <h3><span class="tag da">DA</span>Price index points to about 66–67% DA from January 2027</h3>
+      <p>The All-India Consumer Price Index for Industrial Workers rose 1.1 points to 155.5 in September 2026. If it stays around that level for October to December, the DA formula gives about 67% from 1 January 2027, a rise of 4%; a smaller rise to 66% is also possible. The Cabinet decides the actual rate, usually around March.</p>
+      <p class="src">Source: Labour Bureau data, reported by <a href="https://upstox.com/news/personal-finance/latest-updates/dearness-allowance-aicpi-iw-rises-1-1-points-in-september-how-much-can-da-increase-from-january-1-2027/article-202884/" rel="noopener">Upstox</a> · <a href="da-hike-history.html">How the DA formula works</a></p>
+    </li>
+    <li>
+      <time datetime="2026-10-29">29 October 2026</time>
+      <h3><span class="tag off">Official</span>Finance Ministry issues the 63% DA order</h3>
+      <p>The Department of Expenditure’s Office Memorandum No. 1/2(i)/2026-E.II(B) revises DA from 60% to 63% of basic pay from 1 July 2026. The arrears cannot be paid before the October 2026 salary. Separate orders follow for the armed forces and the railways, and pensioners get the same 63% as Dearness Relief.</p>
+      <p class="src">Source: Department of Expenditure, reported by <a href="https://www.gconnect.in/top-stories/da-increased-to-63-percent-july-2026.html" rel="noopener">GConnect</a> and <a href="https://www.staffnews.in/2026/10/revision-of-rates-of-dearness-allowance-from-01-07-2026.html" rel="noopener">StaffNews</a></p>
+    </li>
     <li>
       <time datetime="2026-11-03">3 November 2026</time>
       <h3><span class="tag off">Official</span>The Commission completes one year</h3>
